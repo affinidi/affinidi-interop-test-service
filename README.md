@@ -124,8 +124,7 @@ Endpoints for Building Flows
   - check if a Did is resolvable, 
   - to demonstrate flows such as VC Claiming
 
-- Access the Issuer at http://affinidi-interop-test-service.dev.affinity-project.org/clients/issuer
-  - (replace `dev` for `staging`, `prod` etc to access other environments)
+- Access the Issuer at http://affinidi-interop-test-service.prod.affinity-project.org
 
 
 ## Wallet
@@ -137,4 +136,4 @@ The Wallet client is an Expo React Native App which allows an end user to:
 
 # Setup
 - Please check this for [internal affinidi development](./docs/affinity-dev-setup.md)
-- Please check this for [open-srouce development](./docs/external-dev-setup.md)
+- Please check this for [open-source development](./docs/external-dev-setup.md)
