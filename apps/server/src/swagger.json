@@ -1,0 +1,823 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"LocalOperationError": {
+				"properties": {
+					"type": {
+						"type": "string"
+					},
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"httpStatus": {
+						"type": "string"
+					},
+					"httpStatusCode": {
+						"type": "number",
+						"format": "double",
+						"default": 400,
+						"nullable": true
+					}
+				},
+				"required": [
+					"type",
+					"code",
+					"message",
+					"httpStatus"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OutputDidIsResolvable": {
+				"properties": {
+					"status": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"$ref": "#/components/schemas/LocalOperationError",
+						"nullable": true
+					},
+					"didDocument": {
+						"properties": {},
+						"type": "object",
+						"nullable": true
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OutputError": {
+				"properties": {
+					"status": {
+						"type": "boolean",
+						"default": false,
+						"nullable": true
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"$ref": "#/components/schemas/LocalOperationError"
+					}
+				},
+				"required": [
+					"message",
+					"error"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InputDidIsResolvable": {
+				"properties": {
+					"did": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"did"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OutputVcIsVerifiable": {
+				"properties": {
+					"status": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"$ref": "#/components/schemas/LocalOperationError",
+						"nullable": true
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InputVcIsVerifiable": {
+				"properties": {
+					"credential": {
+						"additionalProperties": true,
+						"type": "object"
+					},
+					"vcVersion": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					}
+				},
+				"required": [
+					"credential"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OutputGenerateOfferRequestToken": {
+				"properties": {
+					"status": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"$ref": "#/components/schemas/LocalOperationError",
+						"nullable": true
+					},
+					"tokenUrl": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FreeFormObject": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": {
+					"additionalProperties": true,
+					"type": "object"
+				}
+			},
+			"OfferedCredential": {
+				"properties": {
+					"type": {
+						"type": "string"
+					},
+					"renderInfo": {
+						"$ref": "#/components/schemas/FreeFormObject",
+						"nullable": true
+					}
+				},
+				"required": [
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InputGenerateOfferRequestToken": {
+				"properties": {
+					"offeredCredentials": {
+						"items": {
+							"$ref": "#/components/schemas/OfferedCredential"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"offeredCredentials"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OutputGetOfferRequestToken": {
+				"properties": {
+					"status": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"purpose": {
+						"type": "string"
+					},
+					"error": {
+						"$ref": "#/components/schemas/LocalOperationError",
+						"nullable": true
+					},
+					"token": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"status",
+					"message",
+					"purpose"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OutputSignedCredential": {
+				"properties": {
+					"status": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"$ref": "#/components/schemas/LocalOperationError",
+						"nullable": true
+					},
+					"signedCredentials": {
+						"additionalProperties": true,
+						"type": "object",
+						"nullable": true
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InputSignCredentials": {
+				"properties": {
+					"responseToken": {
+						"type": "string"
+					},
+					"unsignedCredentials": {
+						"additionalProperties": true,
+						"type": "object",
+						"nullable": true
+					}
+				},
+				"required": [
+					"responseToken"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OutputVpIsVerifiable": {
+				"properties": {
+					"status": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"$ref": "#/components/schemas/LocalOperationError",
+						"nullable": true
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InputVpIsVerifiable": {
+				"properties": {
+					"vp": {
+						"additionalProperties": true,
+						"type": "object"
+					}
+				},
+				"required": [
+					"vp"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OutputPresentationChallenge": {
+				"properties": {
+					"status": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"$ref": "#/components/schemas/LocalOperationError",
+						"nullable": true
+					},
+					"tokenUrl": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InputPresentationChallenge": {
+				"properties": {
+					"issuerDid": {
+						"type": "string",
+						"nullable": true
+					},
+					"credentialRequirements": {
+						"additionalProperties": true,
+						"type": "object"
+					}
+				},
+				"required": [
+					"credentialRequirements"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OutputGetPresentationChallenge": {
+				"properties": {
+					"status": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"purpose": {
+						"type": "string"
+					},
+					"error": {
+						"$ref": "#/components/schemas/LocalOperationError",
+						"nullable": true
+					},
+					"token": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"status",
+					"message",
+					"purpose"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OutputVerifyPresentation": {
+				"properties": {
+					"status": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"error": {
+						"$ref": "#/components/schemas/LocalOperationError",
+						"nullable": true
+					}
+				},
+				"required": [
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InputVerifyPresentation": {
+				"properties": {
+					"vp": {
+						"additionalProperties": true,
+						"type": "object"
+					}
+				},
+				"required": [
+					"vp"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "@affinidi-interop-test-service/server",
+		"description": "Interoperability Testing Service for Affinidi sdk",
+		"license": {
+			"name": "ISC"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/interop/did-is-resolvable": {
+			"post": {
+				"operationId": "DidIsResolvable",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputDidIsResolvable"
+								}
+							}
+						},
+						"description": "Success"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputError"
+								}
+							}
+						},
+						"description": "Failure"
+					},
+					"500": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputError"
+								}
+							}
+						},
+						"description": "Catastrophy"
+					}
+				},
+				"tags": [
+					"interop"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputDidIsResolvable"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/interop/vc-is-verifiable": {
+			"post": {
+				"operationId": "VcIsVerifiable",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputVcIsVerifiable"
+								}
+							}
+						},
+						"description": "Success"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputError"
+								}
+							}
+						},
+						"description": "Failure"
+					}
+				},
+				"tags": [
+					"interop"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputVcIsVerifiable"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/interop/offer-request-token": {
+			"post": {
+				"operationId": "GenerateOfferRequestToken",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputGenerateOfferRequestToken"
+								}
+							}
+						},
+						"description": "Success"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputError"
+								}
+							}
+						},
+						"description": "Failure"
+					}
+				},
+				"tags": [
+					"interop"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputGenerateOfferRequestToken"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/interop/offer-request-token/{uuid}": {
+			"get": {
+				"operationId": "GetOfferRequestToken",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputGetOfferRequestToken"
+								}
+							}
+						},
+						"description": "Success"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputError"
+								}
+							}
+						},
+						"description": "Failure"
+					}
+				},
+				"tags": [
+					"interop"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "uuid",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/interop/sign-credentials": {
+			"post": {
+				"operationId": "GetSignedCredential",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputSignedCredential"
+								}
+							}
+						},
+						"description": "Success"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputError"
+								}
+							}
+						},
+						"description": "Failure"
+					}
+				},
+				"tags": [
+					"interop"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputSignCredentials"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/interop/vp-is-verifiable": {
+			"post": {
+				"operationId": "VpIsVerifiable",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputVpIsVerifiable"
+								}
+							}
+						},
+						"description": "Success"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputError"
+								}
+							}
+						},
+						"description": "Failure"
+					}
+				},
+				"tags": [
+					"interop"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputVpIsVerifiable"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/interop/presentation-challenge": {
+			"post": {
+				"operationId": "GeneratePresentationChallenge",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputPresentationChallenge"
+								}
+							}
+						},
+						"description": "Success"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputError"
+								}
+							}
+						},
+						"description": "Failure"
+					}
+				},
+				"tags": [
+					"interop"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputPresentationChallenge"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/interop/presentation-challenge/{uuid}": {
+			"get": {
+				"operationId": "GetPresentationChallenge",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputGetPresentationChallenge"
+								}
+							}
+						},
+						"description": "Success"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputError"
+								}
+							}
+						},
+						"description": "Failure"
+					}
+				},
+				"tags": [
+					"interop"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "uuid",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/interop/verify-presentation": {
+			"post": {
+				"operationId": "VerifyPresentation",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputVerifyPresentation"
+								}
+							}
+						},
+						"description": "Success"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OutputError"
+								}
+							}
+						},
+						"description": "Failure"
+					}
+				},
+				"tags": [
+					"interop"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputVerifyPresentation"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/interop/is-alive": {
+			"get": {
+				"operationId": "IsAlive",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"additionalProperties": true,
+									"type": "object"
+								}
+							}
+						},
+						"description": "Success"
+					}
+				},
+				"tags": [
+					"interop"
+				],
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/api/v1"
+		}
+	]
+}

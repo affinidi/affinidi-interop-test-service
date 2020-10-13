@@ -1,0 +1,86 @@
+name: Versioning of the api and git tag
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  lint_test:
+    name: Lint/test
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses:  actions/checkout@v1
+
+      - uses:  actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name:  Install dependencies
+        run: touch ~/.npmrc && printf "@affinityproject:registry=https://npm.pkg.github.com\n//npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN\nunsafe-perm=true" > ~/.npmrc && npm ci && npm run bootstrap
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
+          INTEROP_SECRETS: ${{secrets.INTEROP_SECRETS}}
+
+      - name:  Run linter
+        run: cd apps/server && npm run lint
+
+      - name:  Generate routes and swagger
+        run: cd apps/server && npm run tsoa:routes && npm run tsoa:swagger
+        env:
+          INTEROP_SECRETS: ${{secrets.INTEROP_SECRETS}}            
+
+      - name:  Run Tests
+        run: cd apps/server && ENVIRONMENT=dev npm run test
+        env:
+          INTEROP_SECRETS: ${{secrets.INTEROP_SECRETS}}   
+                  
+  bump_tag:
+    needs: [lint_test]
+    name: Bump git tag
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses:  actions/checkout@master
+        with:
+          fetch-depth: '0'
+
+      - name:  Determine new tag
+        id: bump_tag_dry_run
+        uses: anothrNick/github-tag-action@1.18.0
+        env:
+          DEFAULT_BUMP: patch
+          RELEASE_BRANCHES: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
+          DRY_RUN: true
+      - run: git checkout master
+
+      - name:  Bump package version
+        run: |
+          echo "`jq '.version="${{ steps.bump_tag_dry_run.outputs.new_tag }}"' package.json`" > package.json
+          echo "`jq '.version="${{ steps.bump_tag_dry_run.outputs.new_tag }}"' package-lock.json`" > package-lock.json
+          echo "`jq '.info.version="${{ steps.bump_tag_dry_run.outputs.new_tag }}"' apps/server/src/swagger.json`" > apps/server/src/swagger.json
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name:  push
+        uses: github-actions-x/commit@v2.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          push-branch: 'master'
+          commit-message: 'chore: bump package version'
+          force-add: 'true'
+          rebase: 'true'
+          files: .
+          name: Affinidi Build User
+          email: ci-build@affinidi.org
+
+      - name:  Bump version and push tag
+        id: bump_tag
+        uses: anothrNick/github-tag-action@1.18.0
+        env:
+          DEFAULT_BUMP: patch
+          RELEASE_BRANCHES: master
+          GITHUB_TOKEN: ${{ secrets.BUILD_USER_TOKEN }} # we want the tag to trigger the tagging workflow, so using PAT here
+          WITH_V: true

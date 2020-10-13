@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# WORK IN PROGRESS
+
+# Bootstrap the packages and install other deps needed
+npm run bootstrap
+
+# Build the Issuer client
+cd apps/issuer
+npm run build
+
+# Build the server
+cd ../server
+npm run build
+
+# Move client build into server
+mkdir packages/server/build/public
+cp -r packages/client/build/* packages/server/build/public/.

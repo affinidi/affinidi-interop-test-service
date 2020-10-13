@@ -1,0 +1,144 @@
+name: Docker image tagging and deployment
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    name: Build and push a Docker image
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses:  actions/checkout@v1
+
+      - uses:  actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name:  Install dependencies
+        run: touch ~/.npmrc && printf "@affinityproject:registry=https://npm.pkg.github.com\n//npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN\nunsafe-perm=true" > ~/.npmrc && npm ci && npm run bootstrap
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
+
+      - name:  Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
+          role-duration-seconds: 2400
+
+      - name:  Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name:  Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
+          INTEROP_SECRETS: ${{secrets.INTEROP_SECRETS}}             
+        run: |
+          docker build -t $ECR_REGISTRY/$GITHUB_REPOSITORY:${GITHUB_REF:10} --build-arg NODE_AUTH_TOKEN=$NODE_AUTH_TOKEN --build-arg INTEROP_SECRETS="$INTEROP_SECRETS" .
+          docker push $ECR_REGISTRY/$GITHUB_REPOSITORY:${GITHUB_REF:10}
+
+      - name:  Logout of Amazon ECR
+        if: always()
+        run: docker logout ${{ steps.login-ecr.outputs.registry }}
+
+  build_for_prod:
+    name: Build and push a Docker image to prod account
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses:  actions/checkout@v1
+
+      - uses:  actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://npm.pkg.github.com/
+          scope: '@affinityproject'
+
+      - name:  Install dependencies
+        run: touch ~/.npmrc && printf "@affinityproject:registry=https://npm.pkg.github.com\n//npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN\nunsafe-perm=true" > ~/.npmrc && npm ci && npm run bootstrap
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
+
+      - name:  Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name:  Login to prod Amazon ECR
+        id: login-ecr-prod
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name:  Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr-prod.outputs.registry }}
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
+          INTEROP_SECRETS: ${{secrets.INTEROP_SECRETS}}   
+        run: |
+          echo $ECR_REGISTRY/$GITHUB_REPOSITORY
+          docker build -t $ECR_REGISTRY/$GITHUB_REPOSITORY:${GITHUB_REF:10} --build-arg NODE_AUTH_TOKEN=$NODE_AUTH_TOKEN --build-arg INTEROP_SECRETS="$INTEROP_SECRETS" .
+          docker push $ECR_REGISTRY/$GITHUB_REPOSITORY:${GITHUB_REF:10}
+
+      - name:  Logout of Amazon ECR
+        if: always()
+        run: docker logout ${{ steps.login-ecr-prod.outputs.registry }}
+
+  deploy_affinity:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses:  actions/checkout@v1
+        with:
+          fetch-depth: 0
+
+      - uses:  actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name:  Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
+          role-duration-seconds: 2400
+
+      - uses:  prepor/action-aws-iam-authenticator@master
+
+      - name:  Run Kubernetes tools
+        uses: stefanprodan/kube-tools@v1
+        with:
+          kubectl: 1.16.6
+          helm: 2.16.5
+          helmv3: 3.1.2
+          command: |
+            echo "Initializing Helm..."
+            helm init --client-only
+            echo "Updating Helm repositories..."
+            helm repo update
+
+      - name:  Install dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
+        run: touch ~/.npmrc && printf "@affinityproject:registry=https://npm.pkg.github.com\n//npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN\nunsafe-perm=true" > ~/.npmrc && npm ci && npm run bootstrap
+
+      - name:  Specify docker image ID
+        run: |
+          echo "  affinidi-interop-test-service:dockerImageId: ${GITHUB_REF:10}" >> apps/server/infra/Pulumi.dev.yaml
+
+      - name:  Deploy to affinity VPC
+        uses: docker://pulumi/pulumi@sha256:35b72a5d7d08bdb04e4ff2fba60a29e9e43efbdc33f9453b284c8a69d81f00fe
+        with:
+          args: up --non-interactive --yes --cwd apps/server/infra -s affinityproject/dev
+        env:
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+          INTEROP_SECRETS: ${{secrets.INTEROP_SECRETS}}   

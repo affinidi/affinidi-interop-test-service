@@ -1,0 +1,10 @@
+**/node_modules/
+dist
+.history
+.idea
+*/**/routes.ts
+coverage
+**/*.env
+**/*.log
+
+todo.md

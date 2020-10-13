@@ -1,0 +1,108 @@
+{
+  "name": "@affinidi-interop-test-service/server",
+  "description": "Interoperability Testing Service for Affinidi sdk",
+  "main": "dist/server.js",
+  "scripts": {
+    "tsoa:swagger": "tsoa swagger",
+    "tsoa:swagger:dist": "tsoa swagger -c tsoa-dist.json",
+    "tsoa:routes": "tsoa routes",
+    "build": "npm run tsoa:routes && npm run tsc && npm run tsoa:swagger:dist",
+    "start": "node dist/server.js",
+    "start:dev": "npm run tsoa:routes && npm run tsoa:swagger && ts-node src/server.ts",
+    "dev": "nodemon --exec 'npm run start:dev' | pino-pretty",
+    "tsc": "tsc",
+    "lint": "eslint src/*.ts src/**/*.ts",
+    "lint:fix": "eslint src/*.ts src/**/*.ts --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:coverage:codeclimate": "ENVIRONMENT=dev jest --coverage  && $GITHUB_WORKSPACE/tmp/cc-test-reporter format-coverage -t lcov -o $GITHUB_WORKSPACE/tmp/codeclimate.core.json coverage/lcov.info",
+    "checkLicenses": "license-checker --production --failOn 'AGPL 3.0;LGPL 2.1'"
+  },
+  "author": "Afshan Aman <afshan@bloom.co>",
+  "license": "ISC",
+  "dependencies": {
+    "@affinityproject/common-affinity-network": "latest",
+    "@affinityproject/common-lib": "latest",
+    "@affinityproject/wallet-core-sdk": "latest",
+    "@sentry/node": "^5.19.1",
+    "@types/uuid": "^8.3.0",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-pino-logger": "^4.0.0",
+    "express-prometheus-middleware": "^0.8.5",
+    "ngrok": "^3.3.0",
+    "pino": "^5.16.0",
+    "swagger-ui-express": "^4.1.2",
+    "ts-node": "^8.6.2",
+    "tsoa": "^2.5.12",
+    "uuid": "^8.3.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.7",
+    "@types/ethereumjs-util": "^5.2.0",
+    "@types/express": "^4.17.2",
+    "@types/express-pino-logger": "^4.0.2",
+    "@types/jest": "^24.0.25",
+    "@types/node": "^13.1.6",
+    "@types/sinon": "^9.0.4",
+    "@types/supertest": "^2.0.10",
+    "@types/swagger-ui-express": "^4.1.1",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^2.28.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.2.5",
+    "jest": "^24.9.0",
+    "license-checker": "25.0.1",
+    "nodemon": "^2.0.2",
+    "pino-pretty": "^3.5.0",
+    "sinon": "^9.0.2",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.3.0",
+    "typescript": "^3.9.7"
+  },
+  "jest": {
+    "setupFiles": [
+      "./src/env.ts"
+    ],
+    "testMatch": [
+      "**/__tests__/*.+(ts|tsx)",
+      "**/?(*.)+(spec|test).+(ts|tsx)"
+    ],
+    "collectCoverageFrom": [
+      "src/interop/*.ts",
+      "!src/interop/*.dto.ts"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 95,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    }
+  },
+  "keywords": []
+}

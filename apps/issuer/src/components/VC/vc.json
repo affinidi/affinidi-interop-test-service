@@ -1,0 +1,107 @@
+{
+  "credential": {
+      "@context": 
+      [
+      "https://www.w3.org/2018/credentials/v1",
+      {
+          "EmailCredentialPersonV1": {
+          "@id": "https://schema.affinity-project.org/EmailCredentialPersonV1",
+          "@context": {
+              "@version": 1.1,
+              "@protected": true
+          }
+          },
+          "data": {
+          "@id": "https://schema.affinity-project.org/data",
+          "@context": [
+              null,
+              {
+              "@version": 1.1,
+              "@protected": true,
+              "@vocab": "https://schema.org/",
+              "EmailPerson": {
+                  "@id": "https://schema.affinity-project.org/EmailPerson",
+                  "@context": {
+                  "@version": 1.1,
+                  "@protected": true,
+                  "@vocab": "https://schema.org/",
+                  "email": "https://schema.org/email"
+                  }
+              },
+              "PersonE": {
+                  "@id": "https://schema.affinity-project.org/PersonE",
+                  "@context": {
+                  "@version": 1.1,
+                  "@protected": true,
+                  "@vocab": "https://schema.org/"
+                  }
+              },
+              "OrganizationE": {
+                  "@id": "https://schema.affinity-project.org/OrganizationE",
+                  "@context": {
+                  "@version": 1.1,
+                  "@protected": true,
+                  "@vocab": "https://schema.org/",
+                  "hasCredential": "https://schema.org/hasCredential",
+                  "industry": "https://schema.affinity-project.org/industry"
+                  }
+              },
+              "Credential": {
+                  "@id": "https://schema.affinity-project.org/Credential",
+                  "@context": {
+                  "@version": 1.1,
+                  "@protected": true,
+                  "@vocab": "https://schema.org/",
+                  "dateRevoked": "https://schema.affinity-project.org/dateRevoked",
+                  "recognizedBy": "https://schema.affinity-project.org/recognizedBy"
+                  }
+              },
+              "OrganizationalCredential": {
+                  "@id": "https://schema.affinity-project.org/OrganizationalCredential",
+                  "@context": {
+                  "@version": 1.1,
+                  "@protected": true,
+                  "@vocab": "https://schema.org/",
+                  "credentialCategory": "https://schema.affinity-project.org/credentialCategory",
+                  "organizationType": "https://schema.affinity-project.org/organizationType",
+                  "goodStanding": "https://schema.affinity-project.org/goodStanding",
+                  "active": "https://schema.affinity-project.org/active",
+                  "primaryJurisdiction": "https://schema.affinity-project.org/primaryJurisdiction",
+                  "identifier": "https://schema.org/identifier"
+                  }
+              }
+              }
+          ]
+          }
+      }
+      ],
+      "id": "FAKE",
+      "type": [
+      "VerifiableCredential",
+      "EmailCredentialPersonV1"
+      ],
+      "holder": {
+      "id": "did:elem:EiDPyZ7juFpbBh9dQlfWdgS6FlYHAd8R-rN2bQjATjCYXQ"
+      },
+      "credentialSubject": {
+      "data": {
+          "@type": [
+          "Person",
+          "PersonE",
+          "EmailPerson"
+          ],
+          "email": "hi@bye.fyi"
+      }
+      },
+      "issuanceDate": "2020-08-14T04:32:39.020Z",
+      "issuer": "did:elem:EiDFdcBenMgd_y8_bTGI3yQtz5yNYhabC5HCmmagM6XTLg;elem:initial-state=eyJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0poYzNObGNuUnBiMjVOWlhSb2IyUWlPbHNpSTNCeWFXMWhjbmtpWFN3aVlYVjBhR1Z1ZEdsallYUnBiMjRpT2xzaUkzQnlhVzFoY25raVhTd2ljSFZpYkdsalMyVjVJanBiZXlKcFpDSTZJaU53Y21sdFlYSjVJaXdpY0hWaWJHbGpTMlY1U0dWNElqb2lNREl5WXpWbVlUZG1aak5qT1RsaFlUZzJOV013TjJWaFltSTJZV1ZsTlRnMU5qZ3lNMk5oTnpRMlpXRTBZelE1WXpCbFptWmhaalUwTmpWak9HSmxOVFUxSWl3aWRIbHdaU0k2SWxObFkzQXlOVFpyTVZabGNtbG1hV05oZEdsdmJrdGxlVEl3TVRnaUxDSjFjMkZuWlNJNkluTnBaMjVwYm1jaWZTeDdJbWxrSWpvaUkzSmxZMjkyWlhKNUlpd2ljSFZpYkdsalMyVjVTR1Y0SWpvaU1ETmtNekV3WlRkak56RXpaVEl3T0RRd01USXhNak0zTW1ZM1l6QTBaakZqTkRZMk9EVTNaRFk1WmpCaVpUWmtaV1JpWWpSaU5UZ3hZVFk0WW1KbFltTmlJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKMWMyRm5aU0k2SW5KbFkyOTJaWEo1SW4xZGZRIiwicHJvdGVjdGVkIjoiZXlKaGJHY2lPaUpGVXpJMU5rc2lMQ0pyYVdRaU9pSWpjSEpwYldGeWVTSXNJbTl3WlhKaGRHbHZiaUk2SW1OeVpXRjBaU0o5Iiwic2lnbmF0dXJlIjoiNHhyVzV0WElURDFFenh2azBwU01EejVqcWxOUWNZRDc5VFRPajRGc29sc3RCaUxDemdfMExuX245cjJPWmhmVWJsZWJuemNSWlVFaDZMcWF5MmxFLXcifQ",
+      "proof": {
+      "type": "EcdsaSecp256k1Signature2019",
+      "created": "2020-08-14T04:32:39Z",
+      "verificationMethod": "did:elem:EiDFdcBenMgd_y8_bTGI3yQtz5yNYhabC5HCmmagM6XTLg#primary",
+      "proofPurpose": "assertionMethod",
+      "jws": "eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..SYK1CnnIMPitUgYe6eaeoiBgEoNLecuAnMbDcMwEh49rmfTkSNw6mjfgfU1NAH1Wmh8w017o_OQgpFyVaq2Ifg"
+      }
+  },
+  "vcVersion": 1
+}

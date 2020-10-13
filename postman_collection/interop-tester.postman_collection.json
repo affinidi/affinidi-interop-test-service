@@ -1,0 +1,308 @@
+{
+	"info": {
+		"_postman_id": "5659b234-2798-455c-ac14-212708d8d472",
+		"name": "interop-tester",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET is-alive",
+			"protocolProfileBehavior": {
+				"strictSSL": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/is-alive",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"is-alive"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST did-is-resolvable",
+			"protocolProfileBehavior": {
+				"strictSSL": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"did\": \"did:jolo:f559265b6c1becd56109c5623435fa797ad4308a4a686f8eda709f3387d303e6\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/did-is-resolvable",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"did-is-resolvable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST vc-is-verifiable",
+			"protocolProfileBehavior": {
+				"strictSSL": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"credential\": {\n        \"@context\": \n        [\n        \"https://www.w3.org/2018/credentials/v1\",\n        {\n            \"EmailCredentialPersonV1\": {\n            \"@id\": \"https://schema.affinity-project.org/EmailCredentialPersonV1\",\n            \"@context\": {\n                \"@version\": 1.1,\n                \"@protected\": true\n            }\n            },\n            \"data\": {\n            \"@id\": \"https://schema.affinity-project.org/data\",\n            \"@context\": [\n                null,\n                {\n                \"@version\": 1.1,\n                \"@protected\": true,\n                \"@vocab\": \"https://schema.org/\",\n                \"EmailPerson\": {\n                    \"@id\": \"https://schema.affinity-project.org/EmailPerson\",\n                    \"@context\": {\n                    \"@version\": 1.1,\n                    \"@protected\": true,\n                    \"@vocab\": \"https://schema.org/\",\n                    \"email\": \"https://schema.org/email\"\n                    }\n                },\n                \"PersonE\": {\n                    \"@id\": \"https://schema.affinity-project.org/PersonE\",\n                    \"@context\": {\n                    \"@version\": 1.1,\n                    \"@protected\": true,\n                    \"@vocab\": \"https://schema.org/\"\n                    }\n                },\n                \"OrganizationE\": {\n                    \"@id\": \"https://schema.affinity-project.org/OrganizationE\",\n                    \"@context\": {\n                    \"@version\": 1.1,\n                    \"@protected\": true,\n                    \"@vocab\": \"https://schema.org/\",\n                    \"hasCredential\": \"https://schema.org/hasCredential\",\n                    \"industry\": \"https://schema.affinity-project.org/industry\"\n                    }\n                },\n                \"Credential\": {\n                    \"@id\": \"https://schema.affinity-project.org/Credential\",\n                    \"@context\": {\n                    \"@version\": 1.1,\n                    \"@protected\": true,\n                    \"@vocab\": \"https://schema.org/\",\n                    \"dateRevoked\": \"https://schema.affinity-project.org/dateRevoked\",\n                    \"recognizedBy\": \"https://schema.affinity-project.org/recognizedBy\"\n                    }\n                },\n                \"OrganizationalCredential\": {\n                    \"@id\": \"https://schema.affinity-project.org/OrganizationalCredential\",\n                    \"@context\": {\n                    \"@version\": 1.1,\n                    \"@protected\": true,\n                    \"@vocab\": \"https://schema.org/\",\n                    \"credentialCategory\": \"https://schema.affinity-project.org/credentialCategory\",\n                    \"organizationType\": \"https://schema.affinity-project.org/organizationType\",\n                    \"goodStanding\": \"https://schema.affinity-project.org/goodStanding\",\n                    \"active\": \"https://schema.affinity-project.org/active\",\n                    \"primaryJurisdiction\": \"https://schema.affinity-project.org/primaryJurisdiction\",\n                    \"identifier\": \"https://schema.org/identifier\"\n                    }\n                }\n                }\n            ]\n            }\n        }\n        ],\n        \"id\": \"FAKE\",\n        \"type\": [\n        \"VerifiableCredential\",\n        \"EmailCredentialPersonV1\"\n        ],\n        \"holder\": {\n        \"id\": \"did:elem:EiDPyZ7juFpbBh9dQlfWdgS6FlYHAd8R-rN2bQjATjCYXQ\"\n        },\n        \"credentialSubject\": {\n        \"data\": {\n            \"@type\": [\n            \"Person\",\n            \"PersonE\",\n            \"EmailPerson\"\n            ],\n            \"email\": \"hi@bye.fyi\"\n        }\n        },\n        \"issuanceDate\": \"2020-08-14T04:32:39.020Z\",\n        \"issuer\": \"did:elem:EiDFdcBenMgd_y8_bTGI3yQtz5yNYhabC5HCmmagM6XTLg;elem:initial-state=eyJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0poYzNObGNuUnBiMjVOWlhSb2IyUWlPbHNpSTNCeWFXMWhjbmtpWFN3aVlYVjBhR1Z1ZEdsallYUnBiMjRpT2xzaUkzQnlhVzFoY25raVhTd2ljSFZpYkdsalMyVjVJanBiZXlKcFpDSTZJaU53Y21sdFlYSjVJaXdpY0hWaWJHbGpTMlY1U0dWNElqb2lNREl5WXpWbVlUZG1aak5qT1RsaFlUZzJOV013TjJWaFltSTJZV1ZsTlRnMU5qZ3lNMk5oTnpRMlpXRTBZelE1WXpCbFptWmhaalUwTmpWak9HSmxOVFUxSWl3aWRIbHdaU0k2SWxObFkzQXlOVFpyTVZabGNtbG1hV05oZEdsdmJrdGxlVEl3TVRnaUxDSjFjMkZuWlNJNkluTnBaMjVwYm1jaWZTeDdJbWxrSWpvaUkzSmxZMjkyWlhKNUlpd2ljSFZpYkdsalMyVjVTR1Y0SWpvaU1ETmtNekV3WlRkak56RXpaVEl3T0RRd01USXhNak0zTW1ZM1l6QTBaakZqTkRZMk9EVTNaRFk1WmpCaVpUWmtaV1JpWWpSaU5UZ3hZVFk0WW1KbFltTmlJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKMWMyRm5aU0k2SW5KbFkyOTJaWEo1SW4xZGZRIiwicHJvdGVjdGVkIjoiZXlKaGJHY2lPaUpGVXpJMU5rc2lMQ0pyYVdRaU9pSWpjSEpwYldGeWVTSXNJbTl3WlhKaGRHbHZiaUk2SW1OeVpXRjBaU0o5Iiwic2lnbmF0dXJlIjoiNHhyVzV0WElURDFFenh2azBwU01EejVqcWxOUWNZRDc5VFRPajRGc29sc3RCaUxDemdfMExuX245cjJPWmhmVWJsZWJuemNSWlVFaDZMcWF5MmxFLXcifQ\",\n        \"proof\": {\n        \"type\": \"EcdsaSecp256k1Signature2019\",\n        \"created\": \"2020-08-14T04:32:39Z\",\n        \"verificationMethod\": \"did:elem:EiDFdcBenMgd_y8_bTGI3yQtz5yNYhabC5HCmmagM6XTLg#primary\",\n        \"proofPurpose\": \"assertionMethod\",\n        \"jws\": \"eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..SYK1CnnIMPitUgYe6eaeoiBgEoNLecuAnMbDcMwEh49rmfTkSNw6mjfgfU1NAH1Wmh8w017o_OQgpFyVaq2Ifg\"\n        }\n    },\n    \"vcVersion\": 1\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/vc-is-verifiable",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"vc-is-verifiable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST vp-is-verifiable",
+			"protocolProfileBehavior": {
+				"strictSSL": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"vp\": {\n        \"@context\": [\"https://www.w3.org/2018/credentials/v1\"],\n        \"type\": [\"VerifiablePresentation\"],\n        \"holder\": {\n            \"id\": \"did:elem:EiD5Rx3mRfvGTD-IBzjtOs0k5nLMwiPgZyd2_TYuGBK0cw;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1XRmlZalJpWW1GaFpXTTVOekJrTUdNeU5XUmtORFpoWkRNMlpUUTBZalJoWWpNMk5UQTBOVGhrTWpOaE1EWmlaVEJsTnpFeU9HSm1aRE13TVROaU9TSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXpObVpEUTFPR1JoWldKbU5HWXpOV0V4TW1ZMU16VmxaRFl6TkdRNVl6ZzBaVGszTVRrek1UWXlOekV4TjJKbU9UTTJNVEJqTkRBd1pUWTROVFZqTWpVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiZUdUTkdGdk5ZU2lOa3FJWUhud2ZCUGM4M2o1ZEI4a3pqeFRQYXVwMkpPUWJiNjU1cG92ajFOelk1MXl1WG1XR3Z5aHBiTTNyTmRtaXZJNWVoZ1p4RUEifQ\"\n        },\n        \"verifiableCredential\": [\n            {\n            \"@context\": [\n                \"https://www.w3.org/2018/credentials/v1\",\n                {\n                \"NameCredentialPersonV1\": {\n                    \"@id\": \"https://schema.affinity-project.org/NameCredentialPersonV1\",\n                    \"@context\": { \"@version\": 1.1, \"@protected\": true }\n                },\n                \"data\": {\n                    \"@id\": \"https://schema.affinity-project.org/data\",\n                    \"@context\": [\n                    null,\n                    {\n                        \"@version\": 1.1,\n                        \"@protected\": true,\n                        \"@vocab\": \"https://schema.org/\",\n                        \"NamePerson\": {\n                        \"@id\": \"https://schema.affinity-project.org/NamePerson\",\n                        \"@context\": {\n                            \"@version\": 1.1,\n                            \"@protected\": true,\n                            \"@vocab\": \"https://schema.org/\",\n                            \"name\": \"https://schema.org/name\",\n                            \"givenName\": \"https://schema.org/givenName\",\n                            \"fullName\": \"https://schema.org/fullName\"\n                        }\n                        },\n                        \"PersonE\": {\n                        \"@id\": \"https://schema.affinity-project.org/PersonE\",\n                        \"@context\": {\n                            \"@version\": 1.1,\n                            \"@protected\": true,\n                            \"@vocab\": \"https://schema.org/\"\n                        }\n                        },\n                        \"OrganizationE\": {\n                        \"@id\": \"https://schema.affinity-project.org/OrganizationE\",\n                        \"@context\": {\n                            \"@version\": 1.1,\n                            \"@protected\": true,\n                            \"@vocab\": \"https://schema.org/\",\n                            \"hasCredential\": \"https://schema.org/hasCredential\",\n                            \"industry\": \"https://schema.affinity-project.org/industry\"\n                        }\n                        },\n                        \"Credential\": {\n                        \"@id\": \"https://schema.affinity-project.org/Credential\",\n                        \"@context\": {\n                            \"@version\": 1.1,\n                            \"@protected\": true,\n                            \"@vocab\": \"https://schema.org/\",\n                            \"dateRevoked\": \"https://schema.affinity-project.org/dateRevoked\",\n                            \"recognizedBy\": \"https://schema.affinity-project.org/recognizedBy\"\n                        }\n                        },\n                        \"OrganizationalCredential\": {\n                        \"@id\": \"https://schema.affinity-project.org/OrganizationalCredential\",\n                        \"@context\": {\n                            \"@version\": 1.1,\n                            \"@protected\": true,\n                            \"@vocab\": \"https://schema.org/\",\n                            \"credentialCategory\": \"https://schema.affinity-project.org/credentialCategory\",\n                            \"organizationType\": \"https://schema.affinity-project.org/organizationType\",\n                            \"goodStanding\": \"https://schema.affinity-project.org/goodStanding\",\n                            \"active\": \"https://schema.affinity-project.org/active\",\n                            \"primaryJurisdiction\": \"https://schema.affinity-project.org/primaryJurisdiction\",\n                            \"identifier\": \"https://schema.org/identifier\"\n                        }\n                        }\n                    }\n                    ]\n                }\n                }\n            ],\n            \"id\": \"claimId:63b5d11c0d1b5566\",\n            \"type\": [\"VerifiableCredential\", \"NameCredentialPersonV1\"],\n            \"holder\": {\n                \"id\": \"did:elem:EiD5Rx3mRfvGTD-IBzjtOs0k5nLMwiPgZyd2_TYuGBK0cw;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1XRmlZalJpWW1GaFpXTTVOekJrTUdNeU5XUmtORFpoWkRNMlpUUTBZalJoWWpNMk5UQTBOVGhrTWpOaE1EWmlaVEJsTnpFeU9HSm1aRE13TVROaU9TSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXpObVpEUTFPR1JoWldKbU5HWXpOV0V4TW1ZMU16VmxaRFl6TkdRNVl6ZzBaVGszTVRrek1UWXlOekV4TjJKbU9UTTJNVEJqTkRBd1pUWTROVFZqTWpVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiZUdUTkdGdk5ZU2lOa3FJWUhud2ZCUGM4M2o1ZEI4a3pqeFRQYXVwMkpPUWJiNjU1cG92ajFOelk1MXl1WG1XR3Z5aHBiTTNyTmRtaXZJNWVoZ1p4RUEifQ\"\n            },\n            \"credentialSubject\": {\n                \"data\": {\n                \"@type\": [\"Person\", \"PersonE\", \"NamePerson\"],\n                \"givenName\": \"DenisUpdated\",\n                \"familyName\": \"Popov\"\n                }\n            },\n            \"issuanceDate\": \"2020-01-17T07:06:35.403Z\",\n            \"issuer\": \"did:elem:EiD5Rx3mRfvGTD-IBzjtOs0k5nLMwiPgZyd2_TYuGBK0cw;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1XRmlZalJpWW1GaFpXTTVOekJrTUdNeU5XUmtORFpoWkRNMlpUUTBZalJoWWpNMk5UQTBOVGhrTWpOaE1EWmlaVEJsTnpFeU9HSm1aRE13TVROaU9TSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXpObVpEUTFPR1JoWldKbU5HWXpOV0V4TW1ZMU16VmxaRFl6TkdRNVl6ZzBaVGszTVRrek1UWXlOekV4TjJKbU9UTTJNVEJqTkRBd1pUWTROVFZqTWpVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiZUdUTkdGdk5ZU2lOa3FJWUhud2ZCUGM4M2o1ZEI4a3pqeFRQYXVwMkpPUWJiNjU1cG92ajFOelk1MXl1WG1XR3Z5aHBiTTNyTmRtaXZJNWVoZ1p4RUEifQ\",\n            \"proof\": {\n                \"type\": \"EcdsaSecp256k1Signature2019\",\n                \"created\": \"2020-08-06T21:13:07Z\",\n                \"verificationMethod\": \"did:elem:EiD5Rx3mRfvGTD-IBzjtOs0k5nLMwiPgZyd2_TYuGBK0cw#primary\",\n                \"proofPurpose\": \"assertionMethod\",\n                \"jws\": \"eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..IxVRur3Ma2n1FsLbyO-CYC9VP-NdF8lpoVmZ_O644U94QxaQ1hhlNFr2_XU7xCVRkRWIVQ7qlSp5u3Kymz3ceQ\"\n            }\n            }\n        ],\n        \"proof\": {\n            \"type\": \"EcdsaSecp256k1Signature2019\",\n            \"created\": \"2020-08-06T21:13:07Z\",\n            \"verificationMethod\": \"did:elem:EiD5Rx3mRfvGTD-IBzjtOs0k5nLMwiPgZyd2_TYuGBK0cw#primary\",\n            \"proofPurpose\": \"authentication\",\n            \"challenge\": \"challenge\",\n            \"domain\": \"domain\",\n            \"jws\": \"eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..wd0lKZBoQ5AvOnllqXvNHoy7grQKTjJGK-h4qe7MDEdSTbOieDCx_oNzEUdqqGvKQXrSJKK9JIFJMOO7iOxZbg\"\n        }\n    }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/vp-is-verifiable",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"vp-is-verifiable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST offer-request-token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12d98f7b-f413-4c96-b74c-838dd60b2ce8",
+						"exec": [
+							"",
+							"pm.environment.set(\"uuid\", \"variable_value\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"offeredCredentials\": [\n    { \"type\": \"Credential\"}\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/offer-request-token",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"offer-request-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET offer-request-token",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"strictSSL": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/offer-request-token/cc949c1f-072d-44b3-88e3-56f27c857985",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"offer-request-token",
+						"cc949c1f-072d-44b3-88e3-56f27c857985"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST sign-credentials",
+			"protocolProfileBehavior": {
+				"strictSSL": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"responseToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJpbnRlcmFjdGlvblRva2VuIjp7ImNhbGxiYWNrVVJMIjoiaHR0cHM6Ly9rdWRvcy1pc3N1ZXItYmFja2VuZC5hZmZpbml0eS1wcm9qZWN0Lm9yZy9rdWRvc19vZmZlcmluZy8iLCJzZWxlY3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVGVzdERlbmlzQ3JlZCJ9XX0sImV4cCI6MTU4NDUxODk4MTE0OSwidHlwIjoiY3JlZGVudGlhbE9mZmVyUmVzcG9uc2UiLCJqdGkiOiIxZjIyMTVjMjc5ZDczZWY5IiwiYXVkIjoiZGlkOmpvbG86ZjU1OTI2NWI2YzFiZWNkNTYxMDljNTYyMzQzNWZhNzk3YWQ0MzA4YTRhNjg2ZjhlZGE3MDlmMzM4N2QzMDNlNiIsImlzcyI6ImRpZDpqb2xvOmY1NTkyNjViNmMxYmVjZDU2MTA5YzU2MjM0MzVmYTc5N2FkNDMwOGE0YTY4NmY4ZWRhNzA5ZjMzODdkMzAzZTYja2V5cy0xIn0.5c144a384f5fb69501e92c8251eea4f065f02b19c9af39f9e0cffd66c400462a460f1e03955a55af9bdf600459628ed7d11da9cafc255c4e9a89b4baea4e083f\",\n  \"unsignedCredentials\": [\n    {\n      \"@context\": [\n        \"https://www.w3.org/2018/credentials/v1\",\n        {\n          \"PhoneCredentialPersonV1\": {\n            \"@id\": \"https://schema.affinity-project.org/PhoneCredentialPersonV1\",\n            \"@context\": {\n              \"@version\": 1.1,\n              \"@protected\": true\n            }\n          },\n          \"data\": {\n            \"@id\": \"https://schema.affinity-project.org/data\",\n            \"@context\": [\n              null,\n              {\n                \"@version\": 1.1,\n                \"@protected\": true,\n                \"@vocab\": \"https://schema.org/\",\n                \"PhonePerson\": {\n                  \"@id\": \"https://schema.affinity-project.org/PhonePerson\",\n                  \"@context\": {\n                    \"@version\": 1.1,\n                    \"@protected\": true,\n                    \"@vocab\": \"https://schema.org/\",\n                    \"telephone\": \"https://schema.org/telephone\"\n                  }\n                },\n                \"PersonE\": {\n                  \"@id\": \"https://schema.affinity-project.org/PersonE\",\n                  \"@context\": {\n                    \"@version\": 1.1,\n                    \"@protected\": true,\n                    \"@vocab\": \"https://schema.org/\"\n                  }\n                },\n                \"OrganizationE\": {\n                  \"@id\": \"https://schema.affinity-project.org/OrganizationE\",\n                  \"@context\": {\n                    \"@version\": 1.1,\n                    \"@protected\": true,\n                    \"@vocab\": \"https://schema.org/\",\n                    \"hasCredential\": \"https://schema.org/hasCredential\",\n                    \"industry\": \"https://schema.affinity-project.org/industry\"\n                  }\n                },\n                \"Credential\": {\n                  \"@id\": \"https://schema.affinity-project.org/Credential\",\n                  \"@context\": {\n                    \"@version\": 1.1,\n                    \"@protected\": true,\n                    \"@vocab\": \"https://schema.org/\",\n                    \"dateRevoked\": \"https://schema.affinity-project.org/dateRevoked\",\n                    \"recognizedBy\": \"https://schema.affinity-project.org/recognizedBy\"\n                  }\n                },\n                \"OrganizationalCredential\": {\n                  \"@id\": \"https://schema.affinity-project.org/OrganizationalCredential\",\n                  \"@context\": {\n                    \"@version\": 1.1,\n                    \"@protected\": true,\n                    \"@vocab\": \"https://schema.org/\",\n                    \"credentialCategory\": \"https://schema.affinity-project.org/credentialCategory\",\n                    \"organizationType\": \"https://schema.affinity-project.org/organizationType\",\n                    \"goodStanding\": \"https://schema.affinity-project.org/goodStanding\",\n                    \"active\": \"https://schema.affinity-project.org/active\",\n                    \"primaryJurisdiction\": \"https://schema.affinity-project.org/primaryJurisdiction\",\n                    \"identifier\": \"https://schema.org/identifier\"\n                  }\n                }\n              }\n            ]\n          }\n        }\n      ],\n      \"id\": \"placeholder\",\n      \"type\": [\n        \"VerifiableCredential\",\n        \"PhoneCredentialPersonV1\",\n        \"TestDenisCred\"\n      ],\n      \"holder\": {\n        \"id\": \"placeholder\"\n      },\n      \"credentialSubject\": {\n        \"data\": {\n          \"@type\": [\n            \"Person\",\n            \"PersonE\",\n            \"PhonePerson\"\n          ],\n          \"telephone\": \"+1 555 555 5555\"\n        }\n      },\n      \"issuanceDate\": \"2020-09-10T14:54:16.870Z\",\n      \"expirationDate\": \"2020-10-11T15:04:16.870Z\"\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/sign-credentials",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sign-credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST presentation-challenge",
+			"protocolProfileBehavior": {
+				"strictSSL": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"credentialRequirements\": [\n        { \"type\": [\"VerifiableCredential\", \"PhoneCredentialPersonV1\"] }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/presentation-challenge",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"presentation-challenge"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET presentation-challenge",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"strictSSL": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/presentation-challenge/4cef79f3-be97-426e-94e3-d88483a2344b",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"presentation-challenge",
+						"4cef79f3-be97-426e-94e3-d88483a2344b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST verify-presentation",
+			"protocolProfileBehavior": {
+				"strictSSL": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"vp\": {\n        \"@context\": [\n          \"https://www.w3.org/2018/credentials/v1\"\n        ],\n        \"type\": [\n          \"VerifiablePresentation\"\n        ],\n        \"holder\": {\n          \"id\": \"did:elem:EiD5Rx3mRfvGTD-IBzjtOs0k5nLMwiPgZyd2_TYuGBK0cw;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1XRmlZalJpWW1GaFpXTTVOekJrTUdNeU5XUmtORFpoWkRNMlpUUTBZalJoWWpNMk5UQTBOVGhrTWpOaE1EWmlaVEJsTnpFeU9HSm1aRE13TVROaU9TSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXpObVpEUTFPR1JoWldKbU5HWXpOV0V4TW1ZMU16VmxaRFl6TkdRNVl6ZzBaVGszTVRrek1UWXlOekV4TjJKbU9UTTJNVEJqTkRBd1pUWTROVFZqTWpVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiZUdUTkdGdk5ZU2lOa3FJWUhud2ZCUGM4M2o1ZEI4a3pqeFRQYXVwMkpPUWJiNjU1cG92ajFOelk1MXl1WG1XR3Z5aHBiTTNyTmRtaXZJNWVoZ1p4RUEifQ\"\n        },\n        \"verifiableCredential\": [\n          {\n            \"@context\": [\n              \"https://www.w3.org/2018/credentials/v1\",\n              {\n                \"NameCredentialPersonV1\": {\n                  \"@id\": \"https://schema.affinity-project.org/NameCredentialPersonV1\",\n                  \"@context\": {\n                    \"@version\": 1.1,\n                    \"@protected\": true\n                  }\n                },\n                \"data\": {\n                  \"@id\": \"https://schema.affinity-project.org/data\",\n                  \"@context\": [\n                    null,\n                    {\n                      \"@version\": 1.1,\n                      \"@protected\": true,\n                      \"@vocab\": \"https://schema.org/\",\n                      \"NamePerson\": {\n                        \"@id\": \"https://schema.affinity-project.org/NamePerson\",\n                        \"@context\": {\n                          \"@version\": 1.1,\n                          \"@protected\": true,\n                          \"@vocab\": \"https://schema.org/\",\n                          \"name\": \"https://schema.org/name\",\n                          \"givenName\": \"https://schema.org/givenName\",\n                          \"fullName\": \"https://schema.org/fullName\"\n                        }\n                      },\n                      \"PersonE\": {\n                        \"@id\": \"https://schema.affinity-project.org/PersonE\",\n                        \"@context\": {\n                          \"@version\": 1.1,\n                          \"@protected\": true,\n                          \"@vocab\": \"https://schema.org/\"\n                        }\n                      },\n                      \"OrganizationE\": {\n                        \"@id\": \"https://schema.affinity-project.org/OrganizationE\",\n                        \"@context\": {\n                          \"@version\": 1.1,\n                          \"@protected\": true,\n                          \"@vocab\": \"https://schema.org/\",\n                          \"hasCredential\": \"https://schema.org/hasCredential\",\n                          \"industry\": \"https://schema.affinity-project.org/industry\"\n                        }\n                      },\n                      \"Credential\": {\n                        \"@id\": \"https://schema.affinity-project.org/Credential\",\n                        \"@context\": {\n                          \"@version\": 1.1,\n                          \"@protected\": true,\n                          \"@vocab\": \"https://schema.org/\",\n                          \"dateRevoked\": \"https://schema.affinity-project.org/dateRevoked\",\n                          \"recognizedBy\": \"https://schema.affinity-project.org/recognizedBy\"\n                        }\n                      },\n                      \"OrganizationalCredential\": {\n                        \"@id\": \"https://schema.affinity-project.org/OrganizationalCredential\",\n                        \"@context\": {\n                          \"@version\": 1.1,\n                          \"@protected\": true,\n                          \"@vocab\": \"https://schema.org/\",\n                          \"credentialCategory\": \"https://schema.affinity-project.org/credentialCategory\",\n                          \"organizationType\": \"https://schema.affinity-project.org/organizationType\",\n                          \"goodStanding\": \"https://schema.affinity-project.org/goodStanding\",\n                          \"active\": \"https://schema.affinity-project.org/active\",\n                          \"primaryJurisdiction\": \"https://schema.affinity-project.org/primaryJurisdiction\",\n                          \"identifier\": \"https://schema.org/identifier\"\n                        }\n                      }\n                    }\n                  ]\n                }\n              }\n            ],\n            \"id\": \"claimId:63b5d11c0d1b5566\",\n            \"type\": [\n              \"VerifiableCredential\",\n              \"NameCredentialPersonV1\"\n            ],\n            \"holder\": {\n              \"id\": \"did:elem:EiD5Rx3mRfvGTD-IBzjtOs0k5nLMwiPgZyd2_TYuGBK0cw;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1XRmlZalJpWW1GaFpXTTVOekJrTUdNeU5XUmtORFpoWkRNMlpUUTBZalJoWWpNMk5UQTBOVGhrTWpOaE1EWmlaVEJsTnpFeU9HSm1aRE13TVROaU9TSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXpObVpEUTFPR1JoWldKbU5HWXpOV0V4TW1ZMU16VmxaRFl6TkdRNVl6ZzBaVGszTVRrek1UWXlOekV4TjJKbU9UTTJNVEJqTkRBd1pUWTROVFZqTWpVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiZUdUTkdGdk5ZU2lOa3FJWUhud2ZCUGM4M2o1ZEI4a3pqeFRQYXVwMkpPUWJiNjU1cG92ajFOelk1MXl1WG1XR3Z5aHBiTTNyTmRtaXZJNWVoZ1p4RUEifQ\"\n            },\n            \"credentialSubject\": {\n              \"data\": {\n                \"@type\": [\n                  \"Person\",\n                  \"PersonE\",\n                  \"NamePerson\"\n                ],\n                \"givenName\": \"DenisUpdated\",\n                \"familyName\": \"Popov\"\n              }\n            },\n            \"issuanceDate\": \"2020-01-17T07:06:35.403Z\",\n            \"issuer\": \"did:elem:EiD5Rx3mRfvGTD-IBzjtOs0k5nLMwiPgZyd2_TYuGBK0cw;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1XRmlZalJpWW1GaFpXTTVOekJrTUdNeU5XUmtORFpoWkRNMlpUUTBZalJoWWpNMk5UQTBOVGhrTWpOaE1EWmlaVEJsTnpFeU9HSm1aRE13TVROaU9TSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXpObVpEUTFPR1JoWldKbU5HWXpOV0V4TW1ZMU16VmxaRFl6TkdRNVl6ZzBaVGszTVRrek1UWXlOekV4TjJKbU9UTTJNVEJqTkRBd1pUWTROVFZqTWpVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiZUdUTkdGdk5ZU2lOa3FJWUhud2ZCUGM4M2o1ZEI4a3pqeFRQYXVwMkpPUWJiNjU1cG92ajFOelk1MXl1WG1XR3Z5aHBiTTNyTmRtaXZJNWVoZ1p4RUEifQ\",\n            \"proof\": {\n              \"type\": \"EcdsaSecp256k1Signature2019\",\n              \"created\": \"2020-08-06T21:13:07Z\",\n              \"verificationMethod\": \"did:elem:EiD5Rx3mRfvGTD-IBzjtOs0k5nLMwiPgZyd2_TYuGBK0cw#primary\",\n              \"proofPurpose\": \"assertionMethod\",\n              \"jws\": \"eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..IxVRur3Ma2n1FsLbyO-CYC9VP-NdF8lpoVmZ_O644U94QxaQ1hhlNFr2_XU7xCVRkRWIVQ7qlSp5u3Kymz3ceQ\"\n            }\n          }\n        ],\n        \"proof\": {\n          \"type\": \"EcdsaSecp256k1Signature2019\",\n          \"created\": \"2020-08-06T21:13:07Z\",\n          \"verificationMethod\": \"did:elem:EiD5Rx3mRfvGTD-IBzjtOs0k5nLMwiPgZyd2_TYuGBK0cw#primary\",\n          \"proofPurpose\": \"authentication\",\n          \"challenge\": \"challenge\",\n          \"domain\": \"domain\",\n          \"jws\": \"eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..wd0lKZBoQ5AvOnllqXvNHoy7grQKTjJGK-h4qe7MDEdSTbOieDCx_oNzEUdqqGvKQXrSJKK9JIFJMOO7iOxZbg\"\n        }\n      }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/verify-presentation",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"verify-presentation"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

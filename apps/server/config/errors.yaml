@@ -1,0 +1,109 @@
+
+errors:
+  INT-1:
+    type: NotFound
+    message: >-
+      There is no key for this user.
+    httpStatusCode: 404
+
+  INT-2:
+    type: Conflict
+    message: >-
+      Key for this user already exists.
+    httpStatusCode: 409
+
+# 400 series, Did related errors
+  INT-3:
+    type: OperationError
+    message: >-
+      Did Seed Validation Error.
+    httpStatusCode: 400  
+    
+  INT-4:
+    type: OperationError
+    message: >-
+      Empty Param Error.
+    httpStatusCode: 400   
+
+# 400 series VC related errors
+  INT-5:
+    type: OperationError
+    message: >-
+      Invalid VC Signature Error.
+    httpStatusCode: 400            
+
+  INT-6:
+    type: OperationError
+    message: >-
+      Expired VC Error.
+    httpStatusCode: 400   
+
+  INT-7:
+    type: OperationError
+    message: >-
+      Unknown VC Error.
+    httpStatusCode: 400    
+
+  INT-8:
+    type: OperationError
+    message: >-
+      Invalid Input Type Error. Array Expected.
+    httpStatusCode: 400    
+    
+  INT-9:
+    type: OperationError
+    message: >-
+      Offered Credentials Type name mismatch Error.
+    httpStatusCode: 400        
+
+  INT-10:
+    type: OperationError
+    message: >-
+      Expiry Date Error. Should be greater than current date.
+    httpStatusCode: 400           
+    
+# 400 series VP related errors
+  INT-30:
+    type: OperationError
+    message: >-
+      Invalid VP Signature Error.
+    httpStatusCode: 400   
+
+  INT-31:
+    type: OperationError
+    message: >-
+      Unknown VP Error.
+    httpStatusCode: 400       
+
+  INT-32:
+    type: OperationError
+    message: >-
+      Invalid Input Parameters Error.
+    httpStatusCode: 400   
+
+  INT-33:
+    type: OperationError
+    message: >-
+      Invalid Token Error.
+    httpStatusCode: 400  
+
+  INT-34:
+    type: OperationError
+    message: >-
+      Multiple Errors.
+    httpStatusCode: 400      
+
+# 500 series    
+  INT-50:
+    type: OperationError
+    message: >-
+      Backend Error.
+    httpStatusCode: 500      
+    
+  INT-51:
+    type: OperationError
+    message: >-
+      Internal Server Error.
+    httpStatusCode: 500         
+
+    

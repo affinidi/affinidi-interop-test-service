@@ -1,0 +1,33 @@
+.text-area-centered{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-area {
+    font-family: monospace;
+    min-height: 60vh;
+    min-width: 95%;
+}
+
+.text-box {
+    font-family: monospace;
+}
+
+.text-area-small {
+    font-family: monospace;
+    font-size: 11px;
+    min-height: 15vh;
+    min-width: 15vw;
+}
+
+.vc-verify,
+.vc-claim{
+    position: relative;
+    margin-top: 10vh;
+}
+
+.actions-history{
+    font-size: 15px;
+    white-space: pre-wrap;
+}

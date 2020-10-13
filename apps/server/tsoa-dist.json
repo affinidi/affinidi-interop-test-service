@@ -1,0 +1,22 @@
+{
+  "swagger": {
+    "outputDirectory": "./dist",
+    "basePath": "/api/v1",
+    "entryFile": "./src/index.ts",
+    "specVersion": 3,
+    "host": null,
+    "noImplicitAdditionalProperties": "throw-on-extras",
+    "schemes": ["http", "https"],
+    "controllerPathGlobs": [
+      "./**/*.controller.ts"
+    ]
+  },
+  "routes": {
+    "routesDir": "./src/routes",
+    "basePath": "/api/v1",
+    "entryFile": "./src/index.ts",
+    "controllerPathGlobs": [
+      "./**/*.controller.ts"
+    ]
+  }
+}

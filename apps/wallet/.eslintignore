@@ -1,0 +1,5 @@
+.gitignore 
+web-build
+build/*
+!build/index.js
+babel.config.js

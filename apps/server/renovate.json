@@ -1,0 +1,8 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "encrypted": {
+    "npmrc": "KFRcfAvdStt/QPbX7FXjJrbeqrSdkmdIT6y3w5qNU7L1y5D5yULpeEzIMINE6JnhTNvviPYuqYlxjRWdg8pJslYIrToekIVTKYYhE17QB/6U8fIJzRMTOxKzEwXLFnhENZ7S2YKb1A967jZfjxA3pPBgt9KZxK5DjyS8OpkAkMLFacZZ0IQgHweGvFvvxJz29lOocbJ2vQgxaPyBszsSgSEN2mfzEeuBekZRuVM80pJERDHPcY3pA0RiMPfEHDoO68q7/kQZNILewrt+L2kmajFUkDmlp/L9i9SGm8eA7I7f/oW8YTmNYcpv27vZzUKkANSgF8A31Af0+Vz8BlwhZQ=="
+  }
+}
