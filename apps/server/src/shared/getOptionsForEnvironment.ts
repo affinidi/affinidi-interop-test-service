@@ -13,6 +13,7 @@ let keyStorageUrl: string
 let baseUrl: string
 
 logger.info(process.env.INTEROP_SECRETS)
+logger.info(process.env.ENVIRONMENT)
 // const SECRETS = JSON.parse(process.env.INTEROP_SECRETS)
 let SECRETS = {
   PASSWORD:            '',
