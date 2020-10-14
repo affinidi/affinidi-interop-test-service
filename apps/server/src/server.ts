@@ -2,6 +2,8 @@ import app from './index'
 import { logger } from './shared/logger'
 import ngrok from 'ngrok'
 
+logger.info(process.env.INTEROP_SECRETS)
+
 const PORT = process.env.PORT
 
 app.listen(PORT, () => {

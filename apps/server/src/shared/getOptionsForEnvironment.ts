@@ -6,12 +6,13 @@ import {
   STAGING_KEY_STORAGE_URL,
   PROD_KEY_STORAGE_URL
 } from '@affinityproject/wallet-core-sdk/dist/_defaultConfig'
+import { logger } from './logger'
 
 let registryUrl: string
 let keyStorageUrl: string
 let baseUrl: string
 
-console.log(process.env.INTEROP_SECRETS)
+logger.info(process.env.INTEROP_SECRETS)
 // const SECRETS = JSON.parse(process.env.INTEROP_SECRETS)
 let SECRETS = {
   PASSWORD:            '',
