@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	StyleSheet, Image, Text, View,
 } from 'react-native';
-import card from '../assets/card.png';
+import card from '../assets/vc-coming-soon.jpg';
 
 const styles = StyleSheet.create({
 	contianer: {

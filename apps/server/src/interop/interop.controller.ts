@@ -140,6 +140,6 @@ export class InteropController extends Controller {
   public async isAlive (): Promise<any> {
     logger.info('interopController#isAlive')
 
-    return { message: 'This Service is Alive' }
+    return { message: 'Affinidi Interop Service is Alive' }
   }
 }
