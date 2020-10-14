@@ -14,8 +14,8 @@ let baseUrl: string
 console.log(process.env.INTEROP_SECRETS)
 // const SECRETS = JSON.parse(process.env.INTEROP_SECRETS)
 let SECRETS = {
-  PASSWORD: '', 
-  ENCRYPTED_SEED: '',
+  PASSWORD:            '',
+  ENCRYPTED_SEED:      '',
   ENCRYPTED_SEED_JOLO: '',
   ENCRYPTED_SEED_ELEM: ''
 }
