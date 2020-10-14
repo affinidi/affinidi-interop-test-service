@@ -15,7 +15,7 @@ import prometheusMiddleware from 'express-prometheus-middleware'
 import data from './swagger.json'
 
 import { expressLogger } from './shared/logger'
-import { RegisterRoutes } from './routes/routes'
+// import { RegisterRoutes } from './routes/routes'
 
 const app = express()
 
@@ -53,7 +53,7 @@ if (process.env.ENVIRONMENT !== 'prod') {
 }
 
 // Routes
-RegisterRoutes(app)
+// RegisterRoutes(app)
 
 // The error handler must be before any other error middleware and after all controllers
 app.use(Sentry.Handlers.errorHandler())
