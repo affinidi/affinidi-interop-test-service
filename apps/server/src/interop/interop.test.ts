@@ -17,7 +17,7 @@ logger.info(SECRETS)
 describe('Integration Tests: Interop API Router', () => {
   describe('GET /api/v1/interop/is-alive', () => {
     test('should respond with true', async () => {
-      expect(true).toBeTruthy
+      expect(true).toBeTruthy()
     })
   })
 })
