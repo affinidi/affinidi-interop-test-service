@@ -11,6 +11,7 @@ let registryUrl: string
 let keyStorageUrl: string
 let baseUrl: string
 
+console.log(process.env.INTEROP_SECRETS)
 const SECRETS = JSON.parse(process.env.INTEROP_SECRETS)
 
 const password = SECRETS.PASSWORD
