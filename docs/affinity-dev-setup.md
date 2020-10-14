@@ -38,7 +38,7 @@ Currently, it is used by the Bloom Wallet to easily perform certain checks and b
 
 
 ### local setup (less preferred)
-This will start the server and SSR (server-side rendered) the demo issuer client
+This will start the server and SSR (server-side rendered) the demo client
 - install dependencies: `npm i && npm run bootstrap`
 - build the server and issuer client and generate the routes, swagger docs, and build the package: `npm run build`
 - start the server and issuer client: `npm run dev`
