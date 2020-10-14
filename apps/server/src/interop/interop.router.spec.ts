@@ -33,7 +33,7 @@ describe('Integration Tests: Interop API Router', () => {
         .get('/api/v1/interop/is-alive')
         .expect(200)
 
-      expect(response.body.message).toEqual('This Service is Alive')
+      expect(response.body.message).toEqual('Affinidi Interop Service is Alive')
       expect(response.status).toEqual(200)
     })
   })
