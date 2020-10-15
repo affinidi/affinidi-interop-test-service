@@ -27,7 +27,6 @@ const { ENVIRONMENT } = process.env
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 70000
 
 describe('Integration Tests: Interop API Router', () => {
-
   describe('POST /api/v1/interop/verify-presentation', () => {
     describe('Succcess Case:', () => {
       test('should respond with status true, when VP is verified', async () => {
