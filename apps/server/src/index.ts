@@ -35,22 +35,22 @@ app.get('/clients/issuer', function (req, res) {
 })
 
 // Analytics Metrics
-if (process.env.NODE_ENV !== 'test') {
-  app.use(
-    prometheusMiddleware({
-      metricsPath:            '/metrics',
-      collectDefaultMetrics:  true,
-      requestDurationBuckets: [0.1, 0.5, 1, 1.5]
-    })
-  )
-}
+// if (process.env.NODE_ENV !== 'test') {
+//   app.use(
+//     prometheusMiddleware({
+//       metricsPath:            '/metrics',
+//       collectDefaultMetrics:  true,
+//       requestDurationBuckets: [0.1, 0.5, 1, 1.5]
+//     })
+//   )
+// }
 
 // Swagger Docs
-if (process.env.ENVIRONMENT !== 'prod') {
-  app.use('/api/swagger', express.static(path.join(__dirname, './swagger.json')))
-  app.use('/api-docs', swaggerUi.serve)
-  app.get('/api-docs', swaggerUi.setup(data))
-}
+// if (process.env.ENVIRONMENT !== 'prod') {
+//   app.use('/api/swagger', express.static(path.join(__dirname, './swagger.json')))
+//   app.use('/api-docs', swaggerUi.serve)
+//   app.get('/api-docs', swaggerUi.setup(data))
+// }
 
 // Routes
 // RegisterRoutes(app)
