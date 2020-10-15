@@ -10,6 +10,7 @@ console.log(JSON.parse(JSON.stringify(process.env.INTEROP_SECRETS)))
 
 const SECRETS = JSON.parse(JSON.stringify(process.env.INTEROP_SECRETS))
 console.log(SECRETS)
+console.log(SECRETS.DID)
 
 describe('Dummy Test ', () => {
   test('should be true', () => {
