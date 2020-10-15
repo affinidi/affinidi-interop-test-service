@@ -39,7 +39,7 @@ const didDocument  = require('@affinityproject/wallet-core-sdk/test/factory/didD
 const sandbox = createSandbox()
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000
 
-describe('Unit Tests: Interop API interopService', () => {
+describe.skip('Unit Tests: Interop API interopService', () => {
   describe('Did Methods', () => {
     describe('#didIsResolvable()', () => {
       let getResolvableDidDocumentStub: sinon.SinonStub<[string], Promise<any>>

@@ -45,7 +45,7 @@ export const getOptionsForEnvironment = (environment = ''): any => {
     default:
       registryUrl = STAGING_REGISTRY_URL
       keyStorageUrl = STAGING_KEY_STORAGE_URL
-      baseUrl = process.env.NGROK_ENDPOINT
+
       break
   }
 

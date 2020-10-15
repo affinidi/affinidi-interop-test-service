@@ -340,6 +340,7 @@ class InteropService {
           errorResponse.error = new OperationError('INT-34')
         }
         // TODO: handle Error: Token not issued by expected issuer
+        // TODO: handle Error: Error while getting verify proof purpose options (Invalid value for field)
       } else { // unknown errors
         errorResponse.error = new OperationError('INT-31')
       }
