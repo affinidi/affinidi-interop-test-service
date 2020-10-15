@@ -24,7 +24,7 @@ import { logger } from '../shared/logger'
 
 const request = supertest(app)
 const { ENVIRONMENT } = process.env
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 70000
 
 describe('Integration Tests: Interop API Router', () => {
   describe('GET /api/v1/interop/is-alive', () => {
