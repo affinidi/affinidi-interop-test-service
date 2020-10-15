@@ -12,8 +12,6 @@ let registryUrl: string
 let keyStorageUrl: string
 let baseUrl: string
 
-logger.info(process.env.ENVIRONMENT)
-
 const password = process.env.PASSWORD
 const encryptedSeed = process.env.ENCRYPTED_SEED
 const encryptedSeedJolo = process.env.ENCRYPTED_SEED_JOLO
