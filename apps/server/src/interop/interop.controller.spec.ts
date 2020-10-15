@@ -227,7 +227,7 @@ describe('Unit Tests: Interop API Controller', () => {
         test('should return status true and token, when single credential is provided as valid array', async () => {
           // save a paylod first in the Map
           const { tokenUrl } = await controller.generateOfferRequestToken(requestOfferToken)
-
+          console.log(tokenUrl)
           const uuid = tokenUrl.split('/').pop()
 
           // mock service response
@@ -409,7 +409,7 @@ describe('Unit Tests: Interop API Controller', () => {
         test('should return status true and token, when single credential is provided as valid array', async () => {
           // save a paylod first in the Map
           const { tokenUrl } = await controller.generatePresentationChallenge(requestPresentationChallenge)
-
+          console.log(tokenUrl)
           const uuid = tokenUrl.split('/').pop()
 
           // mock service response
