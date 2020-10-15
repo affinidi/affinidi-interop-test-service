@@ -317,6 +317,9 @@ class InteropService {
     try {
       const result = await sdkUtils.verifyVP(input)
 
+      logger.info('Step verifyPresentation: result ')
+      logger.info(result)
+
       const errorResponse = {
         status:         false,
         httpStatusCode: 400,
@@ -342,6 +345,9 @@ class InteropService {
       }
       return errorResponse
     } catch (e) {
+      logger.info('Step verifyPresentation: error ')
+      logger.info(e.message)
+
       return {
         status:         false,
         httpStatusCode: e.httpStatusCode,

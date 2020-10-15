@@ -410,7 +410,7 @@ describe('Integration Tests: Interop API Router', () => {
           .send(requestVerifyPresentation)
           .expect(200)
 
-        logger.info('test: response ')
+        logger.info('Step test: response ')
         logger.info(response.body)
 
         expect(response.body.status).toEqual(true)
