@@ -5,10 +5,11 @@ import { logger } from '../shared/logger'
 const request = supertest(app)
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000
 
-logger.info(JSON.parse(process.env.INTEROP_SECRETS))
+console.log(process.env.INTEROP_SECRETS)
+logger.info(JSON.parse(JSON.stringify(process.env.INTEROP_SECRETS)))
 
-const SECRETS = JSON.parse(process.env.INTEROP_SECRETS)
-logger.info(SECRETS.DID)
+// const SECRETS = JSON.parse(process.env.INTEROP_SECRETS)
+// logger.info(SECRETS.DID)
 
 describe('Dummy Test ', () => {
   test('should be true', () => {
