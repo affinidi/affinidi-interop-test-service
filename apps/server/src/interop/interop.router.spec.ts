@@ -392,8 +392,8 @@ describe('Integration Tests: Interop API Router', () => {
               password
             )
 
-            // logger.info('Step 3: vc ')
-            // logger.info(vc)
+            logger.info('Step 3: vc ')
+            logger.info(vc)
 
             // step 4: generate VP (this part is to be implemented by the Wallet app)
             const walletCommonNetworkMember = new CoreNetwork(password, encryptedSeedElem, options)
