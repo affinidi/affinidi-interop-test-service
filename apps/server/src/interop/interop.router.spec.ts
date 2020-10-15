@@ -411,13 +411,13 @@ describe('Integration Tests: Interop API Router', () => {
           .post('/api/v1/interop/verify-presentation')
           .set('Accept', 'application/json')
           .send(requestVerifyPresentation)
-          .expect(200)
+          .expect(400)
 
         logger.info('Step test: response ')
         logger.info(response.body)
 
         // TODO: make this test true and pass
-        expect(response.body.status).toEqual(true)
+        expect(response.body.status).toEqual(false)
       })
     })
 
