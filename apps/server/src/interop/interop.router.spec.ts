@@ -393,7 +393,6 @@ describe('Integration Tests: Interop API Router', () => {
 
             logger.info('Step 4: vp ')
             logger.info(vp)
-
           } else {
             console.log('Payload URL was not found')
           }
