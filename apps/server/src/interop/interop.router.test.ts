@@ -24,7 +24,7 @@ import { logger } from '../shared/logger'
 
 const request = supertest(app)
 const { ENVIRONMENT } = process.env
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 70000
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000
 
 describe('Integration Tests: Interop API Router', () => {
   describe('GET /api/v1/interop/is-alive', () => {
@@ -353,8 +353,8 @@ describe('Integration Tests: Interop API Router', () => {
               .expect(200)
 
             const presentationChallenge = response1.body.token
-            logger.info('Step 2: presentationChallenge ')
-            logger.info(presentationChallenge)
+            // logger.info('Step 2: presentationChallenge ')
+            // logger.info(presentationChallenge)
 
             // step 3: retrieve VC from vault (this part is to be implemented by the Wallet app)
 
@@ -381,8 +381,8 @@ describe('Integration Tests: Interop API Router', () => {
               password
             )
 
-            logger.info('Step 3: vc ')
-            logger.info(vc)
+            // logger.info('Step 3: vc ')
+            // logger.info(vc)
 
             // step 4: generate VP (this part is to be implemented by the Wallet app)
             const walletCommonNetworkMember = new CoreNetwork(password, encryptedSeedElem)
@@ -391,8 +391,8 @@ describe('Integration Tests: Interop API Router', () => {
               [vc],
               'domain')
 
-            logger.info('Step 4: vp ')
-            logger.info(vp)
+            // logger.info('Step 4: vp ')
+            // logger.info(vp)
           } else {
             console.log('Payload URL was not found')
           }
@@ -411,10 +411,10 @@ describe('Integration Tests: Interop API Router', () => {
           .expect(200)
 
         logger.info('Step test: response ')
-        logger.info(response.body)
+        // logger.info(response.body)
 
         expect(response.body.status).toEqual(true)
-      })
+      }, 90000)
     })
 
     // describe('Failure Cases:', () => {

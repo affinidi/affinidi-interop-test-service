@@ -325,7 +325,7 @@ class InteropService {
       }
       if (result.isValid) {
         logger.info('interopService#verifyPresentation: result ')
-        logger.info(result)
+        logger.info(result.isValid)
 
         return {
           status:         true,
