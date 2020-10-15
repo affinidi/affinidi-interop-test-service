@@ -402,8 +402,8 @@ describe('Integration Tests: Interop API Router', () => {
               [vc],
               'domain')
 
-            // logger.info('Step 4: vp ')
-            // logger.info(vp)
+            logger.info('Step 4: vp ')
+            logger.info(vp)
           } else {
             console.log('Payload URL was not found')
           }
