@@ -336,6 +336,7 @@ class InteropService {
         const errors = result.errors[0]
 
         logger.info('interopService#verifyPresentation: errors')
+        console.log(errors)
         logger.info(JSON.stringify(errors))
 
         if (errors.stack && errors.stack.includes('Invalid Token')) {
