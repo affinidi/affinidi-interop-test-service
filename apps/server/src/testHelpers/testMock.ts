@@ -8,11 +8,10 @@ import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinityproject/vc
 import { unsignedCredentials } from '../factory/unsignedCredential'
 
 // Local Constants
-const SECRETS = JSON.parse(process.env.INTEROP_SECRETS)
-const did = SECRETS.DID
-const issuerDid = SECRETS.ISSUER_DID
+const did = process.env.DID
+const issuerDid = process.env.ISSUER_DID
 const vcVersion = 1
-const credentialOfferResponseToken = SECRETS.CREDENTIAL_OFFER_REQUEST_TOKEN
+const credentialOfferResponseToken = process.env.CREDENTIAL_OFFER_REQUEST_TOKEN
 
 // Request Objects
 export const requestDidIsResolvable = {
@@ -140,11 +139,11 @@ export const resultAffinityValidatePresentation = {
   error:  ''
 }
 
-export const resultOfferRequestToken = SECRETS.RESULT_OFFER_REQUEST_TOKEN
+export const resultOfferRequestToken = process.env.RESULT_OFFER_REQUEST_TOKEN
 
 export const resultGetSignedCredentials = signedVCV1
 
-export const resultGetVPChallenge = SECRETS.PRESENTATION_CHALLENGE_TOKEN
+export const resultGetVPChallenge = process.env.PRESENTATION_CHALLENGE_TOKEN
 
 export const resultVerifyPresentation = {
   isValid:             true,
@@ -171,4 +170,4 @@ export const suppliedCredentials = [{
 }]
 
 // Other objects
-export const didElem = SECRETS.DID_ELEM
+export const didElem = process.env.DID_ELEM

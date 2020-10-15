@@ -12,24 +12,12 @@ let registryUrl: string
 let keyStorageUrl: string
 let baseUrl: string
 
-logger.info(process.env.INTEROP_SECRETS)
 logger.info(process.env.ENVIRONMENT)
-// const SECRETS = JSON.parse(process.env.INTEROP_SECRETS)
-let SECRETS = {
-  PASSWORD:            '',
-  ENCRYPTED_SEED:      '',
-  ENCRYPTED_SEED_JOLO: '',
-  ENCRYPTED_SEED_ELEM: ''
-}
 
-if (process.env.INTEROP_SECRETS) {
-  SECRETS = JSON.parse(process.env.INTEROP_SECRETS)
-}
-
-const password = SECRETS.PASSWORD
-const encryptedSeed = SECRETS.ENCRYPTED_SEED
-const encryptedSeedJolo = SECRETS.ENCRYPTED_SEED_JOLO
-const encryptedSeedElem = SECRETS.ENCRYPTED_SEED_ELEM
+const password = process.env.PASSWORD
+const encryptedSeed = process.env.ENCRYPTED_SEED
+const encryptedSeedJolo = process.env.ENCRYPTED_SEED_JOLO
+const encryptedSeedElem = process.env.ENCRYPTED_SEED_ELEM
 
 export const getOptionsForEnvironment = (environment = ''): any => {
   const env = environment || 'staging'
