@@ -359,8 +359,11 @@ describe('Integration Tests: Interop API Router', () => {
             // step 3: retrieve VC from vault (this part is to be implemented by the Wallet app)
 
             // since this api doesnt have a VC stored in any vault, the workaround is to generate a VC on behalf of the Issuer, on the fly
-            const { password, encryptedSeedElem, encryptedSeedJolo } = getOptionsForEnvironment(ENVIRONMENT)
-            const affinity = new Affinity()
+            const { password, encryptedSeedElem, encryptedSeedJolo, registryUrl } = getOptionsForEnvironment(ENVIRONMENT)
+            const options = {
+              registryUrl
+            }
+            const affinity = new Affinity(options)
             const vc = await affinity.signCredential(
               buildVCV1Unsigned({
                 skeleton: buildVCV1Skeleton<VCSPhonePersonV1>({
@@ -385,7 +388,7 @@ describe('Integration Tests: Interop API Router', () => {
             // logger.info(vc)
 
             // step 4: generate VP (this part is to be implemented by the Wallet app)
-            const walletCommonNetworkMember = new CoreNetwork(password, encryptedSeedElem)
+            const walletCommonNetworkMember = new CoreNetwork(password, encryptedSeedElem, options)
             vp = await walletCommonNetworkMember.createPresentationFromChallenge(
               presentationChallenge,
               [vc],
