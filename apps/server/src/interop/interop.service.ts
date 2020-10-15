@@ -317,9 +317,6 @@ class InteropService {
     try {
       const result = await sdkUtils.verifyVP(input)
 
-      logger.info('Step verifyPresentation: result ')
-      logger.info(result)
-
       const errorResponse = {
         status:         false,
         httpStatusCode: 400,
@@ -327,6 +324,9 @@ class InteropService {
         error:          {}
       }
       if (result.isValid) {
+        logger.info('interopService#verifyPresentation: result ')
+        logger.info(result)
+
         return {
           status:         true,
           httpStatusCode: 200,
@@ -334,6 +334,10 @@ class InteropService {
         }
       } else if (result.errors) {
         const errors = result.errors[0]
+
+        logger.info('interopService#verifyPresentation: errors')
+        logger.info(errors)
+
         if (errors.stack && errors.stack.includes('Invalid Token')) {
           errorResponse.error = new OperationError('INT-33')
         } else if (errors.includes('Invalid signature')) {
@@ -346,7 +350,7 @@ class InteropService {
       }
       return errorResponse
     } catch (e) {
-      logger.info('Step verifyPresentation: error ')
+      logger.info('interopService#verifyPresentation: e ')
       logger.info(e.message)
 
       return {
