@@ -22,11 +22,19 @@ import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinityproject/issuer-ut
 import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinityproject/vc-data'
 import { logger } from '../shared/logger'
 
-const request = supertest(app)
 const { ENVIRONMENT } = process.env
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000
 
 describe('Integration Tests: Interop API Router', () => {
+  let request: supertest.SuperTest<supertest.Test>
+  beforeEach(() => {
+    request = supertest(app)
+  })
+
+  afterEach(() => {
+    request = null
+  })
+
   describe('GET /api/v1/interop/is-alive', () => {
     test('should respond with status 200', async () => {
       const response = await request
@@ -411,13 +419,12 @@ describe('Integration Tests: Interop API Router', () => {
           .post('/api/v1/interop/verify-presentation')
           .set('Accept', 'application/json')
           .send(requestVerifyPresentation)
-          .expect(400)
+          .expect(200)
 
         logger.info('Step test: response ')
         logger.info(response.body)
 
-        // TODO: make this test true and pass
-        expect(response.body.status).toEqual(false)
+        expect(response.body.status).toEqual(true)
       })
     })
 
