@@ -340,7 +340,7 @@ class InteropService {
 
         if (errors.stack && errors.stack.includes('Invalid Token')) {
           errorResponse.error = new OperationError('INT-33')
-        } else if ((typeof(errors) === 'string') && errors.includes('Invalid signature')) {
+        } else if ((typeof (errors) === 'string') && errors.includes('Invalid signature')) {
           errorResponse.error = new OperationError('INT-34')
         } else {
           // TODO: handle Error: Token not issued by expected issuer
