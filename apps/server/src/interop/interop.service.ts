@@ -102,7 +102,7 @@ class InteropService {
     const uuid = UUID()
     const { baseUrl } = getOptionsForEnvironment(ENVIRONMENT)
     const tokenUrl = `${baseUrl}/offer-request-token/${uuid}`
-    logger.info(tokenUrl)
+    logger.info('tokenUrl: ', tokenUrl)
     const successMessage = 'Success: Offer Request Token is generated. GET it from the paylodUrl'
     const failureMessage = 'Failure: Offer Request Token was not generated'
 
@@ -248,7 +248,7 @@ class InteropService {
     const uuid = UUID()
     const { baseUrl } = getOptionsForEnvironment(ENVIRONMENT)
     const tokenUrl = `${baseUrl}/presentation-challenge/${uuid}`
-    logger.info(tokenUrl)
+    logger.info('tokenUrl: ', tokenUrl)
     const successMessage = 'Success: Presentation Challenge is generated. GET it from the paylodUrl'
     const failureMessage = 'Failure: Presentation Challenge was not generated'
 

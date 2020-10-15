@@ -6,7 +6,6 @@ import {
   STAGING_KEY_STORAGE_URL,
   PROD_KEY_STORAGE_URL
 } from '@affinityproject/wallet-core-sdk/dist/_defaultConfig'
-import { logger } from './logger'
 
 let registryUrl: string
 let keyStorageUrl: string
@@ -50,6 +49,5 @@ export const getOptionsForEnvironment = (environment = ''): any => {
       break
   }
 
-  logger.info('baseUrl: ', baseUrl)
   return { env, registryUrl, keyStorageUrl, baseUrl, password, encryptedSeed, encryptedSeedJolo, encryptedSeedElem }
 }
