@@ -6,10 +6,10 @@ const request = supertest(app)
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000
 
 console.log(process.env.INTEROP_SECRETS)
-logger.info(JSON.parse(JSON.stringify(process.env.INTEROP_SECRETS)))
+console.log(JSON.parse(JSON.stringify(process.env.INTEROP_SECRETS)))
 
-// const SECRETS = JSON.parse(process.env.INTEROP_SECRETS)
-// logger.info(SECRETS.DID)
+const SECRETS = JSON.parse(JSON.stringify(process.env.INTEROP_SECRETS))
+console.log(SECRETS)
 
 describe('Dummy Test ', () => {
   test('should be true', () => {
