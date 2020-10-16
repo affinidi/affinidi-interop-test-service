@@ -105,8 +105,6 @@ export default function BarCodeScreen({ navigation }) {
 
 		axios.post(callbackURL, input)
 			.then((postResponse) => {
-				console.log(7);
-				console.log(postResponse.data);
 				if (postResponse.data) {
 					console.log('Congratulations, your request for this service is approved!');
 				}
@@ -148,7 +146,6 @@ export default function BarCodeScreen({ navigation }) {
 
 		if (data.includes('tokenUrl')) {
 			const { tokenUrl } = JSON.parse(data);
-			console.log(tokenUrl);
 			getToken(tokenUrl);
 		}
 	};

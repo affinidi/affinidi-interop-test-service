@@ -3,12 +3,10 @@ FROM node:12
 # Variables which are coming from the docker build command (e.g github secrets, or docker-compose)
 ARG NODE_AUTH_TOKEN
 ARG ENVIRONMENT
-ARG INTEROP_SECRETS
 
 # Environment variables for the Server
 ENV PORT 4000
 ENV ENVIRONMENT ${ENVIRONMENT}
-ENV INTEROP_SECRETS ${INTEROP_SECRETS}
 
 # Environment variables for the Issuer React app
 ENV REACT_APP_ENVIRONMENT ${ENVIRONMENT}
@@ -36,5 +34,3 @@ ENV NODE_ENV production
 # and the value must be production
 
 EXPOSE ${PORT}
-
-CMD [ "npm", "start" ]

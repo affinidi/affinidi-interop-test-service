@@ -1,4 +1,8 @@
 #!/bin/bash
 
 echo "-- Starting server --"
+if [ -f '/vault/secrets/secrets' ]; then
+  echo "-- Sourcing secrets --"
+  source '/vault/secrets/secrets'
+fi
 cd apps/server && npm start

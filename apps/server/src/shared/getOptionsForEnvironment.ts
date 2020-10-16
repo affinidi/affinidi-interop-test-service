@@ -6,17 +6,16 @@ import {
   STAGING_KEY_STORAGE_URL,
   PROD_KEY_STORAGE_URL
 } from '@affinityproject/wallet-core-sdk/dist/_defaultConfig'
+import { logger } from './logger'
 
 let registryUrl: string
 let keyStorageUrl: string
 let baseUrl: string
 
-const SECRETS = JSON.parse(process.env.INTEROP_SECRETS)
-
-const password = SECRETS.PASSWORD
-const encryptedSeed = SECRETS.ENCRYPTED_SEED
-const encryptedSeedJolo = SECRETS.ENCRYPTED_SEED_JOLO
-const encryptedSeedElem = SECRETS.ENCRYPTED_SEED_ELEM
+const password = process.env.PASSWORD
+const encryptedSeed = process.env.ENCRYPTED_SEED
+const encryptedSeedJolo = process.env.ENCRYPTED_SEED_JOLO
+const encryptedSeedElem = process.env.ENCRYPTED_SEED_ELEM
 
 export const getOptionsForEnvironment = (environment = ''): any => {
   const env = environment || 'staging'
@@ -47,9 +46,10 @@ export const getOptionsForEnvironment = (environment = ''): any => {
     default:
       registryUrl = STAGING_REGISTRY_URL
       keyStorageUrl = STAGING_KEY_STORAGE_URL
-      baseUrl = process.env.NGROK_ENDPOINT
+
       break
   }
 
+  logger.info('getOptionsForEnvironment: baseUrl: ', baseUrl)
   return { env, registryUrl, keyStorageUrl, baseUrl, password, encryptedSeed, encryptedSeedJolo, encryptedSeedElem }
 }

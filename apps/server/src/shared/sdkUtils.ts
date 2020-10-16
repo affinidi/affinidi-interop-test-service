@@ -11,11 +11,11 @@ import { logger } from './logger'
 
 const { ENVIRONMENT } = process.env
 const { password, encryptedSeed, registryUrl } = getOptionsForEnvironment(ENVIRONMENT)
-const affinityOptions = {
+const options = {
   registryUrl
 }
-const affinity = new Affinity(affinityOptions)
-const commonNetworkMember = new CoreNetwork(password, encryptedSeed)
+const affinity = new Affinity(options)
+const commonNetworkMember = new CoreNetwork(password, encryptedSeed, options)
 
 export const sdkUtils = {
   async getResolvableDidDocument (did: string): Promise<any> {

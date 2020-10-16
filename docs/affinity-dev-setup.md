@@ -21,7 +21,7 @@ Table of Contents
 The Interop Service is a set of server (REST API) and client (React/React Native) applications.
 
 # Server
-This service provides endpoints which facilitate interoprability with the Affinidi platform. For more details, check the API documentation at http://affinidi-interop-test-service.dev.affinity-project.org/api-docs/
+This service provides endpoints which facilitate interoprability with the Affinidi platform. For more details, check the API documentation at https://affinidi-interop-test-service.dev.affinity-project.org/api-docs/
 
 Currently, it is used by the Bloom Wallet to easily perform certain checks and build various flows, such as:
 
@@ -38,7 +38,7 @@ Currently, it is used by the Bloom Wallet to easily perform certain checks and b
 
 
 ### local setup (less preferred)
-This will start the server and SSR (server-side rendered) the issuer client
+This will start the server and SSR (server-side rendered) the demo client
 - install dependencies: `npm i && npm run bootstrap`
 - build the server and issuer client and generate the routes, swagger docs, and build the package: `npm run build`
 - start the server and issuer client: `npm run dev`
@@ -59,7 +59,7 @@ To hit the endpoints of the interop backend service (api), follow these steps:
   - check if a Did is resolvable, 
   - to demonstrate flows such as VC Claiming
 
-- Access the Issuer at http://affinidi-interop-test-service.dev.affinity-project.org/clients/issuer
+- Access the Issuer at https://affinidi-interop-test-service.dev.affinity-project.org/clients/issuer
   - (replace `dev` for `staging`, `prod` etc to access other environments)
 
 

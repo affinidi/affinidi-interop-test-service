@@ -20,13 +20,21 @@ import { Affinity } from '@affinityproject/common-lib'
 /* eslint-disable id-match */
 import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinityproject/issuer-util'
 import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinityproject/vc-data'
-import { url } from 'inspector'
+import { logger } from '../shared/logger'
 
-const request = supertest(app)
 const { ENVIRONMENT } = process.env
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000
 
 describe('Integration Tests: Interop API Router', () => {
+  let request: supertest.SuperTest<supertest.Test>
+  beforeEach(() => {
+    request = supertest(app)
+  })
+
+  afterEach(() => {
+    request = null
+  })
+
   describe('GET /api/v1/interop/is-alive', () => {
     test('should respond with status 200', async () => {
       const response = await request
@@ -341,7 +349,7 @@ describe('Integration Tests: Interop API Router', () => {
             .expect(200)
 
           const { tokenUrl } = response.body
-          console.log(tokenUrl)
+          logger.info('Step 1: tokenUrl: ', tokenUrl)
 
           if (tokenUrl) {
             const uuid = tokenUrl.split('/').pop()
@@ -353,12 +361,17 @@ describe('Integration Tests: Interop API Router', () => {
               .expect(200)
 
             const presentationChallenge = response1.body.token
+            // logger.info('Step 2: presentationChallenge ')
+            // logger.info(presentationChallenge)
 
             // step 3: retrieve VC from vault (this part is to be implemented by the Wallet app)
 
             // since this api doesnt have a VC stored in any vault, the workaround is to generate a VC on behalf of the Issuer, on the fly
-            const { password, encryptedSeedElem, encryptedSeedJolo } = getOptionsForEnvironment(ENVIRONMENT)
-            const affinity = new Affinity()
+            const { password, encryptedSeedElem, encryptedSeedJolo, registryUrl } = getOptionsForEnvironment(ENVIRONMENT)
+            const options = {
+              registryUrl
+            }
+            const affinity = new Affinity(options)
             const vc = await affinity.signCredential(
               buildVCV1Unsigned({
                 skeleton: buildVCV1Skeleton<VCSPhonePersonV1>({
@@ -379,12 +392,18 @@ describe('Integration Tests: Interop API Router', () => {
               password
             )
 
+            // logger.info('Step 3: vc ')
+            // logger.info(vc)
+
             // step 4: generate VP (this part is to be implemented by the Wallet app)
-            const walletCommonNetworkMember = new CoreNetwork(password, encryptedSeedElem)
+            const walletCommonNetworkMember = new CoreNetwork(password, encryptedSeedElem, options)
             vp = await walletCommonNetworkMember.createPresentationFromChallenge(
               presentationChallenge,
               [vc],
               'domain')
+
+            // logger.info('Step 4: vp ')
+            // logger.info(vp)
           } else {
             console.log('Payload URL was not found')
           }
@@ -401,6 +420,9 @@ describe('Integration Tests: Interop API Router', () => {
           .set('Accept', 'application/json')
           .send(requestVerifyPresentation)
           .expect(200)
+
+        logger.info('Step test: response ')
+        // logger.info(response.body)
 
         expect(response.body.status).toEqual(true)
       })
