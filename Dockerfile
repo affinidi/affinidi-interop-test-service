@@ -34,5 +34,3 @@ ENV NODE_ENV production
 # and the value must be production
 
 EXPOSE ${PORT}
-
-CMD [ "npm", "start" ]
