@@ -75,7 +75,7 @@
     ],
     "testMatch": [
       "**/__tests__/*.+(ts|tsx)",
-      "**/?(*.)+(spec|test).+(ts|tsx)"
+      "**/?(*.)+(test).+(ts|tsx)"
     ],
     "collectCoverageFrom": [
       "src/interop/*.ts",
