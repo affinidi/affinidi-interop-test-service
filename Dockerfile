@@ -5,7 +5,7 @@ ARG NODE_AUTH_TOKEN
 ARG ENVIRONMENT
 
 # Environment variables for the Server
-ENV PORT 4000
+ENV PORT 3000
 ENV ENVIRONMENT ${ENVIRONMENT}
 
 # Environment variables for the Issuer React app

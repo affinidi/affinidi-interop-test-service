@@ -23,7 +23,7 @@ export const getOptionsForEnvironment = (environment = ''): any => {
 
   switch (environment) {
     case 'test':
-      baseUrl = 'http://localhost:4000/api/v1/interop'
+      baseUrl = 'http://localhost:3000/api/v1/interop'
 
       break
 

@@ -1,5 +1,5 @@
 {
-  "name": "affinidi-interop-tester",
+  "name": "affinidi-interop-test-service",
   "private": true,
   "version": "0.0.66",
   "scripts": {
