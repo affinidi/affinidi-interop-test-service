@@ -1,7 +1,7 @@
 FROM node:12
 
 # Variables which are coming from the docker build command (e.g github secrets, or docker-compose)
-ARG NODE_AUTH_TOKEN
+# ARG NODE_AUTH_TOKEN
 ARG ENVIRONMENT
 
 # Environment variables for the Server
@@ -21,7 +21,7 @@ COPY bin ./bin
 COPY apps/server ./apps/server
 COPY apps/issuer ./apps/issuer
 
-RUN touch ~/.npmrc && echo "@affinityproject:registry=https://npm.pkg.github.com\n//npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
+# RUN touch ~/.npmrc && echo "@affinityproject:registry=https://npm.pkg.github.com\n//npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
 
 COPY lerna.json .
 RUN npm run bootstrap
