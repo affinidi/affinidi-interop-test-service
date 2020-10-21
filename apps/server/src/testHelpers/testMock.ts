@@ -3,8 +3,8 @@
 import { InputPresentationChallenge, InputSignCredentials, InputVerifyPresentation } from '../interop/interop.dto'
 import { signedVcOld, signedVCV1 } from '../factory/signedCredential'
 import { signedPresentation } from '../factory/signedPresentation'
-import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinityproject/issuer-util'
-import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinityproject/vc-data'
+import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinidi/issuer-util'
+import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinidi/vc-data'
 import { unsignedCredentials } from '../factory/unsignedCredential'
 
 // Local Constants

@@ -32,12 +32,12 @@ import {
 } from './interop.dto'
 
 import { createSandbox } from 'sinon'
-import SdkError from '@affinityproject/wallet-core-sdk/dist/shared/SdkError'
-import AffinityNetworkError from '@affinityproject/common-affinity-network/dist/AffinityNetworkError'
+import SdkError from '@affinidi/wallet-core-sdk/dist/shared/SdkError'
+import OperationError from '../OperationError'
 
-const didDocument  = require('@affinityproject/wallet-core-sdk/test/factory/didDocument')
+const didDocument  = require('@affinidi/wallet-core-sdk/test/factory/didDocument')
 const sandbox = createSandbox()
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
 
 describe('Unit Tests: Interop API interopService', () => {
   describe('Did Methods', () => {
@@ -220,7 +220,7 @@ describe('Unit Tests: Interop API interopService', () => {
 
         test('should return status false and error INT-8, when credential is provided as invalid array object', async () => {
         // mock the response of the getCredentialOfferRequestToken() to throw COM-0 error for invalid credential input
-          getCredentialOfferRequestTokenStub.throws(new AffinityNetworkError('COM-0'))
+          getCredentialOfferRequestTokenStub.throws(new OperationError('COM-0'))  
 
           // call the unit under test
           const result = await interopService.generateOfferRequestToken(invalidRequestOfferTokenArr)

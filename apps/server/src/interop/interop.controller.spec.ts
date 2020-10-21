@@ -31,7 +31,7 @@ import {
 import OperationError from '../OperationError'
 
 const sandbox = createSandbox()
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
 
 describe('Unit Tests: Interop API Controller', () => {
   let controller: InteropController

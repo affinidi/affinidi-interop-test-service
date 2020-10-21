@@ -1,5 +1,5 @@
 /* eslint-disable id-match */
-import { OfferedCredential } from '@affinityproject/wallet-core-sdk/dist/dto/shared.dto'
+import { OfferedCredential } from '@affinidi/wallet-core-sdk/dist/dto/shared.dto'
 
 class LocalOperationError {
     type: string
