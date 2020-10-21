@@ -395,7 +395,6 @@ describe('Integration Tests: Interop API Router', () => {
               presentationChallenge,
               [vc],
               'domain')
-
           } else {
             logger.info('Payload URL was not found')
           }
