@@ -10,7 +10,8 @@ services:
     environment:
       - DOMAIN=server
       - PORT=4000
-
+# todo: make the server ssr the web client, and use the environment = docker to use the URL
+# keep the web-client app as it is too
   server:
     container_name: interop-server
     build: 
