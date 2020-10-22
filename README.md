@@ -135,5 +135,4 @@ The Wallet client is an Expo React Native App which allows an end user to:
 
 
 # Setup
-- Please check this for [internal affinidi development](./docs/affinity-dev-setup.md)
-- Please check this for [open-source development](./docs/external-dev-setup.md)
+- Please check [Local Setup and Development](./dev-setup.md)

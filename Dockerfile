@@ -7,9 +7,6 @@ ARG ENVIRONMENT
 ENV PORT 3000
 ENV ENVIRONMENT ${ENVIRONMENT}
 
-# Environment variables for the Issuer React app
-ENV REACT_APP_ENVIRONMENT ${ENVIRONMENT}
-
 WORKDIR /usr/src/app
 
 RUN npm i lerna -g --loglevel notice

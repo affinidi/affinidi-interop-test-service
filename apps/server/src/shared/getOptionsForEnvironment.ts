@@ -24,14 +24,11 @@ export const getOptionsForEnvironment = (environment = ''): any => {
 
   switch (environment) {
     case 'test':
-    case 'docker':
       baseUrl = `http://localhost:${PORT}/api/v1/interop`
-
       break
 
     case 'local':
       baseUrl = `${process.env.NGROK_ENDPOINT}/api/v1/interop`
-
       break
 
     case 'dev':

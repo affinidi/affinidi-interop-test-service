@@ -1,42 +1,32 @@
 version: "3"
 
 services:
-  ngrok:
-    image: shkoliar/ngrok:latest
-    ports:
-      - 4551:4551
-    depends_on:
-      - server
-    environment:
-      - DOMAIN=server
-      - PORT=4000
-# todo: make the server ssr the web client, and use the environment = docker to use the URL
-# keep the web-client app as it is too
   server:
     container_name: interop-server
     build: 
-      context: ./apps/server
-      dockerfile: Dockerfile 
+      context: .
+      dockerfile: Dockerfile.dev
     env_file: .env
     environment: # override the variables from the .env file
-      - ENVIRONMENT=docker  
+      - ENVIRONMENT=local  
       - PORT=4000
+    command: npm run dev
     volumes:
       - ./apps/server:/server/
       - /server/node_modules
     ports:
       - 4000:4000
 
+
   web-client:
     container_name: interop-web-client
     build: 
       context: ./apps/issuer
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile.dev
     restart: on-failure  
+    command: npm start
     depends_on: 
       - server
-    # stdin_open: true
-    # tty: true
     environment:
       - NODE_ENV=dev   
       - REACT_APP_ENVIRONMENT=local  
@@ -49,15 +39,14 @@ services:
       - 3000:3000
       - 35729:35729 # websocket for warm-reload
 
+
   wallet-client:
     container_name: interop-wallet-client
     build: 
       context: ./apps/wallet
-      dockerfile: Dockerfile 
-      # args:
-      #   EXPO_USERNAME: ${EXPO_USERNAME}  
-      #   EXPO_PASSWORD: ${EXPO_PASSWORD}   
-    restart: on-failure   
+      dockerfile: Dockerfile.dev
+    restart: on-failure 
+    command: expo start --tunnel  
     volumes:
       - ./apps/wallet:/wallet/
       - /wallet/node_modules       
