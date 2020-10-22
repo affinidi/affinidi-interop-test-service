@@ -2,7 +2,7 @@
   "name": "@affinidi-interop-test-service/issuer-client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:4000",
+  "proxy": "http://localhost:3000",
   "scripts": {
     "start": "react-scripts start",
     "start:dev": "react-scripts start",

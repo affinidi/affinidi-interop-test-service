@@ -15,15 +15,15 @@ import {
 } from '../testHelpers/testMock'
 import { InputVerifyPresentation } from './interop.dto'
 import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
-import { CommonNetworkMember as CoreNetwork } from '@affinityproject/wallet-core-sdk'
-import { Affinity } from '@affinityproject/common-lib'
+import { CommonNetworkMember as CoreNetwork } from '@affinidi/wallet-core-sdk'
+import { Affinity } from '@affinidi/common-lib'
 /* eslint-disable id-match */
-import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinityproject/issuer-util'
-import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinityproject/vc-data'
+import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinidi/issuer-util'
+import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinidi/vc-data'
 import { logger } from '../shared/logger'
 
-const { ENVIRONMENT } = process.env
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000
+const { ENVIRONMENT, DID } = process.env
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000
 
 describe('Integration Tests: Interop API Router', () => {
   let request: supertest.SuperTest<supertest.Test>
@@ -337,7 +337,7 @@ describe('Integration Tests: Interop API Router', () => {
 
   describe('POST /api/v1/interop/verify-presentation', () => {
     describe('Succcess Case:', () => {
-      test('should respond with status true, when VP is verified', async () => {
+      test.skip('should respond with status true, when VP is verified', async () => {
         let vp
         // Pre-requisites
         try {
@@ -349,7 +349,6 @@ describe('Integration Tests: Interop API Router', () => {
             .expect(200)
 
           const { tokenUrl } = response.body
-          logger.info('Step 1: tokenUrl: ', tokenUrl)
 
           if (tokenUrl) {
             const uuid = tokenUrl.split('/').pop()
@@ -361,8 +360,6 @@ describe('Integration Tests: Interop API Router', () => {
               .expect(200)
 
             const presentationChallenge = response1.body.token
-            // logger.info('Step 2: presentationChallenge ')
-            // logger.info(presentationChallenge)
 
             // step 3: retrieve VC from vault (this part is to be implemented by the Wallet app)
 
@@ -375,7 +372,7 @@ describe('Integration Tests: Interop API Router', () => {
             const vc = await affinity.signCredential(
               buildVCV1Unsigned({
                 skeleton: buildVCV1Skeleton<VCSPhonePersonV1>({
-                  id:                '123',
+                  id:                DID,
                   credentialSubject: {
                     data: {
                       '@type':   ['Person', 'PersonE', 'PhonePerson'],
@@ -392,23 +389,17 @@ describe('Integration Tests: Interop API Router', () => {
               password
             )
 
-            // logger.info('Step 3: vc ')
-            // logger.info(vc)
-
             // step 4: generate VP (this part is to be implemented by the Wallet app)
             const walletCommonNetworkMember = new CoreNetwork(password, encryptedSeedElem, options)
             vp = await walletCommonNetworkMember.createPresentationFromChallenge(
               presentationChallenge,
               [vc],
               'domain')
-
-            // logger.info('Step 4: vp ')
-            // logger.info(vp)
           } else {
-            console.log('Payload URL was not found')
+            logger.info('Payload URL was not found')
           }
         } catch (e) {
-          console.log(e.message)
+          logger.info(e.message)
         }
 
         // Test the endpoint
@@ -420,9 +411,6 @@ describe('Integration Tests: Interop API Router', () => {
           .set('Accept', 'application/json')
           .send(requestVerifyPresentation)
           .expect(200)
-
-        logger.info('Step test: response ')
-        // logger.info(response.body)
 
         expect(response.body.status).toEqual(true)
       })

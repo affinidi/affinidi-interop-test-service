@@ -102,7 +102,6 @@ class InteropService {
     const uuid = UUID()
     const { baseUrl } = getOptionsForEnvironment(ENVIRONMENT)
     const tokenUrl = `${baseUrl}/offer-request-token/${uuid}`
-    logger.info('tokenUrl: ', tokenUrl)
     const successMessage = 'Success: Offer Request Token is generated. GET it from the paylodUrl'
     const failureMessage = 'Failure: Offer Request Token was not generated'
 
@@ -248,7 +247,6 @@ class InteropService {
     const uuid = UUID()
     const { baseUrl } = getOptionsForEnvironment(ENVIRONMENT)
     const tokenUrl = `${baseUrl}/presentation-challenge/${uuid}`
-    logger.info('tokenUrl: ', tokenUrl)
     const successMessage = 'Success: Presentation Challenge is generated. GET it from the paylodUrl'
     const failureMessage = 'Failure: Presentation Challenge was not generated'
 
@@ -324,9 +322,6 @@ class InteropService {
         error:          {}
       }
       if (result.isValid) {
-        logger.info('interopService#verifyPresentation: result ')
-        logger.info(result.isValid)
-
         return {
           status:         true,
           httpStatusCode: 200,
@@ -334,10 +329,8 @@ class InteropService {
         }
       } else if (result.errors) {
         const errors = result.errors[0]
-
-        logger.info('interopService#verifyPresentation: errors')
-        console.log(errors)
-        logger.info(JSON.stringify(errors))
+        logger.debug('Errors')
+        logger.debug(errors)
 
         if (errors.stack && errors.stack.includes('Invalid Token')) {
           errorResponse.error = new OperationError('INT-33')
@@ -353,9 +346,8 @@ class InteropService {
       }
       return errorResponse
     } catch (e) {
-      logger.info('interopService#verifyPresentation: e ')
-      logger.info(e.message)
-
+      logger.debug('Catch Block')
+      logger.debug(e)
       return {
         status:         false,
         httpStatusCode: e.httpStatusCode,

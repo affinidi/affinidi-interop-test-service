@@ -1,5 +1,5 @@
 {
-  "name": "affinidi-interop-tester",
+  "name": "affinidi-interop-test-service",
   "private": true,
   "version": "0.0.66",
   "scripts": {
@@ -14,7 +14,6 @@
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint:fix",
     "build": "lerna run lint && lerna run build",
-    "build:bash": "./bin/build",
     "bootstrap": "lerna bootstrap",
     "publish": "lerna publish",
     "test": "lerna run test",

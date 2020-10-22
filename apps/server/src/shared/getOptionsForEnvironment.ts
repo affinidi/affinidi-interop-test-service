@@ -5,7 +5,7 @@ import {
   DEV_KEY_STORAGE_URL,
   STAGING_KEY_STORAGE_URL,
   PROD_KEY_STORAGE_URL
-} from '@affinityproject/wallet-core-sdk/dist/_defaultConfig'
+} from '@affinidi/wallet-core-sdk/dist/_defaultConfig'
 import { logger } from './logger'
 
 let registryUrl: string
@@ -23,7 +23,7 @@ export const getOptionsForEnvironment = (environment = ''): any => {
 
   switch (environment) {
     case 'test':
-      baseUrl = 'http://localhost:4000/api/v1/interop'
+      baseUrl = 'http://localhost:3000/api/v1/interop'
 
       break
 

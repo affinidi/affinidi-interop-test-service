@@ -1,7 +1,7 @@
 /* eslint-disable id-match */
 
-import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinityproject/issuer-util'
-import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinityproject/vc-data'
+import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinidi/issuer-util'
+import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinidi/vc-data'
 
 export const unsignedCredentials = [
   buildVCV1Unsigned({
