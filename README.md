@@ -9,8 +9,8 @@ Table of Contents
 - [Welcome To the Affinidi Interop Service](#welcome-to-the-affinidi-interop-service)
 - [Server](#server)
 - [Clients](#clients)
-  - [Issuer](#issuer)
-  - [Wallet](#wallet)
+  - [Demo Web Client](#demo-web-client)
+  - [Wallet App](#wallet-app)
 - [Setup](#setup)
 
 # Description
@@ -119,18 +119,19 @@ Endpoints for Building Flows
 
 
 # Clients
-## Issuer
-- The Issuer client is a React App which allows interacting with the endpoints on the Server side, and to: 
+## Demo Web Client
+- This web app is a React App which allows interacting with the endpoints on the Server side, and to: 
+  - simulate the Issuer and Verifier clients
   - check if a Did is resolvable, 
-  - to demonstrate flows such as VC Claiming
+  - to demonstrate flows such as VC Claiming and VP sharing
 
-- Access the Issuer at https://affinidi-interop-test-service.prod.affinity-project.org
+- Access the Demo Web App at https://affinidi-interop-test-service.prod.affinity-project.org
 
 
-## Wallet
-The Wallet client is an Expo React Native App which allows an end user to: 
-- request and claim a VC by scanning a QR code
-- request and share a VP by scanning a QR code
+## Wallet App
+The Wallet app is an Expo React Native App which allows an end user to: 
+- request and claim a VC from the Issuer by scanning a QR code
+- share a VP with a Verifier by scanning a QR code
 
 
 
