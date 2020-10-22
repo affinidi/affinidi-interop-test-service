@@ -1,5 +1,6 @@
 Table of Contents
 - [Welcome To the Affinidi Interop Service](#welcome-to-the-affinidi-interop-service)
+  - [Clone the repo](#clone-the-repo)
   - [Environment Variables](#environment-variables)
   - [Setup](#setup)
   - [local setup (less preferred)](#local-setup-less-preferred)
@@ -11,6 +12,12 @@ Table of Contents
 
 # Welcome To the Affinidi Interop Service
 The Interop Service is a set of server (REST API) and client applications. Demo Web Client is a React App and Wallet App is a React Native app with QR scanning functionality. 
+
+## Clone the repo
+- `git clone git@github.com:affinityproject/affinidi-interop-test-service.git`
+- install dependencies: `npm i && npm run bootstrap`
+- - build the server and issuer client and generate the routes, swagger docs, and build the package: `npm run build`
+
 
 ## Environment Variables
 - create env file: `cp .env.example .env`
@@ -32,8 +39,6 @@ The Interop Service is a set of server (REST API) and client applications. Demo 
 
 ## local setup (less preferred)
 This will start the server and SSR (server-side rendered) the demo client
-- install dependencies: `npm i && npm run bootstrap`
-- build the server and issuer client and generate the routes, swagger docs, and build the package: `npm run build`
 - start the server and issuer client: `npm run dev`
 - run tests (if no changes have happened in the code): `ENVIRONMENT=test npm test`
 - run tests (if changes has happened in the service): `npm run build && ENVIRONMENT=test npm test`
@@ -49,10 +54,10 @@ This will start the server and SSR (server-side rendered) the demo client
 ```
 
 ## Run the App on a mobile device
-	- download the expo app on your mobile device
-	- scan the QR code using your expo app
-	- this will download the app to your mobile device 
-	- 
+- download the expo app on your mobile device
+- scan the QR code using your expo app
+- this will download the app to your mobile device 
+  
 
 ## Working with the Endpoints
 To hit the endpoints of the interop backend service (api), follow these steps:
