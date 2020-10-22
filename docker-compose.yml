@@ -1,0 +1,68 @@
+version: "3"
+
+services:
+  ngrok:
+    image: shkoliar/ngrok:latest
+    ports:
+      - 4551:4551
+    depends_on:
+      - server
+    environment:
+      - DOMAIN=server
+      - PORT=4000
+
+  server:
+    container_name: interop-server
+    build: 
+      context: ./apps/server
+      dockerfile: Dockerfile 
+    env_file: .env
+    environment: # override the variables from the .env file
+      - ENVIRONMENT=docker  
+      - PORT=4000
+    volumes:
+      - ./apps/server:/server/
+      - /server/node_modules
+    ports:
+      - 4000:4000
+
+  web-client:
+    container_name: interop-web-client
+    build: 
+      context: ./apps/issuer
+      dockerfile: Dockerfile 
+    restart: on-failure  
+    depends_on: 
+      - server
+    # stdin_open: true
+    # tty: true
+    environment:
+      - NODE_ENV=dev   
+      - REACT_APP_ENVIRONMENT=local  
+      - CI=true 
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./apps/issuer:/web/
+      - /web/node_modules  
+    ports:
+      - 3000:3000
+      - 35729:35729 # websocket for warm-reload
+
+  wallet-client:
+    container_name: interop-wallet-client
+    build: 
+      context: ./apps/wallet
+      dockerfile: Dockerfile 
+      # args:
+      #   EXPO_USERNAME: ${EXPO_USERNAME}  
+      #   EXPO_PASSWORD: ${EXPO_PASSWORD}   
+    restart: on-failure   
+    volumes:
+      - ./apps/wallet:/wallet/
+      - /wallet/node_modules       
+    environment:
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0   
+    ports:
+      - 19000:19000
+      - 19001:19001
+      - 19002:19002

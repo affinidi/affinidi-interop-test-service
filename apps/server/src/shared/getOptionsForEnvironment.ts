@@ -12,6 +12,7 @@ let registryUrl: string
 let keyStorageUrl: string
 let baseUrl: string
 
+const { PORT } = process.env
 const password = process.env.PASSWORD
 const encryptedSeed = process.env.ENCRYPTED_SEED
 const encryptedSeedJolo = process.env.ENCRYPTED_SEED_JOLO
@@ -23,7 +24,8 @@ export const getOptionsForEnvironment = (environment = ''): any => {
 
   switch (environment) {
     case 'test':
-      baseUrl = 'http://localhost:3000/api/v1/interop'
+    case 'docker':
+      baseUrl = `http://localhost:${PORT}/api/v1/interop`
 
       break
 
