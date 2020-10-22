@@ -22,7 +22,7 @@ The Interop Service is a set of server and client applications describe in detai
 The purpose of this Service is two-fold:
 - to provide access to the Affiniti Platform via the open source REST API ([Server](#server)) which abstracts away the details of using an SDK.
   - this API can be used by 3rd parties, such as developers and organizations who want to build wallet clients or verifier and issuer services 
-- to help onboard 3rd party development teams, and demonstrate (using the [Issuer](#issuer) client and [Wallet](#wallet) mobile App) the different use cases and flows needed to perform most basic functions, such as:
+- to help onboard 3rd party development teams, and demonstrate (using the [Demo Web Client](#demo-web-client) client and [Wallet](#wallet) mobile App) the different use cases and flows needed to perform most basic functions, such as:
   - checking if a Did is resolvable or VC/VP are verifiable
   - to request and claim VCs
   - to share VPs
