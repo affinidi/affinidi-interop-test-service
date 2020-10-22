@@ -1,4 +1,4 @@
     "hooks": {
-      "pre-commit": "npm run lint && npm run checkLicenses && npm run clean && npm run bootstrap; git add package.json package-lock.json; echo '\n\n\n**************************\n REMINDER: \n UPDATE THE SECRETS IN \nVAULTS AND 1Password (if needed) \n**************************\n\n\n'",
+      "pre-commit": "npm run lint && npm run checkLicenses && npm run clean && npm run bootstrap; git add package.json package-lock.json; echo '\n\n\n**************************\n REMINDER: \n UPDATE THE SECRETS IN \n VAULTS AND 1Password (if needed) \n**************************\n\n\n'",
       "pre-push": "ENVIRONMENT=test npm test"
     }
