@@ -368,7 +368,6 @@ describe('Integration Tests: Interop API Router', () => {
             const options = {
               registryUrl
             }
-
             const affinity = new Affinity(options)
             const vc = await affinity.signCredential(
               buildVCV1Unsigned({
