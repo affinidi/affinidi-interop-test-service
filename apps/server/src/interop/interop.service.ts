@@ -329,8 +329,8 @@ class InteropService {
         }
       } else if (result.errors) {
         const errors = result.errors[0]
-        logger.debug('Errors')
-        logger.debug(errors)
+        logger.info('Errors')
+        logger.info(errors)
 
         if (errors.stack && errors.stack.includes('Invalid Token')) {
           errorResponse.error = new OperationError('INT-33')
@@ -346,8 +346,8 @@ class InteropService {
       }
       return errorResponse
     } catch (e) {
-      logger.debug('Catch Block')
-      logger.debug(e)
+      logger.info('Catch Block')
+      logger.info(e)
       return {
         status:         false,
         httpStatusCode: e.httpStatusCode,
