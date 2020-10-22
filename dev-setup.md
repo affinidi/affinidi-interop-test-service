@@ -16,7 +16,7 @@ The Interop Service is a set of server (REST API) and client applications. Demo 
 ## Clone the repo
 - `git clone git@github.com:affinityproject/affinidi-interop-test-service.git`
 - install dependencies: `npm i && npm run bootstrap`
-- - build the server and issuer client and generate the routes, swagger docs, and build the package: `npm run build`
+- - build the server and Demo Web Client, and generate the routes, swagger docs, and build the package: `npm run build`
 
 
 ## Environment Variables
@@ -39,7 +39,7 @@ The Interop Service is a set of server (REST API) and client applications. Demo 
 
 ## local setup (less preferred)
 This will start the server and SSR (server-side rendered) the demo client
-- start the server and issuer client: `npm run dev`
+- start the server and Demo Web Client: `npm run dev`
 - run tests (if no changes have happened in the code): `ENVIRONMENT=test npm test`
 - run tests (if changes has happened in the service): `npm run build && ENVIRONMENT=test npm test`
 
