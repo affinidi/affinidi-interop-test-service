@@ -50,7 +50,7 @@ The Interop Service is a set of server (REST API) and client applications. Demo 
 
 ## Run the Wallet App on a mobile device
 - download the expo app on your mobile device
-- scan the QR code using your expo app (make sure its the Tunner url)
+- scan the QR code from the Expo DevTools, using your expo app (make sure its the Tunnel url)
 - this will download the Wallet app to your mobile device 
   
 ## Pre-requisites for the Wallet App
