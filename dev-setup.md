@@ -7,7 +7,7 @@ Table of Contents
   - [Run the App on a mobile device](#run-the-app-on-a-mobile-device)
   - [Working with the Endpoints](#working-with-the-endpoints)
   - [local setup (less preferred)](#local-setup-less-preferred)
-    - [Pre-requisites for the Wallet App](#pre-requisites-for-the-wallet-app)
+  - [Pre-requisites for the Wallet App](#pre-requisites-for-the-wallet-app)
 
 
 
@@ -66,7 +66,7 @@ This will start the server and SSR (server-side rendered) the demo client
 - run tests (if no changes have happened in the code): `ENVIRONMENT=test npm test`
 - run tests (if changes has happened in the service): `npm run build && ENVIRONMENT=test npm test`
 
-### Pre-requisites for the Wallet App
+## Pre-requisites for the Wallet App
 
 1. Install XCode iOS tools
 
