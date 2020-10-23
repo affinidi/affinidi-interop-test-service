@@ -66,8 +66,8 @@ This will start the server and SSR (server-side rendered) the demo client
 
 ## Run the App on a mobile device
 - download the expo app on your mobile device
-- scan the QR code using your expo app
-- this will download the app to your mobile device 
+- scan the QR code using your expo app (make sure its the Tunner url)
+- this will download the Wallet app to your mobile device 
   
 
 ## Working with the Endpoints
