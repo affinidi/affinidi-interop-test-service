@@ -23,8 +23,7 @@ The Interop Service is a set of server (REST API) and client applications. Demo 
 
 ## Environment Variables
 - create env file: `cp .env.example .env`
-- Internal Affinidi Devs: copy the file contents from 1Password under the note `Interop Service Secrets`
-- 3rd party Devs: Join Affinidi slack at `affinidicommunity.slack.com` and ask a friendly engineer in the channel `#open-source-dev` for secrets
+
 
 ## Setup
 - to start the services, run one of the following docker command, as needed
