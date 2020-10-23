@@ -4,7 +4,7 @@ Table of Contents
   - [Environment Variables](#environment-variables)
   - [Setup](#setup)
   - [Launch the apps](#launch-the-apps)
-  - [Run the App on a mobile device](#run-the-app-on-a-mobile-device)
+  - [Run the Wallet App on a mobile device](#run-the-wallet-app-on-a-mobile-device)
   - [Working with the Endpoints](#working-with-the-endpoints)
   - [local setup (less preferred)](#local-setup-less-preferred)
   - [Pre-requisites for the Wallet App](#pre-requisites-for-the-wallet-app)
@@ -48,7 +48,7 @@ The Interop Service is a set of server (REST API) and client applications. Demo 
   - http://localhost:3000 (for Demo Web Client in warm-reload setting)
 
 
-## Run the App on a mobile device
+## Run the Wallet App on a mobile device
 - download the expo app on your mobile device
 - scan the QR code using your expo app (make sure its the Tunner url)
 - this will download the Wallet app to your mobile device 
