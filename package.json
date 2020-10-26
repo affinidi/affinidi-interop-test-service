@@ -19,7 +19,7 @@
     "test": "lerna run test",
     "test:coverage": "lerna run test:coverage",
     "test:coverage:codeclimate": "lerna run test:coverage:codeclimate",
-    "interop:docker": "npm run lint:fix && docker system prune -a && docker-compose up --build",
+    "interop:docker": "npm run lint:fix && docker system prune -a --volumes && docker-compose up",
     "test:integration": "lerna run test:integration",
     "exec": "lerna exec",
     "list-packages": "lerna list --json",

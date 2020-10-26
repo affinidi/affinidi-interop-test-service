@@ -9,8 +9,8 @@ Table of Contents
 - [Welcome To the Affinidi Interop Service](#welcome-to-the-affinidi-interop-service)
 - [Server](#server)
 - [Clients](#clients)
-  - [Issuer](#issuer)
-  - [Wallet](#wallet)
+  - [Demo Web Client](#demo-web-client)
+  - [Wallet App](#wallet-app)
 - [Setup](#setup)
 
 # Description
@@ -22,7 +22,7 @@ The Interop Service is a set of server and client applications describe in detai
 The purpose of this Service is two-fold:
 - to provide access to the Affiniti Platform via the open source REST API ([Server](#server)) which abstracts away the details of using an SDK.
   - this API can be used by 3rd parties, such as developers and organizations who want to build wallet clients or verifier and issuer services 
-- to help onboard 3rd party development teams, and demonstrate (using the [Issuer](#issuer) client and [Wallet](#wallet) mobile App) the different use cases and flows needed to perform most basic functions, such as:
+- to help onboard 3rd party development teams, and demonstrate (using the [Demo Web Client](#demo-web-client) client and [Wallet](#wallet) mobile App) the different use cases and flows needed to perform most basic functions, such as:
   - checking if a Did is resolvable or VC/VP are verifiable
   - to request and claim VCs
   - to share VPs
@@ -119,21 +119,21 @@ Endpoints for Building Flows
 
 
 # Clients
-## Issuer
-- The Issuer client is a React App which allows interacting with the endpoints on the Server side, and to: 
+## Demo Web Client
+- This web app is a React App which allows interacting with the endpoints on the Server side, and to: 
+  - simulate the Issuer and Verifier clients
   - check if a Did is resolvable, 
-  - to demonstrate flows such as VC Claiming
+  - to demonstrate flows such as VC Claiming and VP sharing
 
-- Access the Issuer at https://affinidi-interop-test-service.prod.affinity-project.org
+- Access the Demo Web App at https://affinidi-interop-test-service.prod.affinity-project.org
 
 
-## Wallet
-The Wallet client is an Expo React Native App which allows an end user to: 
-- request and claim a VC by scanning a QR code
-- request and share a VP by scanning a QR code
+## Wallet App
+The Wallet app is an Expo React Native App which allows an end user to: 
+- request and claim a VC from the Issuer by scanning a QR code
+- share a VP with a Verifier by scanning a QR code
 
 
 
 # Setup
-- Please check this for [internal affinidi development](./docs/affinity-dev-setup.md)
-- Please check this for [open-source development](./docs/external-dev-setup.md)
+- Please check [Local Setup and Development](./dev-setup.md)
