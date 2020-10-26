@@ -1,6 +1,7 @@
 version: "3"
 
 services:
+  # Interop Server and statically served Web Client 
   server:
     container_name: interop-server
     build: 
@@ -18,6 +19,7 @@ services:
       - 4000:4000
 
 
+  # Web Client with warm re-load (for development purposes)
   web-client:
     container_name: interop-web-client
     build: 
@@ -28,9 +30,9 @@ services:
     depends_on: 
       - server
     environment:
-      - NODE_ENV=dev   
+      - NODE_ENV=dev  
+      - CI=true  
       - REACT_APP_ENVIRONMENT=local  
-      - CI=true 
       - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./apps/issuer:/web/
@@ -39,7 +41,7 @@ services:
       - 3000:3000
       - 35729:35729 # websocket for warm-reload
 
-
+  # Wallet Client with hot re-load
   wallet-client:
     container_name: interop-wallet-client
     build: 
