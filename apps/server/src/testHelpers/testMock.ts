@@ -170,4 +170,4 @@ export const suppliedCredentials = [{
 }]
 
 // Other objects
-export const didElem = process.env.DID_ELEM
+export const didElem = process.env.DID_ELEM.replace(/'/g, '')
