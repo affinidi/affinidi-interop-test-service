@@ -20,15 +20,15 @@ const encryptedSeedElem = process.env.ENCRYPTED_SEED_ELEM
 
 export const getOptionsForEnvironment = (environment = ''): any => {
   const env = environment || 'staging'
-  baseUrl = `http://affinidi-interop-test-service.${environment}.affinity-project.org/api/v1/interop`
+  baseUrl = `http://affinidi-interop-test-service.${environment}.affinity-project.org/v1`
 
   switch (environment) {
     case 'test':
-      baseUrl = `http://localhost:${PORT}/api/v1/interop`
+      baseUrl = `http://localhost:${PORT}/v1`
       break
 
     case 'local':
-      baseUrl = `${process.env.NGROK_ENDPOINT}/api/v1/interop`
+      baseUrl = `${process.env.NGROK_ENDPOINT}/v1`
       break
 
     case 'dev':
