@@ -38,6 +38,7 @@ export const getOptionsForEnvironment = (environment = ''): any => {
       break
 
     case 'prod':
+      baseUrl = 'https://api.affinidi.com/interop/v1/'
       registryUrl = PROD_REGISTRY_URL
       keyStorageUrl = PROD_KEY_STORAGE_URL
       break
