@@ -1,7 +1,7 @@
 {
   "swagger": {
     "outputDirectory": "./src",
-    "basePath": "/api/v1",
+    "basePath": "/v1",
     "entryFile": "./src/index.ts",
     "specVersion": 3,
     "noImplicitAdditionalProperties": "silently-remove-extras",
@@ -13,7 +13,7 @@
   },
   "routes": {
     "routesDir": "./src/routes",
-    "basePath": "/api/v1",
+    "basePath": "/v1",
     "entryFile": "./src/index.ts",
     "controllerPathGlobs": [
       "./**/*.controller.ts"
