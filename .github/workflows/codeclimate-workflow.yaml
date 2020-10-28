@@ -24,22 +24,16 @@ jobs:
 
       - name:  Install dependencies
         run: npm ci && npm run bootstrap
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
 
       - name:  Check licenses
         run: npm run checkLicenses
 
       - name:  Build
-        run: npm run build
-        env:
-          INTEROP_SECRETS: ${{secrets.INTEROP_SECRETS}}                   
+        run: npm run build                
 
       - uses: paambaati/codeclimate-action@v2.6.0
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
-          INTEROP_SECRETS: ${{secrets.INTEROP_SECRETS}}
           HOST: localhost
           REVOCATION_LIST_LENGTH: 1
         with:
@@ -50,5 +44,4 @@ jobs:
             $GITHUB_WORKSPACE/tmp/cc-test-reporter sum-coverage $GITHUB_WORKSPACE/tmp/codeclimate.*.json -p $(ls -1q $GITHUB_WORKSPACE/tmp/codeclimate.*.json | wc -l) -d -o tmp/codeclimate.total.json
             $GITHUB_WORKSPACE/tmp/cc-test-reporter upload-coverage -i $GITHUB_WORKSPACE/tmp/codeclimate.total.json
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
