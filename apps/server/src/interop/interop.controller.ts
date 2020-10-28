@@ -21,7 +21,7 @@ import {
 } from './interop.dto'
 import { logger } from '../shared/logger'
 
-@Route('interop')
+@Route('')
 @Tags('interop')
 export class InteropController extends Controller {
   @SuccessResponse(200, 'Success')

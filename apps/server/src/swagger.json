@@ -412,7 +412,7 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/interop/did-is-resolvable": {
+		"/did-is-resolvable": {
 			"post": {
 				"operationId": "DidIsResolvable",
 				"responses": {
@@ -463,7 +463,7 @@
 				}
 			}
 		},
-		"/interop/vc-is-verifiable": {
+		"/vc-is-verifiable": {
 			"post": {
 				"operationId": "VcIsVerifiable",
 				"responses": {
@@ -504,7 +504,7 @@
 				}
 			}
 		},
-		"/interop/offer-request-token": {
+		"/offer-request-token": {
 			"post": {
 				"operationId": "GenerateOfferRequestToken",
 				"responses": {
@@ -545,7 +545,7 @@
 				}
 			}
 		},
-		"/interop/offer-request-token/{uuid}": {
+		"/offer-request-token/{uuid}": {
 			"get": {
 				"operationId": "GetOfferRequestToken",
 				"responses": {
@@ -586,7 +586,7 @@
 				]
 			}
 		},
-		"/interop/sign-credentials": {
+		"/sign-credentials": {
 			"post": {
 				"operationId": "GetSignedCredential",
 				"responses": {
@@ -627,7 +627,7 @@
 				}
 			}
 		},
-		"/interop/vp-is-verifiable": {
+		"/vp-is-verifiable": {
 			"post": {
 				"operationId": "VpIsVerifiable",
 				"responses": {
@@ -668,7 +668,7 @@
 				}
 			}
 		},
-		"/interop/presentation-challenge": {
+		"/presentation-challenge": {
 			"post": {
 				"operationId": "GeneratePresentationChallenge",
 				"responses": {
@@ -709,7 +709,7 @@
 				}
 			}
 		},
-		"/interop/presentation-challenge/{uuid}": {
+		"/presentation-challenge/{uuid}": {
 			"get": {
 				"operationId": "GetPresentationChallenge",
 				"responses": {
@@ -750,7 +750,7 @@
 				]
 			}
 		},
-		"/interop/verify-presentation": {
+		"/verify-presentation": {
 			"post": {
 				"operationId": "VerifyPresentation",
 				"responses": {
@@ -791,7 +791,7 @@
 				}
 			}
 		},
-		"/interop/is-alive": {
+		"/is-alive": {
 			"get": {
 				"operationId": "IsAlive",
 				"responses": {
@@ -817,7 +817,7 @@
 	},
 	"servers": [
 		{
-			"url": "/api/v1"
+			"url": "/v1"
 		}
 	]
 }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const interopApi = axios.create({
-	baseURL: '/api/v1/interop/'
+	baseURL: '/v1/'
 });
 
 export default interopApi

@@ -20,15 +20,15 @@ const encryptedSeedElem = process.env.ENCRYPTED_SEED_ELEM
 
 export const getOptionsForEnvironment = (environment = ''): any => {
   const env = environment || 'staging'
-  baseUrl = `http://affinidi-interop-test-service.${environment}.affinity-project.org/api/v1/interop`
+  baseUrl = `http://affinidi-interop-test-service.${environment}.affinity-project.org/v1`
 
   switch (environment) {
     case 'test':
-      baseUrl = `http://localhost:${PORT}/api/v1/interop`
+      baseUrl = `http://localhost:${PORT}/v1`
       break
 
     case 'local':
-      baseUrl = `${process.env.NGROK_ENDPOINT}/api/v1/interop`
+      baseUrl = `${process.env.NGROK_ENDPOINT}/v1`
       break
 
     case 'dev':
@@ -38,6 +38,7 @@ export const getOptionsForEnvironment = (environment = ''): any => {
       break
 
     case 'prod':
+      baseUrl = 'https://api.affinidi.com/interop/v1/'
       registryUrl = PROD_REGISTRY_URL
       keyStorageUrl = PROD_KEY_STORAGE_URL
       break
@@ -48,7 +49,7 @@ export const getOptionsForEnvironment = (environment = ''): any => {
 
       break
   }
-
+  logger.info('getOptionsForEnvironment: environment: ', environment)
   logger.info('getOptionsForEnvironment: baseUrl: ', baseUrl)
   return { env, registryUrl, keyStorageUrl, baseUrl, password, encryptedSeed, encryptedSeedJolo, encryptedSeedElem }
 }
