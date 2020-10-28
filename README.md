@@ -1,3 +1,7 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/481b7981696e1c996914/maintainability)](https://codeclimate.com/repos/5f999a40b4131c40db0075f6/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/481b7981696e1c996914/test_coverage)](https://codeclimate.com/repos/5f999a40b4131c40db0075f6/test_coverage)
+
+
 Table of Contents
 - [Description](#description)
 - [Motivation](#motivation)
