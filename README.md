@@ -1,5 +1,4 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/481b7981696e1c996914/maintainability)](https://codeclimate.com/repos/5f999a40b4131c40db0075f6/maintainability)
-
 [![Test Coverage](https://api.codeclimate.com/v1/badges/481b7981696e1c996914/test_coverage)](https://codeclimate.com/repos/5f999a40b4131c40db0075f6/test_coverage)
 
 
@@ -94,7 +93,7 @@ From the challenges faced by individuals in regard to freedom of movement, which
 The Interop Service is a set of server (REST API) and client (React/React Native) applications.
 
 # Server
-This service provides endpoints which facilitate interoprability with the Affinidi platform. For more details, check the API documentation at https://affinidi-interop-test-service.dev.affinity-project.org/api-docs/
+This service provides endpoints which facilitate interoprability with the Affinidi platform. For more details, check the API documentation at https://affinidi-interop-test-service.staging.affinity-project.org/api-docs/
 
 Currently, it is used by the Bloom Wallet to easily perform certain checks and build various flows, such as:
 
@@ -130,7 +129,7 @@ Endpoints for Building Flows
   - check if a Did is resolvable, 
   - to demonstrate flows such as VC Claiming and VP sharing
 
-- Access the Demo Web App at https://affinidi-interop-test-service.prod.affinity-project.org
+- Access the Demo Web App at https://api.affinidi.com/interop
 
 
 ## Wallet App
