@@ -349,6 +349,7 @@ describe('Integration Tests: Interop API Router', () => {
             .expect(200)
 
           const { tokenUrl } = response.body
+          console.log('tokenUrl: ', tokenUrl)
 
           if (tokenUrl) {
             const uuid = tokenUrl.split('/').pop()
