@@ -25,7 +25,7 @@ import { logger } from '../shared/logger'
 const { ENVIRONMENT, DID } = process.env
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000
 
-describe('Integration Tests: Interop API Router', () => {
+describe.only('Integration Tests: Interop API Router', () => {
   let request: supertest.SuperTest<supertest.Test>
   beforeEach(() => {
     request = supertest(app)
