@@ -329,7 +329,7 @@ class InteropService {
         }
       } else if (result.errors) {
         const errors = result.errors[0]
-        console.log("else errors")
+        console.log('else errors')
         console.log(errors)
         if (errors.stack && errors.stack.includes('Invalid Token')) {
           errorResponse.error = new OperationError('INT-33')
@@ -345,7 +345,7 @@ class InteropService {
       }
       return errorResponse
     } catch (e) {
-      console.log("catch error")
+      console.log('catch error')
       console.log(e)
       return {
         status:         false,
