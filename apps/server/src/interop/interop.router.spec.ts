@@ -25,7 +25,7 @@ import { logger } from '../shared/logger'
 const { ENVIRONMENT, DID } = process.env
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000
 
-describe.only('Integration Tests: Interop API Router', () => {
+describe('Integration Tests: Interop API Router', () => {
   let request: supertest.SuperTest<supertest.Test>
   beforeEach(() => {
     request = supertest(app)
@@ -335,7 +335,7 @@ describe.only('Integration Tests: Interop API Router', () => {
     })
   })
 
-  describe('POST /v1/verify-presentation', () => {
+  describe.skip('POST /v1/verify-presentation', () => {
     describe('Succcess Case:', () => {
       test('should respond with status true, when VP is verified', async () => {
         let vp
@@ -349,6 +349,7 @@ describe.only('Integration Tests: Interop API Router', () => {
             .expect(200)
 
           const { tokenUrl } = response.body
+          logger.debug('tokenUrl: ', tokenUrl)
 
           if (tokenUrl) {
             const uuid = tokenUrl.split('/').pop()
@@ -360,6 +361,8 @@ describe.only('Integration Tests: Interop API Router', () => {
               .expect(200)
 
             const presentationChallenge = response1.body.token
+            logger.debug('presentationChallenge')
+            // logger.debug(presentationChallenge)
 
             // step 3: retrieve VC from vault (this part is to be implemented by the Wallet app)
 
@@ -368,6 +371,9 @@ describe.only('Integration Tests: Interop API Router', () => {
             const options = {
               registryUrl
             }
+
+            logger.debug('registryUrl: ', registryUrl)
+
             const affinity = new Affinity(options)
             const vc = await affinity.signCredential(
               buildVCV1Unsigned({
@@ -389,17 +395,24 @@ describe.only('Integration Tests: Interop API Router', () => {
               password
             )
 
+            logger.debug('VC')
+            // logger.debug(vc)
+
             // step 4: generate VP (this part is to be implemented by the Wallet app)
             const walletCommonNetworkMember = new CoreNetwork(password, encryptedSeedElem, options)
             vp = await walletCommonNetworkMember.createPresentationFromChallenge(
               presentationChallenge,
               [vc],
               'domain')
+
+            logger.debug('VP')
+            // logger.debug(vp)
           } else {
             logger.info('Payload URL was not found')
           }
         } catch (e) {
-          logger.info(e.message)
+          logger.info('Catch Error')
+          logger.info(e)
         }
 
         // Test the endpoint

@@ -21,6 +21,8 @@ const encryptedSeedElem = process.env.ENCRYPTED_SEED_ELEM
 export const getOptionsForEnvironment = (environment = ''): any => {
   const env = environment || 'staging'
   baseUrl = `http://affinidi-interop-test-service.${environment}.affinity-project.org/v1`
+  registryUrl = STAGING_REGISTRY_URL
+  keyStorageUrl = STAGING_KEY_STORAGE_URL
 
   switch (environment) {
     case 'test':
@@ -41,12 +43,6 @@ export const getOptionsForEnvironment = (environment = ''): any => {
       baseUrl = 'https://api.affinidi.com/interop/v1/'
       registryUrl = PROD_REGISTRY_URL
       keyStorageUrl = PROD_KEY_STORAGE_URL
-      break
-
-    default:
-      registryUrl = STAGING_REGISTRY_URL
-      keyStorageUrl = STAGING_KEY_STORAGE_URL
-
       break
   }
   logger.info('getOptionsForEnvironment: environment: ', environment)
