@@ -335,7 +335,7 @@ describe('Integration Tests: Interop API Router', () => {
     })
   })
 
-  describe.only('POST /v1/verify-presentation', () => {
+  describe('POST /v1/verify-presentation', () => {
     describe('Succcess Case:', () => {
       test('should respond with status true, when VP is verified', async () => {
         let vp
@@ -349,7 +349,6 @@ describe('Integration Tests: Interop API Router', () => {
             .expect(200)
 
           const { tokenUrl } = response.body
-          console.log('tokenUrl: ', tokenUrl)
 
           if (tokenUrl) {
             const uuid = tokenUrl.split('/').pop()
@@ -369,8 +368,6 @@ describe('Integration Tests: Interop API Router', () => {
             const options = {
               registryUrl
             }
-            console.log('didEleme')
-            console.log(didElem)
             const affinity = new Affinity(options)
             const vc = await affinity.signCredential(
               buildVCV1Unsigned({
