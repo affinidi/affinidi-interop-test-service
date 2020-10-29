@@ -66,7 +66,11 @@ export const sdkUtils = {
   async verifyVP (input: InputVerifyPresentation): Promise<any> {
     logger.info('sdkUtils#verifyVP')
     const { vp } = input
-
-    return await commonNetworkMember.verifyPresentation(vp)
+console.log('sdkUtils:verifyVP: vp ')
+console.log(vp)
+    const x = await commonNetworkMember.verifyPresentation(vp)
+    console.log('sdkUtils:verifyVP: x')
+    console.log(x)
+    return x
   }
 }
