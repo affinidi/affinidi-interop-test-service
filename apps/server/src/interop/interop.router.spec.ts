@@ -369,7 +369,7 @@ describe('Integration Tests: Interop API Router', () => {
             const options = {
               registryUrl
             }
-            console.log("didEleme")
+            console.log('didEleme')
             console.log(didElem)
             const affinity = new Affinity(options)
             const vc = await affinity.signCredential(
