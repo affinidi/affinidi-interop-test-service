@@ -424,9 +424,9 @@ describe('Integration Tests: Interop API Router', () => {
           .post('/v1/verify-presentation')
           .set('Accept', 'application/json')
           .send(requestVerifyPresentation)
-          //.expect(200)
+          // .expect(200)
 
-        console.log('response') 
+        console.log('response')
         console.log(response.body)
         expect(response.body.status).toEqual(true)
       })
