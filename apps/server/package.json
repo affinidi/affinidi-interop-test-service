@@ -23,7 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "@affinidi/affinity-common-backend": "latest",
-    "@affinidi/common-lib": "latest",
+    "@affinidi/common": "latest",
     "@affinidi/wallet-core-sdk": "latest",
     "@sentry/node": "^5.19.1",
     "@types/uuid": "^8.3.0",
@@ -61,6 +61,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.5",
     "jest": "^26.0.0",
+    "jest-environment-uint8array": "^1.0.0",
     "license-checker": "25.0.1",
     "nodemon": "^2.0.2",
     "pino-pretty": "^3.5.0",
@@ -70,6 +71,7 @@
     "typescript": "^3.9.7"
   },
   "jest": {
+    "testEnvironment": "jest-environment-uint8array",
     "setupFiles": [
       "./src/env.ts"
     ],
