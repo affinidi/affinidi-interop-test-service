@@ -16,7 +16,7 @@ import {
 import { InputVerifyPresentation } from './interop.dto'
 import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
 import { CommonNetworkMember as CoreNetwork } from '@affinidi/wallet-core-sdk'
-import { Affinity } from '@affinidi/common'
+import { Affinity } from '@affinidi/common-lib'
 /* eslint-disable id-match */
 import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinidi/vc-common'
 import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinidi/vc-data'

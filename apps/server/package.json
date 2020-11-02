@@ -23,6 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "@affinidi/affinity-common-backend": "latest",
+    "@affinidi/common-lib": "latest",
     "@affinidi/common": "latest",
     "@affinidi/wallet-core-sdk": "latest",
     "@sentry/node": "^5.19.1",
