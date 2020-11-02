@@ -335,7 +335,7 @@ describe('Integration Tests: Interop API Router', () => {
     })
   })
 
-  describe.only('POST /v1/verify-presentation', () => {
+  describe('POST /v1/verify-presentation', () => {
     describe('Succcess Case:', () => {
       test('should respond with status true, when VP is verified', async () => {
         let vp
