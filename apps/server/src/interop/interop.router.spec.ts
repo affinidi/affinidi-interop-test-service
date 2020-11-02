@@ -335,7 +335,7 @@ describe('Integration Tests: Interop API Router', () => {
     })
   })
 
-  describe('POST /v1/verify-presentation', () => {
+  describe.skip('POST /v1/verify-presentation', () => {
     describe('Succcess Case:', () => {
       test('should respond with status true, when VP is verified', async () => {
         let vp
@@ -369,6 +369,8 @@ describe('Integration Tests: Interop API Router', () => {
               registryUrl
             }
 
+            console.log('options')
+            console.log(options)
             const affinity = new Affinity(options)
             const vc = await affinity.signCredential(
               buildVCV1Unsigned({

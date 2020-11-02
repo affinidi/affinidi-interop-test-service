@@ -33,7 +33,7 @@ import OperationError from '../OperationError'
 const sandbox = createSandbox()
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
 
-describe.skip('Unit Tests: Interop API Controller', () => {
+describe('Unit Tests: Interop API Controller', () => {
   let controller: InteropController
 
   describe('Did Methods', () => {
