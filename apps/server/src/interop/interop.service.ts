@@ -331,7 +331,7 @@ class InteropService {
         const errors = result.errors[0]
 
         console.log('else errors')
-        console.log(errors)
+        console.log(JSON.parse(JSON.stringify(errors)))
 
         if (errors.stack && errors.stack.includes('Invalid Token')) {
           errorResponse.error = new OperationError('INT-33')

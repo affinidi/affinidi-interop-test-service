@@ -39,7 +39,7 @@ const didDocument  = require('@affinidi/wallet-core-sdk/test/factory/didDocument
 const sandbox = createSandbox()
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
 
-describe('Unit Tests: Interop API interopService', () => {
+describe.skip('Unit Tests: Interop API interopService', () => {
   describe('Did Methods', () => {
     describe('#didIsResolvable()', () => {
       let getResolvableDidDocumentStub: sinon.SinonStub<[string], Promise<any>>
