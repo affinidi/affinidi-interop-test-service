@@ -347,7 +347,6 @@ class InteropService {
       }
       return errorResponse
     } catch (e) {
-
       console.log('catch e')
       console.log(e)
 
