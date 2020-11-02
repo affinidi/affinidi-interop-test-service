@@ -16,7 +16,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:coverage:codeclimate": "ENVIRONMENT=dev jest --coverage  && $GITHUB_WORKSPACE/tmp/cc-test-reporter format-coverage -t lcov -o $GITHUB_WORKSPACE/tmp/codeclimate.core.json coverage/lcov.info",
+    "test:coverage:codeclimate": "jest --coverage  && $GITHUB_WORKSPACE/tmp/cc-test-reporter format-coverage -t lcov -o $GITHUB_WORKSPACE/tmp/codeclimate.core.json coverage/lcov.info",
     "checkLicenses": "license-checker --production --failOn 'AGPL 3.0;LGPL 2.1'"
   },
   "author": "Afshan Aman <afshan@bloom.co>",
