@@ -335,7 +335,7 @@ describe('Integration Tests: Interop API Router', () => {
     })
   })
 
-  describe.skip('POST /v1/verify-presentation', () => {
+  describe.only('POST /v1/verify-presentation', () => {
     describe('Succcess Case:', () => {
       test('should respond with status true, when VP is verified', async () => {
         let vp
@@ -349,7 +349,6 @@ describe('Integration Tests: Interop API Router', () => {
             .expect(200)
 
           const { tokenUrl } = response.body
-          logger.debug('tokenUrl: ', tokenUrl)
 
           if (tokenUrl) {
             const uuid = tokenUrl.split('/').pop()
@@ -361,8 +360,6 @@ describe('Integration Tests: Interop API Router', () => {
               .expect(200)
 
             const presentationChallenge = response1.body.token
-            logger.debug('presentationChallenge')
-            // logger.debug(presentationChallenge)
 
             // step 3: retrieve VC from vault (this part is to be implemented by the Wallet app)
 
@@ -371,8 +368,6 @@ describe('Integration Tests: Interop API Router', () => {
             const options = {
               registryUrl
             }
-
-            logger.debug('registryUrl: ', registryUrl)
 
             const affinity = new Affinity(options)
             const vc = await affinity.signCredential(
@@ -395,9 +390,6 @@ describe('Integration Tests: Interop API Router', () => {
               password
             )
 
-            logger.debug('VC')
-            // logger.debug(vc)
-
             // step 4: generate VP (this part is to be implemented by the Wallet app)
             const walletCommonNetworkMember = new CoreNetwork(password, encryptedSeedElem, options)
             vp = await walletCommonNetworkMember.createPresentationFromChallenge(
@@ -405,8 +397,6 @@ describe('Integration Tests: Interop API Router', () => {
               [vc],
               'domain')
 
-            logger.debug('VP')
-            // logger.debug(vp)
           } else {
             logger.info('Payload URL was not found')
           }
