@@ -1,5 +1,6 @@
 import { CommonNetworkMember as CoreNetwork } from '@affinidi/wallet-core-sdk'
 import { Affinity } from '@affinidi/common-lib'
+// import { Affinidi } from '@affinidi/common'
 import { getOptionsForEnvironment }  from './getOptionsForEnvironment'
 
 import {
