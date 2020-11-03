@@ -128,6 +128,9 @@ class InteropService {
       if (e.code === 'COR-1' || e.code === 'COM-0') {
         errorResponse.httpStatusCode = 400
         errorResponse.error = new OperationError('INT-8')
+      } else if (e.code === 'ISS-7') {
+        errorResponse.httpStatusCode = 400
+        errorResponse.error = new OperationError('INT-70')
       } else {
         errorResponse.error = new OperationError('INT-51')
       }
@@ -273,6 +276,9 @@ class InteropService {
         errorResponse.error = new OperationError('INT-32')
       } else if (e.code === 'COR-0') { // the SDK could possibly return the 500 error (COR-0)
         errorResponse.error = new OperationError('INT-50')
+      } else if (e.code === 'VER-7') {
+        errorResponse.httpStatusCode = 400
+        errorResponse.error = new OperationError('INT-70')
       } else { // this service could possibly face internal server errors
         errorResponse.error = new OperationError('INT-51')
       }
@@ -330,10 +336,6 @@ class InteropService {
       } else if (result.errors) {
         const errors = result.errors[0]
 
-        console.log('else errors')
-        console.log(errors)
-        console.log(JSON.parse(JSON.stringify(errors)))
-
         if (errors.stack && errors.stack.includes('Invalid Token')) {
           errorResponse.error = new OperationError('INT-33')
         } else if ((typeof (errors) === 'string') && errors.includes('Invalid signature')) {
@@ -348,9 +350,6 @@ class InteropService {
       }
       return errorResponse
     } catch (e) {
-      console.log('catch errors e')
-      console.log(e)
-
       return {
         status:         false,
         httpStatusCode: e.httpStatusCode,
