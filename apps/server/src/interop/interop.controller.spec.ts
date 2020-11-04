@@ -227,19 +227,7 @@ describe('Unit Tests: Interop API Controller', () => {
 
       describe('Success Case', () => {
         test('should return status true and token, when single credential is provided as valid array', async () => {
-          const mockTokenUuid = '11bf5b37-e0b8-4200-8dcf-dc8c4aefc000'
-          // mock service response for generateOfferRequestToken()
-          const offerRequestTokenMock: any = {
-            status:       true,
-            message:      'Success: Offer Request Token is attached',
-            tokenUrl:     `http://localhost:${process.env.PORT}/offer-request-token/${mockTokenUuid}`
-          }
-          generateOfferRequestTokenStub.resolves(offerRequestTokenMock)
-
-          // save a paylod first in the Map
-          const { tokenUrl } = await controller.generateOfferRequestToken(requestOfferToken)
-
-          const uuid = tokenUrl.split('/').pop()
+          const uuid = '11bf5b37-e0b8-4200-8dcf-dc8c4aefc000'
 
           // mock service response getOfferRequestToken()
           const serviceResponseMock: OutputGetOfferRequestToken = {
@@ -420,19 +408,7 @@ describe('Unit Tests: Interop API Controller', () => {
 
       describe('Success Case', () => {
         test('should return status true and token, when single credential is provided as valid array', async () => {
-          const mockTokenUuid = '11bf5b37-e008-5300-8dcf-dc8c4aefc000'
-          // mock service response for generatePresentationChallenge()
-          const presentationChallengeMock: any = {
-            status:       true,
-            message:      'Success: Offer Request Token is attached',
-            tokenUrl:     `http://localhost:${process.env.PORT}/presentation-challenge/${mockTokenUuid}`
-          }
-          generatePresentationChallengeStub.resolves(presentationChallengeMock)
-
-          // save a paylod first in the Map
-          const { tokenUrl } = await controller.generatePresentationChallenge(requestPresentationChallenge)
-
-          const uuid = tokenUrl.split('/').pop()
+          const uuid = '11bf5b37-e008-5300-8dcf-dc8c4aefc000'
 
           // mock service response
           const serviceResponseMock: OutputGetPresentationChallenge = {
