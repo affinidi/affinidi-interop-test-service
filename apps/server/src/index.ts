@@ -28,12 +28,12 @@ app.use(expressLogger)
 app.use(bodyParser.json({ limit: '10mb' }))
 
 // Server React App
-if (process.env.ENVIRONMENT === 'local'){
+if (process.env.ENVIRONMENT === 'local') {
   app.use(express.static(path.join(__dirname, '../../issuer/build')))
   app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '../../issuer/build', 'index.html'))
   })
-}else {
+} else {
   app.use(express.static(path.join(__dirname, './client/build')))
   app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, './client/build', 'index.html'))
