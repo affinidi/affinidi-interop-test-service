@@ -25,7 +25,7 @@
     "@affinidi/affinity-common-backend": "^1.0.6",
     "@affinidi/common": "^1.1.2",
     "@affinidi/vc-common": "^1.1.1",
-    "@affinidi/wallet-core-sdk": "2.0.2",
+    "@affinidi/wallet-core-sdk": "^3.0.2",
     "@sentry/node": "^5.19.1",
     "@types/uuid": "^8.3.0",
     "body-parser": "^1.19.0",
