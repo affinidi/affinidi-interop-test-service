@@ -22,11 +22,12 @@ ENV ENVIRONMENT ${ENVIRONMENT}
 WORKDIR /apps
 COPY ./apps/server/package*.json /apps/server/
 COPY ./apps/server /apps/server/
-COPY --from=client-build /web /apps/server/client/
 
 WORKDIR /apps/server
 RUN npm install --silent
 RUN npm run build
+
+COPY --from=web-build /web/build/ /apps/server/dist/public/
 
 ENV NODE_ENV production  
 

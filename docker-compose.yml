@@ -24,7 +24,7 @@ services:
     container_name: interop-server
     build: 
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.local
     env_file: .env
     environment: # override the variables from the .env file
       - ENVIRONMENT=local  

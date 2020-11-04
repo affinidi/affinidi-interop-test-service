@@ -27,19 +27,6 @@ app.use(Sentry.Handlers.requestHandler())
 app.use(expressLogger)
 app.use(bodyParser.json({ limit: '10mb' }))
 
-// Server React App
-if (process.env.ENVIRONMENT === 'local') {
-  app.use(express.static(path.join(__dirname, '../../issuer/build')))
-  app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '../../issuer/build', 'index.html'))
-  })
-} else {
-  app.use(express.static(path.join(__dirname, './client/build')))
-  app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, './client/build', 'index.html'))
-  })
-}
-
 // Analytics Metrics
 if (process.env.NODE_ENV !== 'test') {
   app.use(
@@ -63,5 +50,18 @@ RegisterRoutes(app)
 
 // The error handler must be before any other error middleware and after all controllers
 app.use(Sentry.Handlers.errorHandler())
+
+// Server React App
+if (process.env.ENVIRONMENT === 'local') {
+  app.use(express.static(path.join(__dirname, '../../issuer/build')))
+  app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../../issuer/build', 'index.html'))
+  })
+} else {
+  app.use(express.static(path.join(__dirname, './public')))
+  app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, './public', 'index.html'))
+  })
+}
 
 export default app
