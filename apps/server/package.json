@@ -22,8 +22,9 @@
   "author": "Afshan Aman <afshan@bloom.co>",
   "license": "ISC",
   "dependencies": {
-    "@affinidi/affinity-common-backend": "latest",
-    "@affinidi/common-lib": "latest",
+    "@affinidi/affinity-common-backend": "^1.0.6",
+    "@affinidi/common": "^1.1.2",
+    "@affinidi/vc-common": "^1.1.1",
     "@affinidi/wallet-core-sdk": "2.0.2",
     "@sentry/node": "^5.19.1",
     "@types/uuid": "^8.3.0",
