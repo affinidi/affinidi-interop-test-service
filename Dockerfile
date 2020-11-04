@@ -27,7 +27,7 @@ WORKDIR /apps/server
 RUN npm install --silent
 RUN npm run build
 
-COPY --from=web-build /web/build/ /apps/server/dist/public/
+COPY --from=client-build /web/build/ /apps/server/dist/public/
 
 ENV NODE_ENV production  
 

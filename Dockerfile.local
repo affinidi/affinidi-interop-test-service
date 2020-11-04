@@ -1,5 +1,5 @@
 # Build the Demo Web Client
-FROM node:12 AS web-build
+FROM node:12 AS client-build
 
 WORKDIR /web
 COPY ./apps/issuer/package*.json ./
@@ -15,7 +15,7 @@ FROM node:12
 WORKDIR /apps
 COPY ./apps/server/package*.json /apps/server/
 COPY ./apps/server /apps/server/
-COPY --from=web-build /web /apps/issuer/
+COPY --from=client-build /web /apps/issuer/
 
 WORKDIR /apps/server
 RUN npm install --silent
