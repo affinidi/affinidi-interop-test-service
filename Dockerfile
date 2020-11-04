@@ -1,12 +1,14 @@
 # Build the Demo Web Client
 FROM node:12 AS client-build
 
+ARG PUBLIC_URL
+
 WORKDIR /web
 COPY ./apps/issuer/package*.json ./
 RUN npm install --silent
 COPY ./apps/issuer .
 
-RUN npm run build
+RUN PUBLIC_URL=${PUBLIC_URL} npm run build
 
 
 # Build the server, and serve the web client statically
