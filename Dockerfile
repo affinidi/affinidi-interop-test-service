@@ -14,6 +14,7 @@ FROM node:12 AS server-build
 
 # Variables which are coming from the docker build command (e.g github secrets, or docker-compose)
 ARG ENVIRONMENT
+ARG PUBLIC_URL
 
 # Environment variables for the Server
 ENV PORT 3000
@@ -25,7 +26,7 @@ COPY ./apps/server /apps/server/
 
 WORKDIR /apps/server
 RUN npm install --silent
-RUN npm run build
+RUN PUBLIC_URL=${PUBLIC_URL} npm run build
 
 COPY --from=client-build /web/build/ /apps/server/dist/public/
 

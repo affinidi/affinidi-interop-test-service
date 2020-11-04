@@ -47,6 +47,6 @@ export const getOptionsForEnvironment = (environment = ''): any => {
   }
   logger.info('getOptionsForEnvironment: environment: ', environment)
   logger.info('getOptionsForEnvironment: baseUrl: ', baseUrl)
-  logger.info('getOptionsForEnvironment: password: ', password)
+
   return { env, registryUrl, keyStorageUrl, baseUrl, password, encryptedSeed, encryptedSeedJolo, encryptedSeedElem }
 }
