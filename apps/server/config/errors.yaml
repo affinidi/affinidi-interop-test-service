@@ -60,7 +60,7 @@ errors:
     type: OperationError
     message: >-
       Expiry Date Error. Should be greater than current date.
-    httpStatusCode: 400           
+    httpStatusCode: 400         
     
 # 400 series VP related errors
   INT-30:
@@ -91,7 +91,7 @@ errors:
     type: OperationError
     message: >-
       Multiple Errors.
-    httpStatusCode: 400      
+    httpStatusCode: 400           
 
 # 500 series    
   INT-50:
@@ -104,6 +104,14 @@ errors:
     type: OperationError
     message: >-
       Internal Server Error.
-    httpStatusCode: 500         
+    httpStatusCode: 500    
+    
+
+# Common 400 series    
+  INT-70:
+    type: OperationError
+    message: >-
+      Authorization Error. API KEY not found.
+    httpStatusCode: 400             
 
     
