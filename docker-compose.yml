@@ -17,7 +17,7 @@ services:
       - ./apps/server:/server/
       - /server/node_modules
     ports:
-      - 3000:3000      
+      - 3000:3000  
 
   # Interop Server and statically served Web Client 
   server:
