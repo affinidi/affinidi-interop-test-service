@@ -28,11 +28,17 @@ app.use(expressLogger)
 app.use(bodyParser.json({ limit: '10mb' }))
 
 // Server React App
-// TODO: move the build folder into the server folder
-app.use(express.static(path.join(__dirname, '../../issuer/build')))
-app.get('/clients/issuer', function (req, res) {
-  res.sendFile(path.join(__dirname, '../../issuer/build', 'index.html'))
-})
+if (process.env.ENVIRONMENT === 'local') {
+  app.use(express.static(path.join(__dirname, '../../issuer/build')))
+  app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, '../../issuer/build', 'index.html'))
+  })
+} else {
+  app.use(express.static(path.join(__dirname, './client/build')))
+  app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, './client/build', 'index.html'))
+  })
+}
 
 // Analytics Metrics
 if (process.env.NODE_ENV !== 'test') {
