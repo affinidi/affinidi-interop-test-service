@@ -406,7 +406,6 @@
 	"info": {
 		"title": "@affinidi-interop-test-service/server",
 		"description": "Interoperability Testing Service for Affinidi sdk",
-		"version": "0.0.66",
 		"license": {
 			"name": "ISC"
 		}

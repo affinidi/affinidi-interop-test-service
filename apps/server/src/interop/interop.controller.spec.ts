@@ -211,10 +211,12 @@ describe('Unit Tests: Interop API Controller', () => {
     })
 
     describe('#getOfferRequestToken()', () => {
+      let generateOfferRequestTokenStub: sinon.SinonStub<[any], Promise<any>>
       let getOfferRequestTokenStub: sinon.SinonStub<[any], Promise<OutputGetOfferRequestToken>>
 
       beforeEach(() => {
         controller = new InteropController()
+        generateOfferRequestTokenStub = sandbox.stub(interopService, 'generateOfferRequestToken')
         getOfferRequestTokenStub = sandbox.stub(interopService, 'getOfferRequestToken')
       })
 
@@ -225,12 +227,9 @@ describe('Unit Tests: Interop API Controller', () => {
 
       describe('Success Case', () => {
         test('should return status true and token, when single credential is provided as valid array', async () => {
-          // save a paylod first in the Map
-          const { tokenUrl } = await controller.generateOfferRequestToken(requestOfferToken)
+          const uuid = '11bf5b37-e0b8-4200-8dcf-dc8c4aefc000'
 
-          const uuid = tokenUrl.split('/').pop()
-
-          // mock service response
+          // mock service response getOfferRequestToken()
           const serviceResponseMock: OutputGetOfferRequestToken = {
             status:       true,
             message:      'Success: Offer Request Token is attached',
@@ -393,10 +392,12 @@ describe('Unit Tests: Interop API Controller', () => {
     // })
 
     describe('#getPresentationChallenge()', () => {
+      let generatePresentationChallengeStub: sinon.SinonStub<[any], Promise<any>>
       let getPresentationChallengeStub: sinon.SinonStub<[any], Promise<OutputGetPresentationChallenge>>
 
       beforeEach(() => {
         controller = new InteropController()
+        generatePresentationChallengeStub = sandbox.stub(interopService, 'generatePresentationChallenge')
         getPresentationChallengeStub = sandbox.stub(interopService, 'getPresentationChallenge')
       })
 
@@ -407,10 +408,7 @@ describe('Unit Tests: Interop API Controller', () => {
 
       describe('Success Case', () => {
         test('should return status true and token, when single credential is provided as valid array', async () => {
-          // save a paylod first in the Map
-          const { tokenUrl } = await controller.generatePresentationChallenge(requestPresentationChallenge)
-
-          const uuid = tokenUrl.split('/').pop()
+          const uuid = '11bf5b37-e008-5300-8dcf-dc8c4aefc000'
 
           // mock service response
           const serviceResponseMock: OutputGetPresentationChallenge = {
