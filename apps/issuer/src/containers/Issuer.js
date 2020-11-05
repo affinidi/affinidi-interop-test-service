@@ -26,12 +26,18 @@ export default class Issuer extends Component {
 
 		const endpoint = 'offer-request-token'
 		interopApi.post(endpoint, input)
-			.then((res) => {							
-				this.setState({		
-					QRCValue: {			
-						tokenUrl: res.data.tokenUrl		
-					}			
-				})					
+			.then((res) => {
+				
+				if (res.data.tokenUrl){
+					this.setState({		
+						QRCValue: {			
+							tokenUrl: res.data.tokenUrl		
+						}			
+					})
+				} else if (res.data.error) {
+					this.setState({error: res.data.error.message})
+				}
+					
 			}).catch((error)=> {
 				this.setState({error: error.response.data.message})
 			})
@@ -75,6 +81,14 @@ export default class Issuer extends Component {
 									/>
 								</div>
 								: ''}
+
+							{this.state.error ? (
+								<div className="form-group">							
+									<span>Error</span>
+									<p>{this.state.error}</p>
+								</div>
+							): (<span></span>)}
+
 						</div>  
 					</Col>
 				</Row>
