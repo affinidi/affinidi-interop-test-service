@@ -19,13 +19,13 @@ const SimpleMethods = () => {
 					<Col>					
 						<Nav fill variant="tabs" activeKey={activeTab} onSelect={(newTab) => setActiveTab(newTab)} >
 							<Nav.Item>
-								<Nav.Link as={NavLink} to="/checks/did" eventKey={"did"}>Did Methods</Nav.Link>
+								<Nav.Link as={NavLink} to="/interop/checks/did" eventKey={"did"}>Did Methods</Nav.Link>
 							</Nav.Item>
 							<Nav.Item>
-								<Nav.Link as={NavLink} to="/checks/vc" eventKey={"vc"}>VC Methods</Nav.Link>
+								<Nav.Link as={NavLink} to="/interop/checks/vc" eventKey={"vc"}>VC Methods</Nav.Link>
 							</Nav.Item>
 							<Nav.Item>
-								<Nav.Link as={NavLink} to="/checks/vp" eventKey={"vp"}>VP Methods</Nav.Link>
+								<Nav.Link as={NavLink} to="/interop/checks/vp" eventKey={"vp"}>VP Methods</Nav.Link>
 							</Nav.Item>
 						</Nav>		
 					</Col>
@@ -34,9 +34,9 @@ const SimpleMethods = () => {
 				<Row>
 					<Col>
 						<Switch>  					
-							<Route path='/checks/did' component={DidComponent} />
-							<Route path="/checks/vc" component={VcComponent} />
-							<Route path="/checks/vp" component={VpComponent} />							
+							<Route path='/interop/checks/did' component={DidComponent} />
+							<Route path="/interop/checks/vc" component={VcComponent} />
+							<Route path="/interop/checks/vp" component={VpComponent} />							
 						</Switch>					
 					</Col>
 

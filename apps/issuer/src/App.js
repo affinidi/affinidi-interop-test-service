@@ -21,7 +21,7 @@ export default function App() {
 							<Nav.Link as={NavLink} to="/interop" ><img src={logo} className="Affinidi-logo" alt="logo" /></Nav.Link>
 						</Nav.Item>
 
-						<Nav defaultActiveKey="/" as="ul">
+						<Nav defaultActiveKey="/interop" as="ul">
 							<Nav.Item as="li">
 								<Nav.Link as={NavLink} to="/interop/checks" >Simple Checks</Nav.Link>
 							</Nav.Item>
@@ -36,7 +36,7 @@ export default function App() {
 
 					<Col className="right-pane">
 						<Switch>  
-							<Route exact path="/"/>  
+							<Route exact path="/interop"/>  
 							<Route path='/interop/checks' component={SimpleMethods} />
 							<Route path="/interop/issuer" component={Issuer} />
 							<Route path="/interop/verifier" component={Verifier} />							
