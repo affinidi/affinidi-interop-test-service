@@ -93,7 +93,7 @@ From the challenges faced by individuals in regard to freedom of movement, which
 The Interop Service is a set of server (REST API) and client (React/React Native) applications.
 
 # Server
-This service provides endpoints which facilitate interoprability with the Affinidi platform. For more details, check the API documentation at https://api.staging.affinity-project.org/api-docs/
+This service provides endpoints which facilitate interoprability with the Affinidi platform. For more details, check the API documentation at https://api.staging.affinity-project.org/interop/api-docs/
 
 Currently, it is used by the Bloom Wallet to easily perform certain checks and build various flows, such as:
 
