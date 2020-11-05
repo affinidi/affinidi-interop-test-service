@@ -27,13 +27,6 @@ app.use(Sentry.Handlers.requestHandler())
 app.use(expressLogger)
 app.use(bodyParser.json({ limit: '10mb' }))
 
-// Server React App
-// TODO: move the build folder into the server folder
-app.use(express.static(path.join(__dirname, '../../issuer/build')))
-app.get('/clients/issuer', function (req, res) {
-  res.sendFile(path.join(__dirname, '../../issuer/build', 'index.html'))
-})
-
 // Analytics Metrics
 if (process.env.NODE_ENV !== 'test') {
   app.use(
@@ -47,9 +40,9 @@ if (process.env.NODE_ENV !== 'test') {
 
 // Swagger Docs
 if (process.env.ENVIRONMENT !== 'prod') {
-  app.use('/swagger', express.static(path.join(__dirname, './swagger.json')))
-  app.use('/api-docs', swaggerUi.serve)
-  app.get('/api-docs', swaggerUi.setup(data))
+  app.use('/v1/api/swagger', express.static(path.join(__dirname, './swagger.json')))
+  app.use('/v1/api-docs', swaggerUi.serve)
+  app.get('/v1/api-docs', swaggerUi.setup(data))
 }
 
 // Routes
@@ -57,5 +50,18 @@ RegisterRoutes(app)
 
 // The error handler must be before any other error middleware and after all controllers
 app.use(Sentry.Handlers.errorHandler())
+
+// Server React App
+if (process.env.ENVIRONMENT === 'local') {
+  app.use(express.static(path.join(__dirname, '../../issuer/build')))
+  app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../../issuer/build', 'index.html'))
+  })
+} else {
+  app.use(express.static(path.join(__dirname, './public')))
+  app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, './public', 'index.html'))
+  })
+}
 
 export default app

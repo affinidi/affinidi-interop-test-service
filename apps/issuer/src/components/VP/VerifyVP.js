@@ -65,7 +65,7 @@ export default class VerifyVP extends Component {
 
 					{this.state.error ? (
 						<div className="form-group">
-							<span>Error</span>
+							<span><b>Error</b></span>
 							<p>{this.state.error}</p>
 						</div>
 					): ''}

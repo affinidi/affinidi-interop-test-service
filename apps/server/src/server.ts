@@ -5,7 +5,7 @@ import ngrok from 'ngrok'
 const { PORT, ENVIRONMENT } = process.env
 
 app.listen(PORT, () => {
-  logger.info(`Interop Server is listening on ${PORT}`)
+  logger.info(`Interop Server is listening on http://localhost:${PORT}`)
   logger.info('ENVIRONMENT: ', ENVIRONMENT)
   if (ENVIRONMENT === 'local') {
     (async () => {

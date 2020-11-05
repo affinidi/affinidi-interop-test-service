@@ -20,7 +20,7 @@ const encryptedSeedElem = process.env.ENCRYPTED_SEED_ELEM
 
 export const getOptionsForEnvironment = (environment = ''): any => {
   const env = environment || 'staging'
-  baseUrl = `http://affinidi-interop-test-service.${environment}.affinity-project.org/v1`
+  baseUrl = `https://api.${environment}.affinity-project.org/interop/v1`
   registryUrl = STAGING_REGISTRY_URL
   keyStorageUrl = STAGING_KEY_STORAGE_URL
 
@@ -47,6 +47,6 @@ export const getOptionsForEnvironment = (environment = ''): any => {
   }
   logger.info('getOptionsForEnvironment: environment: ', environment)
   logger.info('getOptionsForEnvironment: baseUrl: ', baseUrl)
-  logger.info('getOptionsForEnvironment: password: ', password)
+
   return { env, registryUrl, keyStorageUrl, baseUrl, password, encryptedSeed, encryptedSeedJolo, encryptedSeedElem }
 }

@@ -1,31 +1,36 @@
-FROM node:12
+# Build the Demo Web Client
+FROM node:12 AS client-build
+
+ARG PUBLIC_URL
+
+WORKDIR /web
+COPY ./apps/issuer/package*.json ./
+RUN npm install --silent
+COPY ./apps/issuer .
+
+RUN PUBLIC_URL=${PUBLIC_URL} npm run build
+
+
+# Build the server, and serve the web client statically
+FROM node:12 AS server-build
 
 # Variables which are coming from the docker build command (e.g github secrets, or docker-compose)
 ARG ENVIRONMENT
-ARG PUBLIC_URL
 
 # Environment variables for the Server
 ENV PORT 3000
 ENV ENVIRONMENT ${ENVIRONMENT}
 
-WORKDIR /usr/src/app
+WORKDIR /apps
+COPY ./apps/server/package*.json /apps/server/
+COPY ./apps/server /apps/server/
 
-RUN npm i lerna -g --loglevel notice
-COPY package.json .
-RUN npm install
+WORKDIR /apps/server
+RUN npm install --silent
+RUN npm run build
 
-COPY bin ./bin
-COPY apps/server ./apps/server
-COPY apps/issuer ./apps/issuer
-
-COPY lerna.json .
-RUN npm run bootstrap
-
-# build the server and issuer apps
-RUN PUBLIC_URL=${PUBLIC_URL} npm run build
+COPY --from=client-build /web/build/ /apps/server/dist/public/
 
 ENV NODE_ENV production  
-# must keep this `ENV NODE_ENV production` after the `npm run bootstrap`, 
-# and the value must be production
 
 EXPOSE ${PORT}

@@ -12,19 +12,19 @@ services:
     env_file: .env
     environment: # override the variables from the .env file
       - ENVIRONMENT=tests  
-      - PORT=3000
+      - PORT=4000
     volumes:
       - ./apps/server:/server/
       - /server/node_modules
     ports:
-      - 3000:3000      
+      - 4000:4000  
 
   # Interop Server and statically served Web Client 
   server:
     container_name: interop-server
     build: 
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.local
     env_file: .env
     environment: # override the variables from the .env file
       - ENVIRONMENT=local  

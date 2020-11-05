@@ -1,11 +1,11 @@
 {
   "name": "affinidi-interop-test-service",
   "private": true,
-  "version": "0.0.66",
+  "version": "1.0.0",
   "scripts": {
     "ci": "lerna exec npm ci",
-    "start": "./bin/start",
-    "dev": "./bin/dev",
+    "start": "lerna run start",
+    "dev": "lerna run dev",
     "start:dev": "lerna run start:dev",
     "clean": "lerna clean",
     "tsc": "lerna run tsc",
