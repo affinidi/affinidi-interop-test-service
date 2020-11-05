@@ -20,7 +20,7 @@ const encryptedSeedElem = process.env.ENCRYPTED_SEED_ELEM
 
 export const getOptionsForEnvironment = (environment = ''): any => {
   const env = environment || 'staging'
-  baseUrl = `https://api.${environment}.affinity-project.org/v1`
+  baseUrl = `https://api.${environment}.affinity-project.org/interop/v1`
   registryUrl = STAGING_REGISTRY_URL
   keyStorageUrl = STAGING_KEY_STORAGE_URL
 
