@@ -6,7 +6,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start:dev": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "PUBLIC_URL=\"/interop\" react-scripts build",
     "test": "CI=true react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
     "lint": "eslint ./",
@@ -35,6 +35,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "homepage": "/interop",
   "browserslist": {
     "production": [
       ">0.2%",

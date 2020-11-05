@@ -13,33 +13,33 @@ import Verifier from './containers/Verifier.js'
 
 export default function App() {
 	return (
-		<Router>
+		<Router basename={process.env.PUBLIC_URL}>
 			<Container fluid="true">
 				<Row className="row" noGutters>
-					<Col xs={12} sm={6} md={6} xl={7} className="left-pane">					
+					<Col xs={12} sm={6} md={6} xl={7} className="left-pane">
 						<Nav.Item as="li">
-							<Nav.Link as={NavLink} to="/interop" ><img src={logo} className="Affinidi-logo" alt="logo" /></Nav.Link>
+							<Nav.Link as={NavLink} to="/" ><img src={logo} className="Affinidi-logo" alt="logo" /></Nav.Link>
 						</Nav.Item>
 
-						<Nav defaultActiveKey="/interop" as="ul">
+						<Nav defaultActiveKey="/" as="ul">
 							<Nav.Item as="li">
-								<Nav.Link as={NavLink} to="/interop/checks" >Simple Checks</Nav.Link>
+								<Nav.Link as={NavLink} to="/checks" >Simple Checks</Nav.Link>
 							</Nav.Item>
 							<Nav.Item as="li">
-								<Nav.Link as={NavLink} to="/interop/issuer" >Issuer</Nav.Link>
+								<Nav.Link as={NavLink} to="/issuer" >Issuer</Nav.Link>
 							</Nav.Item>
 							<Nav.Item as="li">
-								<Nav.Link as={NavLink} to="/interop/verifier" >Verifier</Nav.Link>
+								<Nav.Link as={NavLink} to="/verifier" >Verifier</Nav.Link>
 							</Nav.Item>
 						</Nav>
 					</Col>
 
 					<Col className="right-pane">
-						<Switch>  
-							<Route exact path="/interop"/>  
-							<Route path='/interop/checks' component={SimpleMethods} />
-							<Route path="/interop/issuer" component={Issuer} />
-							<Route path="/interop/verifier" component={Verifier} />							
+						<Switch>
+							<Route exact path="/"/>
+							<Route path='/checks' component={SimpleMethods} />
+							<Route path="/issuer" component={Issuer} />
+							<Route path="/verifier" component={Verifier} />
 						</Switch>
 					</Col>
 

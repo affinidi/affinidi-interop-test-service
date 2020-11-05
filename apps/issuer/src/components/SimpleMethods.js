@@ -13,38 +13,38 @@ const SimpleMethods = () => {
 	const [activeTab, setActiveTab] = useState(pathname.substring(8)) // default based on current link, that way deep links works correctly
 
 	return (
-		<Router>
+		<Router basename={process.env.PUBLIC_URL}>
 			<Container>
 				<Row>
-					<Col>					
+					<Col>
 						<Nav fill variant="tabs" activeKey={activeTab} onSelect={(newTab) => setActiveTab(newTab)} >
 							<Nav.Item>
-								<Nav.Link as={NavLink} to="/interop/checks/did" eventKey={"did"}>Did Methods</Nav.Link>
+								<Nav.Link as={NavLink} to="/checks/did" eventKey={"did"}>Did Methods</Nav.Link>
 							</Nav.Item>
 							<Nav.Item>
-								<Nav.Link as={NavLink} to="/interop/checks/vc" eventKey={"vc"}>VC Methods</Nav.Link>
+								<Nav.Link as={NavLink} to="/checks/vc" eventKey={"vc"}>VC Methods</Nav.Link>
 							</Nav.Item>
 							<Nav.Item>
-								<Nav.Link as={NavLink} to="/interop/checks/vp" eventKey={"vp"}>VP Methods</Nav.Link>
+								<Nav.Link as={NavLink} to="/checks/vp" eventKey={"vp"}>VP Methods</Nav.Link>
 							</Nav.Item>
-						</Nav>		
+						</Nav>
 					</Col>
 				</Row>
 
 				<Row>
 					<Col>
-						<Switch>  					
-							<Route path='/interop/checks/did' component={DidComponent} />
-							<Route path="/interop/checks/vc" component={VcComponent} />
-							<Route path="/interop/checks/vp" component={VpComponent} />							
-						</Switch>					
+						<Switch>
+							<Route path='/checks/did' component={DidComponent} />
+							<Route path="/checks/vc" component={VcComponent} />
+							<Route path="/checks/vp" component={VpComponent} />
+						</Switch>
 					</Col>
 
 				</Row>
 			</Container>
 		</Router>
 	);
-	
+
 }
 
 export default SimpleMethods;
