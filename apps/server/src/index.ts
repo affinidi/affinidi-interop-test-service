@@ -40,7 +40,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 // Swagger Docs
 if (process.env.ENVIRONMENT !== 'prod') {
-  app.use('/swagger', express.static(path.join(__dirname, './swagger.json')))
+  app.use('/api/swagger', express.static(path.join(__dirname, './swagger.json')))
   app.use('/api-docs', swaggerUi.serve)
   app.get('/api-docs', swaggerUi.setup(data))
 }
