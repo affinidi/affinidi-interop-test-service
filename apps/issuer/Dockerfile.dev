@@ -1,11 +1,11 @@
 FROM node:12
 
-EXPOSE 3000 35729
+EXPOSE 3001 35729
+
+# ENV REACT_APP_ENVIRONMENT docker
+RUN echo 'REACT_APP_ENVIRONMENT' ${REACT_APP_ENVIRONMENT}
 
 WORKDIR /web
-
 COPY package*.json ./
-
 RUN npm install --silent
-
 COPY . .

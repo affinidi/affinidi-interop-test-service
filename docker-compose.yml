@@ -2,39 +2,39 @@ version: "3"
 
 services:
   # Run test
-  tests:
-    container_name: tests
-    build: 
-      context: .
-      dockerfile: Dockerfile.test
-      # args:
-      #   - ENVIRONMENT=test
-    env_file: .env
-    environment: # override the variables from the .env file
-      - ENVIRONMENT=tests  
-      - PORT=4000
-    volumes:
-      - ./apps/server:/server/
-      - /server/node_modules
-    ports:
-      - 4000:4000  
+  # tests:
+  #   container_name: tests
+  #   build: 
+  #     context: .
+  #     dockerfile: Dockerfile.test
+  #     # args:
+  #     #   - ENVIRONMENT=test
+  #   env_file: .env
+  #   environment: # override the variables from the .env file
+  #     - ENVIRONMENT=tests  
+  #     - PORT=4000
+  #   volumes:
+  #     - ./apps/server:/server/
+  #     - /server/node_modules
+  #   ports:
+  #     - 4000:4000  
 
   # Interop Server and statically served Web Client 
   server:
     container_name: interop-server
     build: 
-      context: .
-      dockerfile: Dockerfile.local
+      context: ./apps/server
+      dockerfile: Dockerfile.dev
     env_file: .env
     environment: # override the variables from the .env file
       - ENVIRONMENT=local  
-      - PORT=4000
+      - PORT=3000
     command: npm run dev
     volumes:
       - ./apps/server:/server/
       - /server/node_modules
     ports:
-      - 4000:4000
+      - 3000:3000
 
 
   # Web Client with warm re-load (for development purposes)
@@ -45,18 +45,18 @@ services:
       dockerfile: Dockerfile.dev
     restart: on-failure  
     command: npm start
-    depends_on: 
-      - server
+    # depends_on: 
+    #   - server
     environment:
       - NODE_ENV=dev  
       - CI=true  
-      - REACT_APP_ENVIRONMENT=local  
+      - REACT_APP_ENVIRONMENT=docker  
       - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./apps/issuer:/web/
       - /web/node_modules  
     ports:
-      - 3000:3000
+      - 3001:3001
       - 35729:35729 # websocket for warm-reload
 
   # Wallet Client with hot re-load
