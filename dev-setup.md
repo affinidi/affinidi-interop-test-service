@@ -16,6 +16,7 @@ The Interop Service is a set of server (REST API) and client applications. Demo 
 ## Clone the repo
 - `git clone git@github.com:affinityproject/affinidi-interop-test-service.git`
 - create env file: `cp .env.example .env`
+  - obtain your API Keys, for different environment as needed, at https://github.com/affinityproject/affinidi-core-sdk/tree/master/sdk/core#create-api-key 
 
 ## Setup
 - to start the services, run one of the following docker command, as needed
@@ -32,15 +33,13 @@ The Interop Service is a set of server (REST API) and client applications. Demo 
 
 ## Launch the apps
 - launch the apps using the following urls:
-  - http://localhost:3000 (for the Interop API Server) NOT with statically rendered Demo Web Client)
-  - http://0.0.0.0:19002 (for Expo DevTools and the Wallet app)
-  
-- Optionally,
-  - http://localhost:3001 (for Demo Web Client in warm-reload setting)
+  - http://localhost:3001/interop for the Demo Web Client
+  - http://0.0.0.0:19002 for Expo DevTools and the Wallet app
+  - http://localhost:3000/v1 for the Interop API
 
 
 ## Run the Wallet App on a mobile device
-- download the expo app on your mobile device
+- download the [Expo app](https://expo.io/tools) on your mobile device
 - scan the QR code from the Expo DevTools, using your expo app (make sure its the Tunnel url)
 - this will download the Wallet app to your mobile device 
   
@@ -73,7 +72,7 @@ This will start the server and SSR (server-side rendered) the demo client
 - start Demo Web Client, in a separate terminal: 
   ```
   cd apps/issuer
-  npm run start:dev
+  npm run dev
   ```
 - run tests (if no changes have happened in the code): `ENVIRONMENT=test npm test`
 - run tests (if changes has happened in the service): `npm run build && ENVIRONMENT=test npm test`

@@ -19,7 +19,7 @@ services:
   #   ports:
   #     - 4000:4000  
 
-  # Interop Server and statically served Web Client 
+  # Interop Server 
   server:
     container_name: interop-server
     build: 
@@ -27,7 +27,7 @@ services:
       dockerfile: Dockerfile.dev
     env_file: .env
     environment: # override the variables from the .env file
-      - ENVIRONMENT=local  
+      - ENVIRONMENT=docker  
       - PORT=3000
     command: npm run dev
     volumes:
@@ -37,16 +37,16 @@ services:
       - 3000:3000
 
 
-  # Web Client with warm re-load (for development purposes)
+  # Web Client 
   web-client:
     container_name: interop-web-client
     build: 
       context: ./apps/issuer
       dockerfile: Dockerfile.dev
     restart: on-failure  
-    command: npm start
-    # depends_on: 
-    #   - server
+    command: npm run start:dev
+    depends_on: 
+      - server
     environment:
       - NODE_ENV=dev  
       - CI=true  

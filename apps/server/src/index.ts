@@ -51,7 +51,7 @@ RegisterRoutes(app)
 // The error handler must be before any other error middleware and after all controllers
 app.use(Sentry.Handlers.errorHandler())
 
-// Server React App 
+// Server React App
 if (process.env.ENVIRONMENT !== 'local') {
   app.use(express.static(path.join(__dirname, './public')))
   app.get('*', function (req, res) {

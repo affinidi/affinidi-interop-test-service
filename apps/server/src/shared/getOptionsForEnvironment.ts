@@ -11,18 +11,21 @@ import { logger } from './logger'
 let registryUrl: string
 let keyStorageUrl: string
 let baseUrl: string
+let apiKey: string
 
 const { PORT } = process.env
 const password = process.env.PASSWORD
 const encryptedSeed = process.env.ENCRYPTED_SEED
 const encryptedSeedJolo = process.env.ENCRYPTED_SEED_JOLO
 const encryptedSeedElem = process.env.ENCRYPTED_SEED_ELEM
+const { API_KEY_DEV, API_KEY_STG, API_KEY_PROD } = process.env
 
 export const getOptionsForEnvironment = (environment = ''): any => {
   const env = environment || 'staging'
   baseUrl = `https://api.${environment}.affinity-project.org/interop/v1`
   registryUrl = STAGING_REGISTRY_URL
   keyStorageUrl = STAGING_KEY_STORAGE_URL
+  apiKey = API_KEY_STG
 
   switch (environment) {
     case 'test':
@@ -36,6 +39,7 @@ export const getOptionsForEnvironment = (environment = ''): any => {
     case 'dev':
       registryUrl = DEV_REGISTRY_URL
       keyStorageUrl = DEV_KEY_STORAGE_URL
+      apiKey = API_KEY_DEV
 
       break
 
@@ -43,10 +47,11 @@ export const getOptionsForEnvironment = (environment = ''): any => {
       baseUrl = 'https://api.affinidi.com/interop/v1/'
       registryUrl = PROD_REGISTRY_URL
       keyStorageUrl = PROD_KEY_STORAGE_URL
+      apiKey = API_KEY_PROD
       break
   }
   logger.info('getOptionsForEnvironment: environment: ', environment)
   logger.info('getOptionsForEnvironment: baseUrl: ', baseUrl)
 
-  return { env, registryUrl, keyStorageUrl, baseUrl, password, encryptedSeed, encryptedSeedJolo, encryptedSeedElem }
+  return { env, registryUrl, keyStorageUrl, baseUrl, password, encryptedSeed, encryptedSeedJolo, encryptedSeedElem, apiKey }
 }

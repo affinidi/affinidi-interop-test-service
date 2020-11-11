@@ -10,9 +10,10 @@ import {
 import { logger } from './logger'
 
 const { ENVIRONMENT } = process.env
-const { password, encryptedSeed, registryUrl } = getOptionsForEnvironment(ENVIRONMENT)
+const { password, encryptedSeed, registryUrl, apiKey } = getOptionsForEnvironment(ENVIRONMENT)
 const options = {
-  registryUrl
+  registryUrl,
+  apiKey
 }
 const affinity = new Affinity(options)
 const commonNetworkMember = new CoreNetwork(password, encryptedSeed, options)
