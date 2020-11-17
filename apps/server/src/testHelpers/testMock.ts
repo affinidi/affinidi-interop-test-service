@@ -1,17 +1,37 @@
 /* eslint-disable id-match */
-
 import { InputPresentationChallenge, InputSignCredentials, InputVerifyPresentation } from '../interop/interop.dto'
 import { signedVcOld, signedVCV1 } from '../factory/signedCredential'
 import { signedPresentation } from '../factory/signedPresentation'
 import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinidi/vc-common'
 import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinidi/vc-data'
 import { unsignedCredentials } from '../factory/unsignedCredential'
+import { affinity } from '../shared/affinityNetworkObjects'
+import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
+
+const { password, encryptedSeedJolo } = getOptionsForEnvironment(process.env.ENVIRONMENT)
 
 // Local Constants
-const did = process.env.DID
+const did = process.env.DID.replace(/'/g, '')
 const issuerDid = process.env.ISSUER_DID
 const vcVersion = 1
 const credentialOfferResponseToken = process.env.CREDENTIAL_OFFER_REQUEST_TOKEN
+const did_Elem = process.env.DID_ELEM.replace(/'/g, '')
+
+export const unsignedVCV1 = buildVCV1Unsigned({
+      skeleton: buildVCV1Skeleton<VCSPhonePersonV1>({
+        id:              'urn:uuid:11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000',
+        credentialSubject: {
+          data: {
+            '@type':   ['Person', 'PersonE', 'PhonePerson'],
+            telephone: '555 555 5555'
+          }
+        },
+        holder:  { id: did_Elem },
+        type:    'PhoneCredentialPersonV1',
+        context: getVCPhonePersonV1Context()
+      }),
+      issuanceDate: new Date().toISOString()
+    })
 
 // Request Objects
 export const requestDidIsResolvable = {
@@ -19,7 +39,7 @@ export const requestDidIsResolvable = {
 }
 
 export const requestVcIsVerifiable = {
-  credential: signedVcOld,
+  credential: signedVCV1,
   vcVersion
 }
 
@@ -141,7 +161,7 @@ export const resultAffinityValidatePresentation = {
 
 export const resultOfferRequestToken = process.env.RESULT_OFFER_REQUEST_TOKEN
 
-export const resultGetSignedCredentials = signedVCV1
+// export const resultGetSignedCredentials = signedVCV1
 
 export const resultGetVPChallenge = process.env.PRESENTATION_CHALLENGE_TOKEN
 
@@ -170,4 +190,4 @@ export const suppliedCredentials = [{
 }]
 
 // Other objects
-export const didElem = process.env.DID_ELEM.replace(/'/g, '')
+export const didElem = did_Elem

@@ -3,7 +3,6 @@ import supertest from 'supertest'
 import { signedPresentation } from '../factory/signedPresentation'
 import {
   requestDidIsResolvable,
-  requestVcIsVerifiable,
   requestVpIsVerifiable,
   requestOfferToken,
   requestOfferTokenArr,
@@ -11,21 +10,23 @@ import {
   requestPresentationChallenge,
   invalidUnsignedCredentials,
   invalidDid,
+  unsignedVCV1, 
   didElem
 } from '../testHelpers/testMock'
+import { affinity, commonNetworkMember } from '../shared/affinityNetworkObjects'
 import { InputVerifyPresentation } from './interop.dto'
 import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
-import { CommonNetworkMember as CoreNetwork } from '@affinidi/wallet-core-sdk'
-import { Affinity } from '@affinidi/common'
+
 /* eslint-disable id-match */
 import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinidi/vc-common'
 import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinidi/vc-data'
 import { logger } from '../shared/logger'
 
-const { ENVIRONMENT, DID } = process.env
+const { password, encryptedSeedJolo } = getOptionsForEnvironment(process.env.ENVIRONMENT)
+
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000
 
-describe('Integration Tests: Interop API Router', () => {
+describe.only('Integration Tests: Interop API Router', () => {
   let request: supertest.SuperTest<supertest.Test>
   beforeEach(() => {
     request = supertest(app)
@@ -91,13 +92,21 @@ describe('Integration Tests: Interop API Router', () => {
   })
 
   // Verifiable Credentials endpoints
-  describe('POST /v1/vc-is-verifiable', () => {
+  describe.only('POST /v1/vc-is-verifiable', () => {
     describe('Succcess Case:', () => {
       test('should respond with status true, when vc is validated', async () => {
+
+
+        const _requestVcIsVerifiable = {
+          credential:  await affinity.signCredential(unsignedVCV1, encryptedSeedJolo, password),
+          vcVersion: 1
+        }
+
+        console.log(_requestVcIsVerifiable)
         const response = await request
           .post('/v1/vc-is-verifiable')
           .set('Accept', 'application/json')
-          .send(requestVcIsVerifiable)
+          .send(_requestVcIsVerifiable)
           .expect(200)
 
         expect(response.body.status).toEqual(true)
@@ -107,7 +116,7 @@ describe('Integration Tests: Interop API Router', () => {
     describe('Failure Case:', () => {
       test('should respond with status false and error INT-5, when vc signature is invalid', async () => {
         // create invalid signature
-        const _credential: any = { ...requestVcIsVerifiable.credential }
+        const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeedJolo, password)
         _credential.issuer = ''
 
         const _requestVcIsVerifiable = {
@@ -127,7 +136,7 @@ describe('Integration Tests: Interop API Router', () => {
 
       test('should respond with status false and error INT-6, when vc is expired', async () => {
         // create expired vc
-        const _credential: any = { ...requestVcIsVerifiable.credential }
+        const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeedJolo, password)
         _credential.expires = '2010-01-17T07:06:35.402Z'
 
         const _requestVcIsVerifiable = {
@@ -148,7 +157,7 @@ describe('Integration Tests: Interop API Router', () => {
   })
 
   describe('POST /v1/offer-request-token', () => {
-    describe.skip('Succcess Case:', () => {
+    describe('Succcess Case:', () => {
       test('should respond with status true and token, when single credential is provided as valid array', async () => {
         const response = await request
           .post('/v1/offer-request-token')
@@ -169,19 +178,6 @@ describe('Integration Tests: Interop API Router', () => {
 
         expect(response.body.status).toEqual(true)
         expect(response.body).toHaveProperty('tokenUrl')
-      })
-    })
-
-    describe('Failure Cases:', () => {
-      test('should respond with status false and error INT-70, when API key is not provided', async () => {
-        const response = await request
-          .post('/v1/offer-request-token')
-          .set('Accept', 'application/json')
-          .send(requestOfferToken)
-          .expect(400)
-
-        expect(response.body.status).toEqual(false)
-        expect(response.body.error.code).toEqual('INT-70')
       })
     })
   })
@@ -287,7 +283,7 @@ describe('Integration Tests: Interop API Router', () => {
   })
 
   describe('POST /v1/presentation-challenge', () => {
-    describe.skip('Succcess Case:', () => {
+    describe('Succcess Case:', () => {
       test('should respond with status true and the token, when presentation challenge token is returned', async () => {
         const response = await request
           .post('/v1/presentation-challenge')
@@ -344,21 +340,10 @@ describe('Integration Tests: Interop API Router', () => {
         expect(response.body).toHaveProperty('error')
         expect(response.body.error.code).toEqual('INT-32')
       })
-
-      test('should respond with status false and error INT-70, when API key is not provided', async () => {
-        const response = await request
-          .post('/v1/presentation-challenge')
-          .set('Accept', 'application/json')
-          .send(requestPresentationChallenge)
-          .expect(400)
-
-        expect(response.body.status).toEqual(false)
-        expect(response.body.error.code).toEqual('INT-70')
-      })
     })
   })
 
-  describe.skip('POST /v1/verify-presentation', () => {
+  describe.only('POST /v1/verify-presentation', () => {
     describe('Succcess Case:', () => {
       test('should respond with status true, when VP is verified', async () => {
         let vp, tokenUrl
@@ -385,35 +370,14 @@ describe('Integration Tests: Interop API Router', () => {
             // step 3: retrieve VC from vault (this part is to be implemented by the Wallet app)
 
             // since this api doesnt have a VC stored in any vault, the workaround is to generate a VC on behalf of the Issuer, on the fly
-            const { password, encryptedSeedElem, encryptedSeedJolo, registryUrl } = getOptionsForEnvironment(ENVIRONMENT)
-            const options = {
-              registryUrl
-            }
-
-            const affinity = new Affinity(options)
             const vc = await affinity.signCredential(
-              buildVCV1Unsigned({
-                skeleton: buildVCV1Skeleton<VCSPhonePersonV1>({
-                  id:                DID,
-                  credentialSubject: {
-                    data: {
-                      '@type':   ['Person', 'PersonE', 'PhonePerson'],
-                      telephone: '555 555 5555'
-                    }
-                  },
-                  holder:  { id: didElem },
-                  type:    'PhoneCredentialPersonV1',
-                  context: getVCPhonePersonV1Context()
-                }),
-                issuanceDate: new Date().toISOString()
-              }),
+              unsignedVCV1,
               encryptedSeedJolo,
               password
             )
 
             // step 4: generate VP (this part is to be implemented by the Wallet app)
-            const walletCommonNetworkMember = new CoreNetwork(password, encryptedSeedElem, options)
-            vp = await walletCommonNetworkMember.createPresentationFromChallenge(
+            vp = await commonNetworkMember.createPresentationFromChallenge(
               presentationChallenge,
               [vc],
               'domain')

@@ -18,7 +18,6 @@ import { v4 as UUID } from 'uuid'
 const { ENVIRONMENT } = process.env
 const payloadMap = new Map() // TODO: this needs to be a persistent storage in future
 
-// TODO: remove the stack object from the errorResponse
 class InteropService {
   async didIsResolvable (input: InputDidIsResolvable): Promise<any> {
     logger.info('interopService#didIsResolvable')
@@ -65,7 +64,9 @@ class InteropService {
 
     try {
       const { result, error }  = await sdkUtils.getVerifiedVc(credential)
-
+      console.log('try vc')
+      console.log(result)
+      console.log(error)
       const errorResponse = {
         status:         false,
         httpStatusCode: 400,
@@ -215,7 +216,9 @@ class InteropService {
 
     try {
       const { result, error } = await sdkUtils.getValidatedVp(vp)
-
+      // console.log('try vp')
+      // console.log(result)
+      // console.log(error)
       const errorResponse = {
         status:         false,
         httpStatusCode: 400,
