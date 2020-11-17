@@ -6,9 +6,9 @@ import {
   InputVerifyPresentation
 } from '../interop/interop.dto'
 
-const { baseUrl } = getOptionsForEnvironment(process.env.ENVIRONMENT)
+import { affinity, commonNetworkMember } from './affinityNetworkObjects'
 
-import { affinity, commonNetworkMember} from './affinityNetworkObjects'
+const { baseUrl } = getOptionsForEnvironment(process.env.ENVIRONMENT)
 
 export const sdkUtils = {
   async getResolvableDidDocument (did: string): Promise<any> {

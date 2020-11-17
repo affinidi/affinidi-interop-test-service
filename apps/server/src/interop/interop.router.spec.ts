@@ -1,6 +1,7 @@
 import app from '../index'
 import supertest from 'supertest'
 import { signedPresentation } from '../factory/signedPresentation'
+/* eslint-disable id-match */
 import {
   requestDidIsResolvable,
   requestVpIsVerifiable,
@@ -10,14 +11,13 @@ import {
   requestPresentationChallenge,
   invalidUnsignedCredentials,
   invalidDid,
-  unsignedVCV1, 
+  unsignedVCV1,
   didElem
 } from '../testHelpers/testMock'
 import { affinity, commonNetworkMember } from '../shared/affinityNetworkObjects'
 import { InputVerifyPresentation } from './interop.dto'
 import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
 
-/* eslint-disable id-match */
 import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinidi/vc-common'
 import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinidi/vc-data'
 import { logger } from '../shared/logger'
@@ -95,11 +95,9 @@ describe.only('Integration Tests: Interop API Router', () => {
   describe.only('POST /v1/vc-is-verifiable', () => {
     describe('Succcess Case:', () => {
       test('should respond with status true, when vc is validated', async () => {
-
-
         const _requestVcIsVerifiable = {
           credential:  await affinity.signCredential(unsignedVCV1, encryptedSeedJolo, password),
-          vcVersion: 1
+          vcVersion:  1
         }
 
         console.log(_requestVcIsVerifiable)

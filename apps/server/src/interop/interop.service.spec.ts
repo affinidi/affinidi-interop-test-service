@@ -1,3 +1,4 @@
+/* eslint-disable id-match */
 import interopService from './interop.service'
 import { sdkUtils } from '../shared/sdkUtils'
 import { affinity } from '../shared/affinityNetworkObjects'
@@ -248,11 +249,10 @@ describe.skip('Unit Tests: Interop API interopService', () => {
         //     .set('Accept', 'application/json')
         //     .send(requestOfferToken)
         //     .expect(400)
-  
+
         //   expect(response.body.status).toEqual(false)
         //   expect(response.body.error.code).toEqual('INT-70')
         // })
-  
       })
     })
 
@@ -319,7 +319,7 @@ describe.skip('Unit Tests: Interop API interopService', () => {
         sandbox.restore()
       })
       describe('Success Cases', () => {
-        test('should return status true and token, when single credential is provided as valid array', async () => {          
+        test('should return status true and token, when single credential is provided as valid array', async () => {
           // mock the response of the getSignedCredentials() to return the correct result
           getSignedCredentialsStub.resolves(resultGetSignedCredentials)
 
@@ -548,7 +548,7 @@ describe.skip('Unit Tests: Interop API interopService', () => {
         //     .set('Accept', 'application/json')
         //     .send(requestPresentationChallenge)
         //     .expect(400)
-  
+
         //   expect(response.body.status).toEqual(false)
         //   expect(response.body.error.code).toEqual('INT-70')
         // })

@@ -15,23 +15,23 @@ const did = process.env.DID.replace(/'/g, '')
 const issuerDid = process.env.ISSUER_DID
 const vcVersion = 1
 const credentialOfferResponseToken = process.env.CREDENTIAL_OFFER_REQUEST_TOKEN
-const did_Elem = process.env.DID_ELEM.replace(/'/g, '')
+const _didElem = process.env.DID_ELEM.replace(/'/g, '')
 
 export const unsignedVCV1 = buildVCV1Unsigned({
-      skeleton: buildVCV1Skeleton<VCSPhonePersonV1>({
-        id:              'urn:uuid:11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000',
-        credentialSubject: {
-          data: {
-            '@type':   ['Person', 'PersonE', 'PhonePerson'],
-            telephone: '555 555 5555'
-          }
-        },
-        holder:  { id: did_Elem },
-        type:    'PhoneCredentialPersonV1',
-        context: getVCPhonePersonV1Context()
-      }),
-      issuanceDate: new Date().toISOString()
-    })
+  skeleton: buildVCV1Skeleton<VCSPhonePersonV1>({
+    id:                'urn:uuid:11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000',
+    credentialSubject: {
+      data: {
+        '@type':   ['Person', 'PersonE', 'PhonePerson'],
+        telephone: '555 555 5555'
+      }
+    },
+    holder:  { id: _didElem },
+    type:    'PhoneCredentialPersonV1',
+    context: getVCPhonePersonV1Context()
+  }),
+  issuanceDate: new Date().toISOString()
+})
 
 // Request Objects
 export const requestDidIsResolvable = {
@@ -190,4 +190,4 @@ export const suppliedCredentials = [{
 }]
 
 // Other objects
-export const didElem = did_Elem
+export const didElem = _didElem

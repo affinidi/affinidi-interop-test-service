@@ -19,7 +19,7 @@ const password = process.env.PASSWORD
 const encryptedSeed = process.env.ENCRYPTED_SEED
 const encryptedSeedJolo = process.env.ENCRYPTED_SEED_JOLO
 const encryptedSeedElem = process.env.ENCRYPTED_SEED_ELEM
-const { API_KEY_DEV, API_KEY_STG, API_KEY_PROD , API_KEY_HASH_DEV, API_KEY_HASH_STG, API_KEY_HASH_PROD } = process.env
+const { API_KEY_DEV, API_KEY_STG, API_KEY_PROD, API_KEY_HASH_DEV, API_KEY_HASH_STG, API_KEY_HASH_PROD } = process.env
 
 export const getOptionsForEnvironment = (environment = ''): any => {
   const env = environment || 'staging'
@@ -52,7 +52,7 @@ export const getOptionsForEnvironment = (environment = ''): any => {
       keyStorageUrl = PROD_KEY_STORAGE_URL
       apiKey = API_KEY_PROD
       apiKeyHash = API_KEY_HASH_PROD
-      
+
       break
   }
   logger.info('getOptionsForEnvironment: environment: ', environment)
