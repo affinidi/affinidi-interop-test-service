@@ -93,7 +93,6 @@ class InteropService {
 
       return errorResponse
     } catch (e) {
-
       console.log('vcIsVerifiable 2')
       console.log(e)
 
