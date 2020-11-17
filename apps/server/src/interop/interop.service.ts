@@ -65,6 +65,10 @@ class InteropService {
     try {
       const { result, error }  = await sdkUtils.getVerifiedVc(credential)
 
+      console.log('vcIsVerifiable 1')
+      console.log(result)
+      console.log(error)
+
       const errorResponse = {
         status:         false,
         httpStatusCode: 400,
@@ -89,6 +93,10 @@ class InteropService {
 
       return errorResponse
     } catch (e) {
+
+      console.log('vcIsVerifiable 2')
+      console.log(e)
+
       return {
         status:         false,
         httpStatusCode: e.httpStatusCode,

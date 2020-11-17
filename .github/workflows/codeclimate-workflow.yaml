@@ -42,7 +42,8 @@ jobs:
           DID_ELEM: ${{secrets.DID_ELEM}}
           CREDENTIAL_OFFER_REQUEST_TOKEN: ${{secrets.CREDENTIAL_OFFER_REQUEST_TOKEN}}
           API_KEY_STG: ${{secrets.API_KEY_STG}}    
-          API_KEY_HASH_STG: ${{secrets.API_KEY_HASH_STG}}           
+          API_KEY_HASH_STG: ${{secrets.API_KEY_HASH_STG}}  
+          PORT: 3000         
           HOST: localhost
           REVOCATION_LIST_LENGTH: 1
         with:
