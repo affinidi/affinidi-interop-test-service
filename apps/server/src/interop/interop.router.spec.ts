@@ -10,20 +10,19 @@ import {
   requestSignCredentials,
   requestPresentationChallenge,
   invalidUnsignedCredentials,
-  invalidDid,
-  unsignedVCV1,
-  didElem
+  invalidDid
 } from '../testHelpers/testMock'
 import { affinity, commonNetworkMember } from '../shared/affinityNetworkObjects'
 import { InputVerifyPresentation } from './interop.dto'
 import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
+import { unsignedCredentials } from '../factory/unsignedCredential'
 
-import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinidi/vc-common'
-import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinidi/vc-data'
+// import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinidi/vc-common'
+// import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinidi/vc-data'
 import { logger } from '../shared/logger'
 
 const { password, encryptedSeedJolo } = getOptionsForEnvironment(process.env.ENVIRONMENT)
-
+const unsignedVCV1 = unsignedCredentials[0]
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000
 
 describe.only('Integration Tests: Interop API Router', () => {
