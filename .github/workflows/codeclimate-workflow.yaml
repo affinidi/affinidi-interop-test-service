@@ -39,7 +39,10 @@ jobs:
           PASSWORD: ${{secrets.PASSWORD}}
           ISSUER_DID: ${{secrets.ISSUER_DID}}
           DID: ${{secrets.DID}}
-          CREDENTIAL_OFFER_REQUEST_TOKEN: ${{secrets.CREDENTIAL_OFFER_REQUEST_TOKEN}}          
+          DID_ELEM: ${{secrets.DID_ELEM}}
+          CREDENTIAL_OFFER_REQUEST_TOKEN: ${{secrets.CREDENTIAL_OFFER_REQUEST_TOKEN}}
+          API_KEY_STG: ${{secrets.API_KEY_STG}}    
+          API_KEY_HASH_STG: ${{secrets.API_KEY_HASH_STG}}           
           HOST: localhost
           REVOCATION_LIST_LENGTH: 1
         with:
@@ -51,9 +54,3 @@ jobs:
             $GITHUB_WORKSPACE/tmp/cc-test-reporter upload-coverage -i $GITHUB_WORKSPACE/tmp/codeclimate.total.json
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-          ENVIRONMENT: ${{secrets.ENVIRONMENT}}
-          ENCRYPTED_SEED: ${{secrets.ENCRYPTED_SEED}}
-          PASSWORD: ${{secrets.PASSWORD}}
-          ISSUER_DID: ${{secrets.ISSUER_DID}}
-          DID: ${{secrets.DID}}
-          CREDENTIAL_OFFER_REQUEST_TOKEN: ${{secrets.CREDENTIAL_OFFER_REQUEST_TOKEN}}
