@@ -323,9 +323,6 @@ class InteropService {
     try {
       const result = await sdkUtils.verifyVP(input)
 
-      console.log(1)
-      console.log(result)
-
       const errorResponse = {
         status:         false,
         httpStatusCode: 400,
@@ -341,9 +338,6 @@ class InteropService {
       } else if (result.errors) {
         const errors = result.errors[0]
 
-        console.log(2)
-        console.log(errors)
-
         if (errors.stack && errors.stack.includes('Invalid Token')) {
           errorResponse.error = new OperationError('INT-33')
         } else if ((typeof (errors) === 'string') && errors.includes('Invalid signature')) {
@@ -358,8 +352,6 @@ class InteropService {
       }
       return errorResponse
     } catch (e) {
-      console.log(3)
-      console.log(e)
 
       return {
         status:         false,
