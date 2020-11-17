@@ -352,7 +352,6 @@ class InteropService {
       }
       return errorResponse
     } catch (e) {
-
       return {
         status:         false,
         httpStatusCode: e.httpStatusCode,
