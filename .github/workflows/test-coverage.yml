@@ -1,0 +1,5 @@
+name: Run tests
+uses: marsam/codeclimate-action@master
+with:
+  command: npx jest --coverage --coverageReporters=lcov
+  reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
