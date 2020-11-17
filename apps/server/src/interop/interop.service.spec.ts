@@ -290,11 +290,14 @@ describe('Unit Tests: Interop API interopService', () => {
 
           // save a paylod first in the Map
           const { tokenUrl } = await interopService.generateOfferRequestToken(requestOfferToken)
+          console.log('tokenUrl', tokenUrl)
 
           const uuid = tokenUrl.split('/').pop()
 
           // call the unit under test
           const result = await interopService.getOfferRequestToken(uuid)
+          console.log('result')
+          console.log(result)
 
           expect(result.status).toEqual(true)
           expect(result).toHaveProperty('token')
