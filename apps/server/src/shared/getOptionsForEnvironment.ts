@@ -17,6 +17,7 @@ let apiKeyHash: string
 const { PORT } = process.env
 const password = process.env.PASSWORD
 const encryptedSeed = process.env.ENCRYPTED_SEED
+const passwordJolo = process.env.PASSWORD_JOLO
 const encryptedSeedJolo = process.env.ENCRYPTED_SEED_JOLO
 const encryptedSeedElem = process.env.ENCRYPTED_SEED_ELEM
 const { API_KEY_DEV, API_KEY_STG, API_KEY_PROD, API_KEY_HASH_DEV, API_KEY_HASH_STG, API_KEY_HASH_PROD } = process.env
@@ -55,8 +56,6 @@ export const getOptionsForEnvironment = (environment = ''): any => {
 
       break
   }
-  logger.info('getOptionsForEnvironment: environment: ', environment)
-  logger.info('getOptionsForEnvironment: baseUrl: ', baseUrl)
 
-  return { env, registryUrl, keyStorageUrl, baseUrl, password, encryptedSeed, encryptedSeedJolo, encryptedSeedElem, apiKey, apiKeyHash }
+  return { env, registryUrl, keyStorageUrl, baseUrl, password, passwordJolo, encryptedSeed, encryptedSeedJolo, encryptedSeedElem, apiKey, apiKeyHash }
 }

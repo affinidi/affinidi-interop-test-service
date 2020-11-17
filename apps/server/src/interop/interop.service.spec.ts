@@ -4,7 +4,6 @@ import { sdkUtils } from '../shared/sdkUtils'
 import { affinity } from '../shared/affinityNetworkObjects'
 import {
   requestDidIsResolvable,
-  requestVcIsVerifiable,
   requestVpIsVerifiable,
   requestOfferToken,
   requestSignCredentials,
@@ -23,27 +22,26 @@ import {
   resultUnknownVPError,
   resultOfferRequestToken,
   resultGetVPChallenge,
-  resultVerifyPresentation,
-  unsignedVCV1
+  resultVerifyPresentation
 } from '../testHelpers/testMock'
 import {
   InputSignCredentials,
   InputPresentationChallenge,
   InputVerifyPresentation
 } from './interop.dto'
-
+import { unsignedCredentials } from '../factory/unsignedCredential'
 import { createSandbox } from 'sinon'
 import SdkError from '@affinidi/wallet-core-sdk/dist/shared/SdkError'
 import OperationError from '../OperationError'
 import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
 
-const { password, encryptedSeedJolo } = getOptionsForEnvironment(process.env.ENVIRONMENT)
-
+const { password, encryptedSeed } = getOptionsForEnvironment(process.env.ENVIRONMENT)
+const unsignedVCV1 = unsignedCredentials[0]
 const didDocument  = require('@affinidi/wallet-core-sdk/test/factory/didDocument')
 const sandbox = createSandbox()
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000
 
-describe.skip('Unit Tests: Interop API interopService', () => {
+describe('Unit Tests: Interop API interopService', () => {
   describe('Did Methods', () => {
     describe('#didIsResolvable()', () => {
       let getResolvableDidDocumentStub: sinon.SinonStub<[string], Promise<any>>
@@ -118,20 +116,26 @@ describe.skip('Unit Tests: Interop API interopService', () => {
       })
 
       test('Success Case: should return status true, if VC is verifiable', async () => {
-      // mock the response of the getVerifiedVc() to return the correct result
+        const _requestVcIsVerifiable = {
+          credential:  await affinity.signCredential(unsignedVCV1, encryptedSeed, password),
+          vcVersion:  1
+        }
+
+        // mock the response of the getVerifiedVc() to return the correct result
         getVerifiedVcStub.resolves(resultAffinityValidateCredential)
 
         // call the unit under test
-        const result = await interopService.vcIsVerifiable(requestVcIsVerifiable)
+        const result = await interopService.vcIsVerifiable(_requestVcIsVerifiable)
         expect(result.status).toEqual(true)
         expect(result).toHaveProperty('httpStatusCode')
         expect(result.message).toEqual('Success: VC was verified')
       })
 
       describe('Failure Cases', () => {
-        test('should return status false and error INT-5, if credential signature is invalid', async () => {
+        test('should return status false and error INT-5, when issuer is invalid', async () => {
         // create invalid signature
-          const _credential: any = { ...requestVcIsVerifiable.credential }
+          const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
+
           _credential.issuer = ''
 
           const _requestVcIsVerifiable = {
@@ -147,10 +151,11 @@ describe.skip('Unit Tests: Interop API interopService', () => {
           expect(result.error.code).toEqual('INT-5')
         })
 
-        test('should return status false and error INT-6, if vc is expired', async () => {
-        // create expired vc
-          const _credential: any = { ...requestVcIsVerifiable.credential }
-          _credential.expires = '2010-01-17T07:06:35.402Z'
+        test('should return status false and error INT-6, when vc is expired', async () => {
+          // create expired vc
+          const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
+
+          _credential.expirationDate = '2010-01-17T07:06:35.402Z'
 
           const _requestVcIsVerifiable = {
             credential: _credential
@@ -166,21 +171,31 @@ describe.skip('Unit Tests: Interop API interopService', () => {
         })
 
         test('should return status false and error INT-7, if sdk responds with some unknown error', async () => {
-        // mock the response of the getVerifiedVc() to return the error for unknown reason
+          const _requestVcIsVerifiable = {
+            credential:  await affinity.signCredential(unsignedVCV1, encryptedSeed, password),
+            vcVersion:  1
+          }
+
+          // mock the response of the getVerifiedVc() to return the error for unknown reason
           getVerifiedVcStub.resolves(resultUnknownVCError)
 
           // call the unit under test
-          const result = await interopService.vcIsVerifiable(requestVcIsVerifiable)
+          const result = await interopService.vcIsVerifiable(_requestVcIsVerifiable)
           expect(result.status).toEqual(false)
           expect(result.error.code).toEqual('INT-7')
         })
 
         test('should return status false and error INT-7, the interopService fails for unknown reasons', async () => {
-        // mock the response of the getVerifiedVc() to return the error for internal server error
+          const _requestVcIsVerifiable = {
+            credential:  await affinity.signCredential(unsignedVCV1, encryptedSeed, password),
+            vcVersion:  1
+          }
+
+          // mock the response of the getVerifiedVc() to return the error for internal server error
           getVerifiedVcStub.throws(new Error('internal server error'))
 
           // call the unit under test
-          const result = await interopService.vcIsVerifiable(requestVcIsVerifiable)
+          const result = await interopService.vcIsVerifiable(_requestVcIsVerifiable)
           expect(result.status).toEqual(false)
           expect(result.error.code).toEqual('INT-7')
         })
@@ -199,7 +214,7 @@ describe.skip('Unit Tests: Interop API interopService', () => {
       })
 
       test('Success Case: should return status true and token, when single credential is provided as valid array', async () => {
-      // mock the response of the getCredentialOfferRequestToken() to return the correct result
+        // mock the response of the getCredentialOfferRequestToken() to return the correct result
         getCredentialOfferRequestTokenStub.resolves(resultOfferRequestToken)
 
         // call the unit under test
@@ -244,14 +259,15 @@ describe.skip('Unit Tests: Interop API interopService', () => {
         })
 
         // test.only('should return status false and error INT-70, when API key is not provided', async () => {
-        //   const response = await request
-        //     .post('/v1/offer-request-token')
-        //     .set('Accept', 'application/json')
-        //     .send(requestOfferToken)
-        //     .expect(400)
 
-        //   expect(response.body.status).toEqual(false)
-        //   expect(response.body.error.code).toEqual('INT-70')
+        //   // mock the response of the getCredentialOfferRequestToken() to return the correct result
+        //   getCredentialOfferRequestTokenStub.throws(new Error('ISS-7'))
+
+        //   // call the unit under test
+        //   const result = await interopService.generateOfferRequestToken(requestOfferToken)
+
+        //   expect(result.status).toEqual(false)
+        //   expect(result.error.code).toEqual('INT-70')
         // })
       })
     })
@@ -312,7 +328,7 @@ describe.skip('Unit Tests: Interop API interopService', () => {
 
       beforeEach(async () => {
         getSignedCredentialsStub = sandbox.stub(sdkUtils, 'getSignedCredentials')
-        resultGetSignedCredentials = await affinity.signCredential(unsignedVCV1, encryptedSeedJolo, password)
+        resultGetSignedCredentials = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
       })
 
       afterEach(async () => {

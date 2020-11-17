@@ -29,7 +29,7 @@ errors:
   INT-5:
     type: OperationError
     message: >-
-      Invalid VC Signature Error.
+      Invalid VC Params Error.
     httpStatusCode: 400            
 
   INT-6:

@@ -10,22 +10,23 @@ import {
   requestSignCredentials,
   requestPresentationChallenge,
   invalidUnsignedCredentials,
-  invalidDid
+  invalidDid,
+  DID
 } from '../testHelpers/testMock'
 import { affinity, commonNetworkMember } from '../shared/affinityNetworkObjects'
 import { InputVerifyPresentation } from './interop.dto'
 import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
 import { unsignedCredentials } from '../factory/unsignedCredential'
 
-// import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinidi/vc-common'
-// import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinidi/vc-data'
+import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinidi/vc-common'
+import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinidi/vc-data'
 import { logger } from '../shared/logger'
 
-const { password, encryptedSeedJolo } = getOptionsForEnvironment(process.env.ENVIRONMENT)
+const { password, encryptedSeed, encryptedSeedJolo } = getOptionsForEnvironment(process.env.ENVIRONMENT)
 const unsignedVCV1 = unsignedCredentials[0]
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000
 
-describe.only('Integration Tests: Interop API Router', () => {
+describe('Integration Tests: Interop API Router', () => {
   let request: supertest.SuperTest<supertest.Test>
   beforeEach(() => {
     request = supertest(app)
@@ -91,15 +92,14 @@ describe.only('Integration Tests: Interop API Router', () => {
   })
 
   // Verifiable Credentials endpoints
-  describe.only('POST /v1/vc-is-verifiable', () => {
+  describe('POST /v1/vc-is-verifiable', () => {
     describe('Succcess Case:', () => {
       test('should respond with status true, when vc is validated', async () => {
         const _requestVcIsVerifiable = {
-          credential:  await affinity.signCredential(unsignedVCV1, encryptedSeedJolo, password),
+          credential:  await affinity.signCredential(unsignedVCV1, encryptedSeed, password),
           vcVersion:  1
         }
 
-        console.log(_requestVcIsVerifiable)
         const response = await request
           .post('/v1/vc-is-verifiable')
           .set('Accept', 'application/json')
@@ -111,10 +111,53 @@ describe.only('Integration Tests: Interop API Router', () => {
     })
 
     describe('Failure Case:', () => {
-      test('should respond with status false and error INT-5, when vc signature is invalid', async () => {
+      test('should respond with status false and error INT-5, when issuer is invalid', async () => {
         // create invalid signature
-        const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeedJolo, password)
+        const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
+
         _credential.issuer = ''
+
+        const _requestVcIsVerifiable = {
+          credential: _credential
+        }
+
+        const response = await request
+          .post('/v1/vc-is-verifiable')
+          .set('Accept', 'application/json')
+          .send(_requestVcIsVerifiable)
+          .expect(400)
+
+        expect(response.body.status).toEqual(false)
+        expect(response.body).toHaveProperty('error')
+        expect(response.body.error.code).toEqual('INT-5')
+      })
+
+      test('should respond with status false and error INT-5, when holder id is invalid', async () => {
+        // create invalid signature
+        const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
+
+        _credential.holder.id = ''
+
+        const _requestVcIsVerifiable = {
+          credential: _credential
+        }
+
+        const response = await request
+          .post('/v1/vc-is-verifiable')
+          .set('Accept', 'application/json')
+          .send(_requestVcIsVerifiable)
+          .expect(400)
+
+        expect(response.body.status).toEqual(false)
+        expect(response.body).toHaveProperty('error')
+        expect(response.body.error.code).toEqual('INT-5')
+      })
+
+      test('should respond with status false and error INT-5, when id is invalid', async () => {
+        // create invalid signature
+        const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
+
+        _credential.id = ''
 
         const _requestVcIsVerifiable = {
           credential: _credential
@@ -133,8 +176,8 @@ describe.only('Integration Tests: Interop API Router', () => {
 
       test('should respond with status false and error INT-6, when vc is expired', async () => {
         // create expired vc
-        const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeedJolo, password)
-        _credential.expires = '2010-01-17T07:06:35.402Z'
+        const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
+        _credential.expirationDate = '2010-01-17T07:06:35.402Z'
 
         const _requestVcIsVerifiable = {
           credential: _credential
@@ -340,7 +383,7 @@ describe.only('Integration Tests: Interop API Router', () => {
     })
   })
 
-  describe.only('POST /v1/verify-presentation', () => {
+  describe('POST /v1/verify-presentation', () => {
     describe('Succcess Case:', () => {
       test('should respond with status true, when VP is verified', async () => {
         let vp, tokenUrl
@@ -368,8 +411,23 @@ describe.only('Integration Tests: Interop API Router', () => {
 
             // since this api doesnt have a VC stored in any vault, the workaround is to generate a VC on behalf of the Issuer, on the fly
             const vc = await affinity.signCredential(
-              unsignedVCV1,
-              encryptedSeedJolo,
+              buildVCV1Unsigned({
+                skeleton: buildVCV1Skeleton<VCSPhonePersonV1>({
+                  id:                'urn:uuid:11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000',
+                  credentialSubject: {
+                    data: {
+                      '@type':   ['Person', 'PersonE', 'PhonePerson'],
+                      telephone: '555 555 5555'
+                    }
+                  },
+                  holder:  { id: DID },
+                  type:    'PhoneCredentialPersonV1',
+                  context: getVCPhonePersonV1Context()
+                }),
+                issuanceDate:   new Date().toISOString(),
+                expirationDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString()
+              }),
+              encryptedSeed,
               password
             )
 

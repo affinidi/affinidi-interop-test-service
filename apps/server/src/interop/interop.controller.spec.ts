@@ -1,9 +1,9 @@
+/* eslint-disable id-match */
 import { createSandbox } from 'sinon'
 import interopService from './interop.service'
 import { InteropController } from './interop.controller'
 import {
   requestDidIsResolvable,
-  requestVcIsVerifiable,
   requestVpIsVerifiable,
   requestOfferToken,
   requestSignCredentials,
@@ -29,11 +29,17 @@ import {
   OutputGetPresentationChallenge
 } from './interop.dto'
 import OperationError from '../OperationError'
+import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
+import { affinity } from '../shared/affinityNetworkObjects'
+import { unsignedCredentials } from '../factory/unsignedCredential'
+
+const { password, encryptedSeed } = getOptionsForEnvironment(process.env.ENVIRONMENT)
+const unsignedVCV1 = unsignedCredentials[0]
 
 const sandbox = createSandbox()
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000
 
-describe.skip('Unit Tests: Interop API Controller', () => {
+describe('Unit Tests: Interop API Controller', () => {
   let controller: InteropController
 
   describe('Did Methods', () => {
@@ -86,15 +92,22 @@ describe.skip('Unit Tests: Interop API Controller', () => {
 
   describe('Verifiable Credentials Methods', () => {
     describe('#vcIsVerifiable', () => {
+      let requestVcIsVerifiable: InputVcIsVerifiable
       let vcIsVerifiableStub: sinon.SinonStub<[InputVcIsVerifiable], Promise<OutputVcIsVerifiable>>
 
-      beforeEach(() => {
+      beforeEach(async () => {
         controller = new InteropController()
         vcIsVerifiableStub = sandbox.stub(interopService, 'vcIsVerifiable')
+
+        requestVcIsVerifiable = {
+          credential:  await affinity.signCredential(unsignedVCV1, encryptedSeed, password),
+          vcVersion:  1
+        }
       })
 
       afterEach(() => {
         controller = null
+        requestVcIsVerifiable = null
         sandbox.restore()
       })
 

@@ -1,27 +1,21 @@
 /* eslint-disable id-match */
 import { InputPresentationChallenge, InputSignCredentials, InputVerifyPresentation } from '../interop/interop.dto'
-import { signedVcOld, staticSignedVCV1 } from '../factory/signedCredential'
+import { signedVcOld } from '../factory/signedCredential'
 import { signedPresentation } from '../factory/signedPresentation'
 import { buildVCV1Unsigned, buildVCV1Skeleton } from '@affinidi/vc-common'
 import { VCSPhonePersonV1, getVCPhonePersonV1Context } from '@affinidi/vc-data'
 import { unsignedCredentials } from '../factory/unsignedCredential'
-import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
 
 // Local Constants
 const did = process.env.DID.replace(/'/g, '')
 const issuerDid = process.env.ISSUER_DID
-const vcVersion = 1
 const credentialOfferResponseToken = process.env.CREDENTIAL_OFFER_REQUEST_TOKEN
 const _didElem = process.env.DID_ELEM.replace(/'/g, '')
 
 // Request Objects
+export const DID = did
 export const requestDidIsResolvable = {
   did
-}
-
-export const requestVcIsVerifiable = {
-  credential: staticSignedVCV1,
-  vcVersion
 }
 
 export const requestOfferToken = {
@@ -122,12 +116,12 @@ export const resultAffinityValidateCredential = {
 
 export const resultVCInvalidSignature = {
   result: false,
-  error:  'claimId:63b5d11c0d1b5566: Signature is not valid.'
+  error:  'invalid_param: Invalid value for field "issuer": Expected non empty string'
 }
 
 export const resultExpiredVC =  {
   result: false,
-  error:  'claimId:63b5d11c0d1b5566: VC is expired.'
+  error:  'invalid_param: Invalid value for field "expirationDate": Credential "urn:uuid:11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000" is expired.'
 }
 
 export const resultUnknownVCError =  {
@@ -141,8 +135,6 @@ export const resultAffinityValidatePresentation = {
 }
 
 export const resultOfferRequestToken = process.env.RESULT_OFFER_REQUEST_TOKEN
-
-export const resultGetSignedCredentials = staticSignedVCV1
 
 export const resultGetVPChallenge = process.env.PRESENTATION_CHALLENGE_TOKEN
 
