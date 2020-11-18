@@ -39,7 +39,7 @@ const unsignedVCV1 = unsignedCredentials[0]
 const sandbox = createSandbox()
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000
 
-describe.skip('Unit Tests: Interop API Controller', () => {
+describe('Unit Tests: Interop API Controller', () => {
   let controller: InteropController
 
   describe('Did Methods', () => {

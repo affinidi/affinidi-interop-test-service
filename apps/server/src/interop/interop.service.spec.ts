@@ -284,21 +284,17 @@ describe('Unit Tests: Interop API interopService', () => {
       })
 
       describe('Success Case', () => {
-        test.only('should return status true and token, when token for the given uuid is found in the storage', async () => {
-          console.log('resultOfferRequestToken', resultOfferRequestToken)
+        test('should return status true and token, when token for the given uuid is found in the storage', async () => {
           // mock the dependency of the generateOfferRequestToken()
           getCredentialOfferRequestTokenStub.resolves(resultOfferRequestToken)
 
           // save a paylod first in the Map
           const { tokenUrl } = await interopService.generateOfferRequestToken(requestOfferToken)
-          console.log('tokenUrl', tokenUrl)
 
           const uuid = tokenUrl.split('/').pop()
 
           // call the unit under test
           const result = await interopService.getOfferRequestToken(uuid)
-          console.log('result')
-          console.log(result)
 
           expect(result.status).toEqual(true)
           expect(result).toHaveProperty('token')
@@ -587,21 +583,17 @@ describe('Unit Tests: Interop API interopService', () => {
       })
 
       describe('Success Case', () => {
-        test.only('should return status true and token, when token for the given uuid is found in the storage', async () => {
-          console.log('resultGetVPChallenge', resultGetVPChallenge)
+        test('should return status true and token, when token for the given uuid is found in the storage', async () => {
           // mock the dependency of the generatePresentationChallenge()
           getVPChallengeStub.resolves(resultGetVPChallenge)
 
           // save a paylod first in the Map
           const { tokenUrl } = await interopService.generatePresentationChallenge(requestPresentationChallenge)
-          console.log('tokenUrl', tokenUrl)
 
           const uuid = tokenUrl.split('/').pop()
 
           // call the unit under test
           const result = await interopService.getPresentationChallenge(uuid)
-          console.log('result')
-          console.log(result)
 
           expect(result.status).toEqual(true)
           expect(result).toHaveProperty('token')
