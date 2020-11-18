@@ -26,7 +26,7 @@ const { password, encryptedSeed, encryptedSeedJolo } = getOptionsForEnvironment(
 const unsignedVCV1 = unsignedCredentials[0]
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000
 
-describe.skip('Integration Tests: Interop API Router', () => {
+describe('Integration Tests: Interop API Router', () => {
   let request: supertest.SuperTest<supertest.Test>
   beforeEach(() => {
     request = supertest(app)

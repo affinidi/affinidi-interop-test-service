@@ -285,6 +285,7 @@ describe('Unit Tests: Interop API interopService', () => {
 
       describe('Success Case', () => {
         test.only('should return status true and token, when token for the given uuid is found in the storage', async () => {
+          console.log('resultOfferRequestToken', resultOfferRequestToken)
           // mock the dependency of the generateOfferRequestToken()
           getCredentialOfferRequestTokenStub.resolves(resultOfferRequestToken)
 
@@ -587,6 +588,7 @@ describe('Unit Tests: Interop API interopService', () => {
 
       describe('Success Case', () => {
         test.only('should return status true and token, when token for the given uuid is found in the storage', async () => {
+          console.log('resultGetVPChallenge', resultGetVPChallenge)
           // mock the dependency of the generatePresentationChallenge()
           getVPChallengeStub.resolves(resultGetVPChallenge)
 
