@@ -44,6 +44,7 @@ jobs:
           API_KEY_STG: ${{secrets.API_KEY_STG}}    
           API_KEY_HASH_STG: ${{secrets.API_KEY_HASH_STG}}  
           RESULT_OFFER_REQUEST_TOKEN: ${{secrets.RESULT_OFFER_REQUEST_TOKEN}}
+          PRESENTATION_CHALLENGE_TOKEN: ${{secrets.PRESENTATION_CHALLENGE_TOKEN}}
           PORT: 3000         
           HOST: localhost
           REVOCATION_LIST_LENGTH: 1
