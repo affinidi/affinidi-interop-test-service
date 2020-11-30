@@ -110,7 +110,7 @@ describe('Integration Tests: Interop API Router', () => {
       })
     })
 
-    describe.only('Failure Case:', () => {
+    describe('Failure Case:', () => {
       test('should respond with status false and error INT-5, when issuer is invalid', async () => {
         // create invalid signature
         const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
@@ -136,7 +136,10 @@ describe('Integration Tests: Interop API Router', () => {
         // create invalid signature
         const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
 
-        _credential.holder.id = ''
+        const _holder = { ... _credential.holder }
+        _holder.id = ''
+
+        _credential.holder = _holder
 
         const _requestVcIsVerifiable = {
           credential: _credential
@@ -163,9 +166,6 @@ describe('Integration Tests: Interop API Router', () => {
           credential: _credential
         }
 
-        console.log('_requestVcIsVerifiable')
-        console.log(_requestVcIsVerifiable)
-
         const response = await request
           .post('/v1/vc-is-verifiable')
           .set('Accept', 'application/json')
@@ -185,9 +185,6 @@ describe('Integration Tests: Interop API Router', () => {
         const _requestVcIsVerifiable = {
           credential: _credential
         }
-
-        console.log('_requestVcIsVerifiable')
-        console.log(_requestVcIsVerifiable)
 
         const response = await request
           .post('/v1/vc-is-verifiable')

@@ -2,6 +2,7 @@ Table of Contents
 - [Welcome To the Affinidi Interop Service](#welcome-to-the-affinidi-interop-service)
   - [Clone the repo](#clone-the-repo)
   - [Setup](#setup)
+  - [Run tests in Dokcer](#run-tests-in-dokcer)
   - [Launch the apps](#launch-the-apps)
   - [Run the Wallet App on a mobile device](#run-the-wallet-app-on-a-mobile-device)
   - [Pre-requisites for the Wallet App](#pre-requisites-for-the-wallet-app)
@@ -30,6 +31,9 @@ The Interop Service is a set of server (REST API) and client applications. Demo 
   ```
 
 - Optional: for more specific needs, that is, to run lint fix, prune the docker system, and spin up all the apps: `npm run interop:docker`
+
+## Run tests in Dokcer
+- `docker-compose up tests`
 
 ## Launch the apps
 - launch the apps using the following urls:
