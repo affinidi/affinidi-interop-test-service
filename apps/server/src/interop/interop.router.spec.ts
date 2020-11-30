@@ -188,7 +188,7 @@ describe('Integration Tests: Interop API Router', () => {
 
         console.log('_requestVcIsVerifiable')
         console.log(_requestVcIsVerifiable)
-        
+
         const response = await request
           .post('/v1/vc-is-verifiable')
           .set('Accept', 'application/json')
