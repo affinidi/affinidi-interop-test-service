@@ -110,7 +110,7 @@ describe('Integration Tests: Interop API Router', () => {
       })
     })
 
-    describe('Failure Case:', () => {
+    describe.only('Failure Case:', () => {
       test('should respond with status false and error INT-5, when issuer is invalid', async () => {
         // create invalid signature
         const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
