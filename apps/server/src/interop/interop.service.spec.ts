@@ -258,17 +258,6 @@ describe('Unit Tests: Interop API interopService', () => {
           expect(result.error.code).toEqual('INT-51')
         })
 
-        // test.only('should return status false and error INT-70, when API key is not provided', async () => {
-
-        //   // mock the response of the getCredentialOfferRequestToken() to return the correct result
-        //   getCredentialOfferRequestTokenStub.throws(new Error('ISS-7'))
-
-        //   // call the unit under test
-        //   const result = await interopService.generateOfferRequestToken(requestOfferToken)
-
-        //   expect(result.status).toEqual(false)
-        //   expect(result.error.code).toEqual('INT-70')
-        // })
       })
     })
 
@@ -557,17 +546,6 @@ describe('Unit Tests: Interop API interopService', () => {
           expect(result.error.code).toEqual('INT-51')
           expect(result.message).toEqual('Failure: Presentation Challenge was not generated')
         })
-
-        // test.only('should respond with status false and error INT-70, when API key is not provided', async () => {
-        //   const response = await request
-        //     .post('/v1/presentation-challenge')
-        //     .set('Accept', 'application/json')
-        //     .send(requestPresentationChallenge)
-        //     .expect(400)
-
-        //   expect(response.body.status).toEqual(false)
-        //   expect(response.body.error.code).toEqual('INT-70')
-        // })
       })
     })
 
