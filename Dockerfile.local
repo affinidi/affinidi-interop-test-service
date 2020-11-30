@@ -15,10 +15,12 @@ FROM node:12
 WORKDIR /apps
 COPY ./apps/server/package*.json /apps/server/
 COPY ./apps/server /apps/server/
-COPY --from=client-build /web /apps/issuer/
 
 WORKDIR /apps/server
 RUN npm install --silent
 RUN npm run build
 
-EXPOSE 4000
+# COPY --from=client-build /web /apps/issuer/
+COPY --from=client-build /web/build/ /apps/server/dist/public/
+
+EXPOSE 3000

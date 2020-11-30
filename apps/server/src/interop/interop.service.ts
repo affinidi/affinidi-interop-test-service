@@ -18,7 +18,6 @@ import { v4 as UUID } from 'uuid'
 const { ENVIRONMENT } = process.env
 const payloadMap = new Map() // TODO: this needs to be a persistent storage in future
 
-// TODO: remove the stack object from the errorResponse
 class InteropService {
   async didIsResolvable (input: InputDidIsResolvable): Promise<any> {
     logger.info('interopService#didIsResolvable')
@@ -66,6 +65,10 @@ class InteropService {
     try {
       const { result, error }  = await sdkUtils.getVerifiedVc(credential)
 
+      console.log('vcIsVerifiable 1')
+      console.log(result)
+      console.log(error)
+
       const errorResponse = {
         status:         false,
         httpStatusCode: 400,
@@ -78,15 +81,21 @@ class InteropService {
           httpStatusCode: 200,
           message:        successMessage
         }
-      } else if (error.includes('Signature is not valid')) {
-        errorResponse.error = new OperationError('INT-5')
-      } else if (error.includes('VC is expired')) {
-        errorResponse.error = new OperationError('INT-6')
+      } else if (error.includes('Invalid value for field')) {
+        if (error.includes('is expired')) {
+          errorResponse.error = new OperationError('INT-6')
+        } else {
+          errorResponse.error = new OperationError('INT-5')
+        }
       } else { // unknown errors
         errorResponse.error = new OperationError('INT-7')
       }
+
       return errorResponse
     } catch (e) {
+      console.log('vcIsVerifiable 2')
+      console.log(e)
+
       return {
         status:         false,
         httpStatusCode: e.httpStatusCode,

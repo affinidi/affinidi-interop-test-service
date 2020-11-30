@@ -52,12 +52,7 @@ RegisterRoutes(app)
 app.use(Sentry.Handlers.errorHandler())
 
 // Server React App
-if (process.env.ENVIRONMENT === 'local') {
-  app.use(express.static(path.join(__dirname, '../../issuer/build')))
-  app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, '../../issuer/build', 'index.html'))
-  })
-} else {
+if (process.env.ENVIRONMENT !== 'local') {
   app.use(express.static(path.join(__dirname, './public')))
   app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, './public', 'index.html'))

@@ -13,7 +13,7 @@ export const unsignedCredentials = [
           telephone: '+1 555 555 5555'
         }
       },
-      holder:  { id: 'urn:uuid:11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000' },
+      holder:  { id: 'did:method:123' },
       type:    ['PhoneCredentialPersonV1', 'TestDenisCred'],
       context: getVCPhonePersonV1Context()
     }),

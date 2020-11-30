@@ -1,21 +1,14 @@
-import { CommonNetworkMember as CoreNetwork } from '@affinidi/wallet-core-sdk'
-import { Affinity } from '@affinidi/common'
 import { getOptionsForEnvironment }  from './getOptionsForEnvironment'
-
+import { logger } from './logger'
 import {
   InputSignCredentials,
   InputPresentationChallenge,
   InputVerifyPresentation
 } from '../interop/interop.dto'
-import { logger } from './logger'
 
-const { ENVIRONMENT } = process.env
-const { password, encryptedSeed, registryUrl } = getOptionsForEnvironment(ENVIRONMENT)
-const options = {
-  registryUrl
-}
-const affinity = new Affinity(options)
-const commonNetworkMember = new CoreNetwork(password, encryptedSeed, options)
+import { affinity, commonNetworkMember } from './affinityNetworkObjects'
+
+const { baseUrl } = getOptionsForEnvironment(process.env.ENVIRONMENT)
 
 export const sdkUtils = {
   async getResolvableDidDocument (did: string): Promise<any> {
@@ -26,6 +19,7 @@ export const sdkUtils = {
 
   async getVerifiedVc (credential: string): Promise<any> {
     logger.info('sdkUtils#getVerifiedVc')
+
     return await affinity.validateCredential(credential)
   },
 
@@ -33,7 +27,6 @@ export const sdkUtils = {
     logger.info('sdkUtils#getCredentialOfferRequestToken')
     const { offeredCredentials } = input
 
-    const { baseUrl } = getOptionsForEnvironment(ENVIRONMENT)
     const networkOptions = {
       callbackUrl: `${baseUrl}/sign-credentials`
     }
@@ -56,7 +49,6 @@ export const sdkUtils = {
     logger.info('sdkUtils#getVPChallenge')
     const { issuerDid, credentialRequirements } = input
 
-    const { baseUrl } = getOptionsForEnvironment(ENVIRONMENT)
     const networkOptions = {
       callbackUrl: `${baseUrl}/verify-presentation`
     }

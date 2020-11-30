@@ -1,10 +1,10 @@
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 name: CodeClimate Workflow
 jobs:
   codeClimateTrigger:
@@ -34,6 +34,18 @@ jobs:
       - uses: paambaati/codeclimate-action@v2.6.0
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+          ENVIRONMENT: ${{secrets.ENVIRONMENT}}
+          ENCRYPTED_SEED: ${{secrets.ENCRYPTED_SEED}}
+          PASSWORD: ${{secrets.PASSWORD}}
+          ISSUER_DID: ${{secrets.ISSUER_DID}}
+          DID: ${{secrets.DID}}
+          DID_ELEM: ${{secrets.DID_ELEM}}
+          CREDENTIAL_OFFER_REQUEST_TOKEN: ${{secrets.CREDENTIAL_OFFER_REQUEST_TOKEN}}
+          API_KEY_STG: ${{secrets.API_KEY_STG}}    
+          API_KEY_HASH_STG: ${{secrets.API_KEY_HASH_STG}}  
+          RESULT_OFFER_REQUEST_TOKEN: ${{secrets.RESULT_OFFER_REQUEST_TOKEN}}
+          PRESENTATION_CHALLENGE_TOKEN: ${{secrets.PRESENTATION_CHALLENGE_TOKEN}}
+          PORT: 3000         
           HOST: localhost
           REVOCATION_LIST_LENGTH: 1
         with:

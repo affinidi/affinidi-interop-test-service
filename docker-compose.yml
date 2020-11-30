@@ -5,58 +5,57 @@ services:
   tests:
     container_name: tests
     build: 
-      context: .
-      dockerfile: Dockerfile.test
-      # args:
-      #   - ENVIRONMENT=test
+      context: ./apps/server
+      dockerfile: Dockerfile.dev
     env_file: .env
     environment: # override the variables from the .env file
-      - ENVIRONMENT=tests  
-      - PORT=4000
+      - ENVIRONMENT=test  
+      - PORT=3000
+    command: npm test
     volumes:
       - ./apps/server:/server/
       - /server/node_modules
     ports:
-      - 4000:4000  
+      - 3000:3000 
 
-  # Interop Server and statically served Web Client 
+  # Interop Server 
   server:
     container_name: interop-server
     build: 
-      context: .
-      dockerfile: Dockerfile.local
+      context: ./apps/server
+      dockerfile: Dockerfile.dev
     env_file: .env
     environment: # override the variables from the .env file
-      - ENVIRONMENT=local  
-      - PORT=4000
+      - ENVIRONMENT=docker  
+      - PORT=3000
     command: npm run dev
     volumes:
       - ./apps/server:/server/
       - /server/node_modules
     ports:
-      - 4000:4000
+      - 3000:3000
 
 
-  # Web Client with warm re-load (for development purposes)
+  # Web Client 
   web-client:
     container_name: interop-web-client
     build: 
       context: ./apps/issuer
       dockerfile: Dockerfile.dev
     restart: on-failure  
-    command: npm start
+    command: npm run start:dev
     depends_on: 
       - server
     environment:
       - NODE_ENV=dev  
       - CI=true  
-      - REACT_APP_ENVIRONMENT=local  
+      - REACT_APP_ENVIRONMENT=docker  
       - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./apps/issuer:/web/
       - /web/node_modules  
     ports:
-      - 3000:3000
+      - 3001:3001
       - 35729:35729 # websocket for warm-reload
 
   # Wallet Client with hot re-load
@@ -72,6 +71,7 @@ services:
       - /wallet/node_modules       
     environment:
       - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0   
+      - REACT_NATIVE_PACKAGER_HOSTNAME=0.0.0.0
     ports:
       - 19000:19000
       - 19001:19001
