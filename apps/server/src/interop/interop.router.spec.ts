@@ -136,7 +136,7 @@ describe('Integration Tests: Interop API Router', () => {
         // create invalid signature
         const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
 
-        const _holder = { ... _credential.holder }
+        const _holder = { ..._credential.holder }
         _holder.id = ''
 
         _credential.holder = _holder
