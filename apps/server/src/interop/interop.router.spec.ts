@@ -153,7 +153,7 @@ describe('Integration Tests: Interop API Router', () => {
         expect(response.body.error.code).toEqual('INT-5')
       })
 
-      test.only('should respond with status false and error INT-5, when id is invalid', async () => {
+      test('should respond with status false and error INT-5, when id is invalid', async () => {
         // create invalid signature
         const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
 
@@ -177,7 +177,7 @@ describe('Integration Tests: Interop API Router', () => {
         expect(response.body.error.code).toEqual('INT-5')
       })
 
-      test.only('should respond with status false and error INT-6, when vc is expired', async () => {
+      test('should respond with status false and error INT-6, when vc is expired', async () => {
         // create expired vc
         const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
         _credential.expirationDate = '2010-01-17T07:06:35.402Z'
