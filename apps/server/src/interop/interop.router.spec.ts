@@ -110,7 +110,7 @@ describe('Integration Tests: Interop API Router', () => {
       })
     })
 
-    describe.only('Failure Case:', () => {
+    describe('Failure Case:', () => {
       test('should respond with status false and error INT-5, when issuer is invalid', async () => {
         // create invalid signature
         const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
@@ -153,7 +153,7 @@ describe('Integration Tests: Interop API Router', () => {
         expect(response.body.error.code).toEqual('INT-5')
       })
 
-      test('should respond with status false and error INT-5, when id is invalid', async () => {
+      test.only('should respond with status false and error INT-5, when id is invalid', async () => {
         // create invalid signature
         const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
 
@@ -162,6 +162,9 @@ describe('Integration Tests: Interop API Router', () => {
         const _requestVcIsVerifiable = {
           credential: _credential
         }
+
+        console.log('_requestVcIsVerifiable')
+        console.log(_requestVcIsVerifiable)
 
         const response = await request
           .post('/v1/vc-is-verifiable')
@@ -174,7 +177,7 @@ describe('Integration Tests: Interop API Router', () => {
         expect(response.body.error.code).toEqual('INT-5')
       })
 
-      test('should respond with status false and error INT-6, when vc is expired', async () => {
+      test.only('should respond with status false and error INT-6, when vc is expired', async () => {
         // create expired vc
         const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
         _credential.expirationDate = '2010-01-17T07:06:35.402Z'
@@ -183,6 +186,9 @@ describe('Integration Tests: Interop API Router', () => {
           credential: _credential
         }
 
+        console.log('_requestVcIsVerifiable')
+        console.log(_requestVcIsVerifiable)
+        
         const response = await request
           .post('/v1/vc-is-verifiable')
           .set('Accept', 'application/json')
