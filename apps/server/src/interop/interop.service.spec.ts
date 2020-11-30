@@ -257,7 +257,6 @@ describe('Unit Tests: Interop API interopService', () => {
           expect(result.status).toEqual(false)
           expect(result.error.code).toEqual('INT-51')
         })
-
       })
     })
 
