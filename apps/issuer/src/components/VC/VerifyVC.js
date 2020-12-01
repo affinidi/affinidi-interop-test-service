@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import ReactJson from 'react-json-view'
 import interopApi from '../../interopApi'
-
 import { credential } from './vc.json'
 
 export default class VerifyVC extends Component {
@@ -18,7 +18,7 @@ export default class VerifyVC extends Component {
 	}
 
 	onChangeVc(e){
-		this.setState({vc: e.target.value})
+		this.setState({ src: e.updated_src });
 	}
 
 	onSubmit(e){
@@ -46,14 +46,24 @@ export default class VerifyVC extends Component {
 					<div className="form-group">	
 						<hr className="horizontalRule"/>
 						<span>Sample VC</span>	
-					</div>
+					</div>					
 
-					<div className="form-group text-area-centered">					
-						<textarea 
-							className="form-control text-area" 
-							value={JSON.stringify(this.state.vc, null, 2)} 
-							onChange={this.onChangeVc}
-						/>
+					<div className="form-group text-area-centered">			
+						<ReactJson 
+							style={{ 
+								padding: "20px", 
+								backgroundColor: "white", 
+								borderRadius: '5px',
+								width: '90%',
+								maxWidth: '95%',
+								textAlign: 'left' 
+							}}
+							collapsed={true}
+							groupArraysAfterLength={10}
+							collapseStringsAfterLength={40}
+							src={this.state.vc} 
+							onEdit={this.onChangeVc}
+						/>		
 					</div>					
 			
 					{this.state.response ? (

@@ -4,12 +4,6 @@
     justify-content: center;
 }
 
-.text-area {
-    font-family: monospace;
-    min-height: 60vh;
-    min-width: 95%;
-}
-
 .text-box {
     font-family: monospace;
 }

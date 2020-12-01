@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import ReactJson from 'react-json-view'
 import interopApi from '../../interopApi'
-
 import { vp } from './vp.json'
 
 export default class VerifyVP extends Component {
@@ -49,10 +49,20 @@ export default class VerifyVP extends Component {
 					</div>
 
 					<div className="form-group text-area-centered">					
-						<textarea 
-							className="form-control text-area" 
-							value={JSON.stringify(this.state.vp, null, 2)} 
-							onChange={this.onChangeVp}
+						<ReactJson 
+							style={{ 
+								padding: "20px", 
+								backgroundColor: "white", 
+								borderRadius: '5px',
+								width: '90%',
+								maxWidth: '95%',
+								textAlign: 'left' 
+							}}
+							collapsed={true}
+							groupArraysAfterLength={10}
+							collapseStringsAfterLength={40}
+							src={this.state.vp} 
+							onEdit={this.onChangeVp}
 						/>
 					</div>					
 			

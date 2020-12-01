@@ -21,7 +21,9 @@ export default class Issuer extends Component {
 
 	getOfferRequestToken(){
 		const input = {
-			"offeredCredentials": [{ "type": "Credential"}]
+			offeredCredentials: [
+				{ type: 'Credential' }
+			]
 		}
 
 		const endpoint = 'offer-request-token'
