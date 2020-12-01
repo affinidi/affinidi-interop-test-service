@@ -6,7 +6,7 @@ import {
   InputVerifyPresentation
 } from '../interop/interop.dto'
 
-import { affinity, commonNetworkMember } from './affinityNetworkObjects'
+import { affinity, commonNetworkMember, commonNetworkMemberStg } from './affinityNetworkObjects'
 
 export const sdkUtils = {
   async getResolvableDidDocument (did: string): Promise<any> {
@@ -31,7 +31,7 @@ export const sdkUtils = {
       callbackUrl: `${baseUrl}/sign-credentials`
     }
 
-    return commonNetworkMember.generateCredentialOfferRequestToken(offeredCredentials, networkOptions)
+    return commonNetworkMemberStg.generateCredentialOfferRequestToken(offeredCredentials, networkOptions)
   },
 
   async getSignedCredentials (input: InputSignCredentials): Promise<any> {
@@ -55,7 +55,7 @@ export const sdkUtils = {
     const networkOptions = {
       callbackUrl: `${baseUrl}/verify-presentation`
     }
-    return commonNetworkMember.generatePresentationChallenge(credentialRequirements, issuerDid, networkOptions)
+    return commonNetworkMemberStg.generatePresentationChallenge(credentialRequirements, issuerDid, networkOptions)
   },
 
   async verifyVP (input: InputVerifyPresentation): Promise<any> {
