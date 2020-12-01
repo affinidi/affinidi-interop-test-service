@@ -41,8 +41,8 @@ jobs:
           DID: ${{secrets.DID}}
           DID_ELEM: ${{secrets.DID_ELEM}}
           CREDENTIAL_OFFER_REQUEST_TOKEN: ${{secrets.CREDENTIAL_OFFER_REQUEST_TOKEN}}
-          API_KEY_STG: ${{secrets.API_KEY_STG}}    
-          API_KEY_HASH_STG: ${{secrets.API_KEY_HASH_STG}}  
+          API_KEY: ${{secrets.API_KEY}}    
+          API_KEY_HASH: ${{secrets.API_KEY_HASH}}  
           RESULT_OFFER_REQUEST_TOKEN: ${{secrets.RESULT_OFFER_REQUEST_TOKEN}}
           PRESENTATION_CHALLENGE_TOKEN: ${{secrets.PRESENTATION_CHALLENGE_TOKEN}}
           PORT: 3000         

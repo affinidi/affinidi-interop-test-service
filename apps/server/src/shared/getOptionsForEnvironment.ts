@@ -20,15 +20,15 @@ const encryptedSeed = process.env.ENCRYPTED_SEED
 const passwordJolo = process.env.PASSWORD_JOLO
 const encryptedSeedJolo = process.env.ENCRYPTED_SEED_JOLO
 const encryptedSeedElem = process.env.ENCRYPTED_SEED_ELEM
-const { API_KEY_DEV, API_KEY_STG, API_KEY_PROD, API_KEY_HASH_DEV, API_KEY_HASH_STG, API_KEY_HASH_PROD } = process.env
+const { API_KEY, API_KEY_HASH } = process.env
 
 export const getOptionsForEnvironment = (environment = ''): any => {
   const env = environment || 'staging'
   baseUrl = `https://api.${environment}.affinity-project.org/interop/v1`
   registryUrl = STAGING_REGISTRY_URL
   keyStorageUrl = STAGING_KEY_STORAGE_URL
-  apiKey = API_KEY_STG
-  apiKeyHash = API_KEY_HASH_STG
+  apiKey = API_KEY
+  apiKeyHash = API_KEY_HASH
 
   switch (environment) {
     case 'test':
@@ -42,8 +42,6 @@ export const getOptionsForEnvironment = (environment = ''): any => {
     case 'dev':
       registryUrl = DEV_REGISTRY_URL
       keyStorageUrl = DEV_KEY_STORAGE_URL
-      apiKey = API_KEY_DEV
-      apiKeyHash = API_KEY_HASH_DEV
 
       break
 
@@ -51,8 +49,6 @@ export const getOptionsForEnvironment = (environment = ''): any => {
       baseUrl = 'https://api.affinidi.com/interop/v1/'
       registryUrl = PROD_REGISTRY_URL
       keyStorageUrl = PROD_KEY_STORAGE_URL
-      apiKey = API_KEY_PROD
-      apiKeyHash = API_KEY_HASH_PROD
 
       break
   }
