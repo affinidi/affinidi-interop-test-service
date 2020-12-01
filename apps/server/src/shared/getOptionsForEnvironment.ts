@@ -11,8 +11,6 @@ import { logger } from './logger'
 let registryUrl: string
 let keyStorageUrl: string
 let baseUrl: string
-let apiKey: string
-let apiKeyHash: string
 
 const { PORT } = process.env
 const password = process.env.PASSWORD
@@ -20,15 +18,12 @@ const encryptedSeed = process.env.ENCRYPTED_SEED
 const passwordJolo = process.env.PASSWORD_JOLO
 const encryptedSeedJolo = process.env.ENCRYPTED_SEED_JOLO
 const encryptedSeedElem = process.env.ENCRYPTED_SEED_ELEM
-const { API_KEY, API_KEY_HASH } = process.env
 
 export const getOptionsForEnvironment = (environment = ''): any => {
   const env = environment || 'staging'
   baseUrl = `https://api.${environment}.affinity-project.org/interop/v1`
   registryUrl = STAGING_REGISTRY_URL
   keyStorageUrl = STAGING_KEY_STORAGE_URL
-  apiKey = API_KEY
-  apiKeyHash = API_KEY_HASH
 
   switch (environment) {
     case 'test':
@@ -53,5 +48,5 @@ export const getOptionsForEnvironment = (environment = ''): any => {
       break
   }
 
-  return { env, registryUrl, keyStorageUrl, baseUrl, password, passwordJolo, encryptedSeed, encryptedSeedJolo, encryptedSeedElem, apiKey, apiKeyHash }
+  return { env, registryUrl, keyStorageUrl, baseUrl, password, passwordJolo, encryptedSeed, encryptedSeedJolo, encryptedSeedElem }
 }
