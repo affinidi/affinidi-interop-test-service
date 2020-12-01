@@ -14,5 +14,9 @@ const optionsCommonNetwork = {
   accessApiKey: apiKeyHash
 }
 
+console.log('affinityNetworkObjects')
+console.log(optionsAffinity)
+console.log(optionsCommonNetwork)
+
 export const affinity = new Affinity(optionsAffinity)
 export const commonNetworkMember = new CoreNetwork(password, encryptedSeed, optionsCommonNetwork)

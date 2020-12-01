@@ -27,6 +27,7 @@ export const sdkUtils = {
 
     const { baseUrl } = getOptionsForEnvironment(process.env.ENVIRONMENT)
 
+    console.log('baseUrl: ', baseUrl)
     const networkOptions = {
       callbackUrl: `${baseUrl}/sign-credentials`
     }
