@@ -11,15 +11,14 @@ const optionsAffinity = {
 }
 const optionsCommonNetwork = {
   registryUrl,
-  apiKey: API_KEY,
+  apiKey:       API_KEY,
   accessApiKey: API_KEY_HASH
 }
 const optionsCommonNetworkStg = {
   registryUrl,
-  apiKey: API_KEY_STG,
+  apiKey:       API_KEY_STG,
   accessApiKey: API_KEY_HASH_STG
 }
-
 
 console.log('affinityNetworkObjects')
 console.log(optionsAffinity)
