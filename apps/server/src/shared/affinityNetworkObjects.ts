@@ -14,6 +14,10 @@ const optionsCommonNetwork = {
   apiKey:       API_KEY,
   accessApiKey: API_KEY_HASH
 }
+const optionsAffinityStg = {
+  registryUrl,
+  apiKey: API_KEY_HASH_STG
+}
 const optionsCommonNetworkStg = {
   registryUrl,
   apiKey:       API_KEY_STG,
@@ -24,6 +28,5 @@ console.log('affinityNetworkObjects')
 console.log(optionsAffinity)
 console.log(optionsCommonNetwork)
 
-export const affinity = new Affinity(optionsAffinity)
-export const commonNetworkMember = new CoreNetwork(password, encryptedSeed, optionsCommonNetwork)
-export const commonNetworkMemberStg = new CoreNetwork(password, encryptedSeed, optionsCommonNetworkStg)
+export const affinity = new Affinity(optionsAffinityStg)
+export const commonNetworkMember = new CoreNetwork(password, encryptedSeed, optionsCommonNetworkStg)
