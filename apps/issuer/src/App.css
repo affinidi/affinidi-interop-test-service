@@ -85,7 +85,8 @@
 
 .btn-width {
   margin: 0 auto;
-  width: 300px !important;
+  width: 70% !important;
+  max-width: 300px;
 }
 
 .btn-height {

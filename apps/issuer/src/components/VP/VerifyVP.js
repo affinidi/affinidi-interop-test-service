@@ -125,11 +125,11 @@ export default class VerifyVP extends Component {
 					): ''}
 
 					{this.state.edit === false ? (
-						<div className="row form-group">					
-							<div className="col-md-6">	
+						<div className="row form-group no-margin no-padding">					
+							<div className="col-s-3 col-md-6">	
 								<input type="submit" value="Verify VP" className="btn btn-success btn-block btn-width" />
 							</div>
-							<div className="col-md-6">	
+							<div className="col-s-3 col-md-6">	
 								<button className="btn btn-info btn-block btn-width" onClick={this.changeVp}>Paste a New Value</button>
 							</div>
 						</div>
