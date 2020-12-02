@@ -13,7 +13,7 @@ import {
   invalidDid,
   DID
 } from '../testHelpers/testMock'
-import { affinity, commonNetworkMember } from '../shared/affinidi'
+import { affinidi, commonNetworkMember } from '../shared/affinidi'
 import { InputVerifyPresentation } from './interop.dto'
 import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
 import { unsignedCredentials } from '../factory/unsignedCredential'
@@ -96,7 +96,7 @@ describe('Integration Tests: Interop API Router', () => {
     describe('Succcess Case:', () => {
       test('should respond with status true, when vc is validated', async () => {
         const _requestVcIsVerifiable = {
-          credential:  await affinity.signCredential(unsignedVCV1, encryptedSeed, password),
+          credential:  await affinidi.signCredential(unsignedVCV1, encryptedSeed, password),
           vcVersion:  1
         }
 
@@ -113,7 +113,7 @@ describe('Integration Tests: Interop API Router', () => {
     describe('Failure Case:', () => {
       test('should respond with status false and error INT-5, when issuer is invalid', async () => {
         // create invalid signature
-        const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
+        const _credential: any = await affinidi.signCredential(unsignedVCV1, encryptedSeed, password)
 
         _credential.issuer = ''
 
@@ -134,7 +134,7 @@ describe('Integration Tests: Interop API Router', () => {
 
       test('should respond with status false and error INT-5, when holder id is invalid', async () => {
         // create invalid signature
-        const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
+        const _credential: any = await affinidi.signCredential(unsignedVCV1, encryptedSeed, password)
 
         const _holder = { ..._credential.holder }
         _holder.id = ''
@@ -158,7 +158,7 @@ describe('Integration Tests: Interop API Router', () => {
 
       test('should respond with status false and error INT-5, when id is invalid', async () => {
         // create invalid signature
-        const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
+        const _credential: any = await affinidi.signCredential(unsignedVCV1, encryptedSeed, password)
 
         _credential.id = ''
 
@@ -179,7 +179,7 @@ describe('Integration Tests: Interop API Router', () => {
 
       test('should respond with status false and error INT-6, when vc is expired', async () => {
         // create expired vc
-        const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
+        const _credential: any = await affinidi.signCredential(unsignedVCV1, encryptedSeed, password)
         _credential.expirationDate = '2010-01-17T07:06:35.402Z'
 
         const _requestVcIsVerifiable = {
@@ -413,7 +413,7 @@ describe('Integration Tests: Interop API Router', () => {
             // step 3: retrieve VC from vault (this part is to be implemented by the Wallet app)
 
             // since this api doesnt have a VC stored in any vault, the workaround is to generate a VC on behalf of the Issuer, on the fly
-            const vc = await affinity.signCredential(
+            const vc = await affinidi.signCredential(
               buildVCV1Unsigned({
                 skeleton: buildVCV1Skeleton<VCSPhonePersonV1>({
                   id:                'urn:uuid:11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000',
