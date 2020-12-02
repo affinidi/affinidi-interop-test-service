@@ -30,7 +30,7 @@ import {
 } from './interop.dto'
 import OperationError from '../OperationError'
 import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
-import { affinity } from '../shared/affinityNetworkObjects'
+import { affinidi } from '../shared/affinidi'
 import { unsignedCredentials } from '../factory/unsignedCredential'
 
 const { password, encryptedSeed } = getOptionsForEnvironment(process.env.ENVIRONMENT)
@@ -100,7 +100,7 @@ describe('Unit Tests: Interop API Controller', () => {
         vcIsVerifiableStub = sandbox.stub(interopService, 'vcIsVerifiable')
 
         requestVcIsVerifiable = {
-          credential:  await affinity.signCredential(unsignedVCV1, encryptedSeed, password),
+          credential:  await affinidi.signCredential(unsignedVCV1, encryptedSeed, password),
           vcVersion:  1
         }
       })

@@ -1,7 +1,7 @@
 /* eslint-disable id-match */
 import interopService from './interop.service'
 import { sdkUtils } from '../shared/sdkUtils'
-import { affinity } from '../shared/affinityNetworkObjects'
+import { affinidi } from '../shared/affinidi'
 import {
   requestDidIsResolvable,
   requestVpIsVerifiable,
@@ -117,7 +117,7 @@ describe('Unit Tests: Interop API interopService', () => {
 
       test('Success Case: should return status true, if VC is verifiable', async () => {
         const _requestVcIsVerifiable = {
-          credential:  await affinity.signCredential(unsignedVCV1, encryptedSeed, password),
+          credential:  await affinidi.signCredential(unsignedVCV1, encryptedSeed, password),
           vcVersion:  1
         }
 
@@ -134,7 +134,7 @@ describe('Unit Tests: Interop API interopService', () => {
       describe('Failure Cases', () => {
         test('should return status false and error INT-5, when issuer is invalid', async () => {
         // create invalid signature
-          const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
+          const _credential: any = await affinidi.signCredential(unsignedVCV1, encryptedSeed, password)
 
           _credential.issuer = ''
 
@@ -153,7 +153,7 @@ describe('Unit Tests: Interop API interopService', () => {
 
         test('should return status false and error INT-6, when vc is expired', async () => {
           // create expired vc
-          const _credential: any = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
+          const _credential: any = await affinidi.signCredential(unsignedVCV1, encryptedSeed, password)
 
           _credential.expirationDate = '2010-01-17T07:06:35.402Z'
 
@@ -172,7 +172,7 @@ describe('Unit Tests: Interop API interopService', () => {
 
         test('should return status false and error INT-7, if sdk responds with some unknown error', async () => {
           const _requestVcIsVerifiable = {
-            credential:  await affinity.signCredential(unsignedVCV1, encryptedSeed, password),
+            credential:  await affinidi.signCredential(unsignedVCV1, encryptedSeed, password),
             vcVersion:  1
           }
 
@@ -187,7 +187,7 @@ describe('Unit Tests: Interop API interopService', () => {
 
         test('should return status false and error INT-7, the interopService fails for unknown reasons', async () => {
           const _requestVcIsVerifiable = {
-            credential:  await affinity.signCredential(unsignedVCV1, encryptedSeed, password),
+            credential:  await affinidi.signCredential(unsignedVCV1, encryptedSeed, password),
             vcVersion:  1
           }
 
@@ -316,7 +316,7 @@ describe('Unit Tests: Interop API interopService', () => {
 
       beforeEach(async () => {
         getSignedCredentialsStub = sandbox.stub(sdkUtils, 'getSignedCredentials')
-        resultGetSignedCredentials = await affinity.signCredential(unsignedVCV1, encryptedSeed, password)
+        resultGetSignedCredentials = await affinidi.signCredential(unsignedVCV1, encryptedSeed, password)
       })
 
       afterEach(async () => {

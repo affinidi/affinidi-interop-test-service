@@ -6,7 +6,7 @@ import {
   InputVerifyPresentation
 } from '../interop/interop.dto'
 
-import { affinity, commonNetworkMember } from './affinityNetworkObjects'
+import { affinidi, commonNetworkMember } from './affinidi'
 
 export const sdkUtils = {
   async getResolvableDidDocument (did: string): Promise<any> {
@@ -18,7 +18,7 @@ export const sdkUtils = {
   async getVerifiedVc (credential: string): Promise<any> {
     logger.info('sdkUtils#getVerifiedVc')
 
-    return affinity.validateCredential(credential)
+    return affinidi.validateCredential(credential)
   },
 
   async getCredentialOfferRequestToken (input: any): Promise<any> {
@@ -43,7 +43,7 @@ export const sdkUtils = {
 
   async getValidatedVp (vp: any): Promise<any> {
     logger.info('sdkUtils#getValidatedVp')
-    return affinity.validatePresentation(vp)
+    return affinidi.validatePresentation(vp)
   },
 
   async getVPChallenge (input: InputPresentationChallenge): Promise<any> {
