@@ -125,7 +125,7 @@ export default class VerifyVC extends Component {
 					): ''}
 					
 					{this.state.edit === false ? (
-						<div className="row form-group">					
+						<div className="row form-group no-margin no-padding">					
 							<div className="col-md-6">	
 								<input type="submit" value="Verify VC" className="btn btn-success btn-block btn-width" />
 							</div>
