@@ -65,7 +65,6 @@ class InteropService {
     try {
       const { result, error }  = await sdkUtils.getVerifiedVc(credential)
 
-      console.log(error)
       const errorResponse = {
         status:         false,
         httpStatusCode: 400,
