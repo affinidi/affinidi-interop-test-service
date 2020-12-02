@@ -11,16 +11,39 @@ export default class VerifyVC extends Component {
 			vc: credential,
 			response: undefined,
 			error: undefined,
-			reason: undefined
+			reason: undefined,
+			edit: false
 		}
 
+		this.changeVc = this.changeVc.bind(this);
+		this.acceptChange = this.acceptChange.bind(this);
 		this.onEdit = this.onEdit.bind(this);
+		this.onUpdate = this.onUpdate.bind(this);
 		this.onDelete = this.onDelete.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 	}
 
+	changeVc(e){
+		e.preventDefault()
+		this.setState({
+			edit: true,
+			response: undefined,
+			error: undefined,
+			reason: undefined,
+		})
+	}
+
+	acceptChange(e){
+		e.preventDefault()
+		this.setState({edit: false})
+	}
+
 	onEdit(e){
 		this.setState({ vc: e.updated_src })
+	}
+
+	onUpdate(e){
+		this.setState({ vc: JSON.parse(e.clipboardData.getData('Text')) })
 	}
 
 	onDelete(e){
@@ -52,28 +75,40 @@ export default class VerifyVC extends Component {
 				<form onSubmit={this.onSubmit}>	
 					<div className="form-group">	
 						<hr className="horizontalRule"/>
-						<span>Sample VC</span>	
+						{this.state.edit === false ? (
+							<span>Sample VC</span>	
+						):
+							<span>Paste New VC</span>
+						}
 					</div>					
 
 					<div className="form-group text-area-centered">			
-						<ReactJson 
-							style={{ 
-								padding: "20px", 
-								backgroundColor: "white", 
-								borderRadius: '5px',
-								width: '90%',
-								maxWidth: '95%',
-								textAlign: 'left' 
-							}}
-							collapsed={true}
-							groupArraysAfterLength={10}
-							collapseStringsAfterLength={40}
-							src={this.state.vc} 
-							onEdit={this.onEdit}
-							onDelete={this.onDelete}
-						/>		
-					</div>					
-			
+						{this.state.edit ? (
+							<textarea 
+								className="form-control text-area" onPaste={this.onUpdate}
+							/>
+						):
+							<ReactJson 
+								style={{ 
+									padding: "20px", 
+									backgroundColor: "white", 
+									borderRadius: '5px',
+									width: '90%',
+									maxWidth: '95%',
+									textAlign: 'left' 
+								}}
+								collapsed={true}
+								enableClipboard={false}
+								sortKeys={true}
+								groupArraysAfterLength={5}
+								collapseStringsAfterLength={50}
+								src={this.state.vc} 
+								onEdit={this.onEdit}
+								onDelete={this.onDelete}
+							/>
+						}
+					</div>							
+
 					{this.state.response ? (
 						<div className="form-group">
 							<span>Response</span>
@@ -81,17 +116,28 @@ export default class VerifyVC extends Component {
 						</div>
 					): ''}
 
-					{this.state.error ? (
+					{this.state.error && this.state.edit === false ? (
 						<div className="form-group">
 							<span><b>Error</b></span>
 							<p>{this.state.error}</p>
 							<p><b>(Reason: {this.state.reason})</b></p>
 						</div>
 					): ''}
-
-					<div className="form-group">
-						<input type="submit" value="Verify VC" className="btn btn-success btn-block btn-width" />
-					</div>
+					
+					{this.state.edit === false ? (
+						<div className="row form-group">					
+							<div className="col-md-6">	
+								<input type="submit" value="Verify VC" className="btn btn-success btn-block btn-width" />
+							</div>
+							<div className="col-md-6">	
+								<button className="btn btn-info btn-block btn-width" onClick={this.changeVc}>Paste a New Value</button>
+							</div>
+						</div>
+					): 
+						<div className="row form-group">					
+							<button className="btn btn-info btn-block btn-width" onClick={this.acceptChange}>Update VC</button>
+						</div>
+					}
 
 				</form>				
 			</div>			

@@ -8,11 +8,26 @@
     font-family: monospace;
 }
 
+.text-area {
+    font-family: monospace;
+    min-height: 15vh;
+    width: 90%;
+}
+
 .text-area-small {
     font-family: monospace;
     font-size: 11px;
     min-height: 15vh;
     min-width: 15vw;
+}
+
+.json-view{ 
+    padding: 20px; 
+    background-color: white; 
+    border-radius: 5px;
+    width: 90%;
+    max-width: 95%;
+    text-align: left;
 }
 
 .vc-verify,
