@@ -30,7 +30,7 @@ import {
 } from './interop.dto'
 import OperationError from '../OperationError'
 import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
-import { affinity } from '../shared/affinityNetworkObjects'
+import { affinity } from '../shared/affinidi'
 import { unsignedCredentials } from '../factory/unsignedCredential'
 
 const { password, encryptedSeed } = getOptionsForEnvironment(process.env.ENVIRONMENT)

@@ -1,7 +1,7 @@
 /* eslint-disable id-match */
 import interopService from './interop.service'
 import { sdkUtils } from '../shared/sdkUtils'
-import { affinity } from '../shared/affinityNetworkObjects'
+import { affinity } from '../shared/affinidi'
 import {
   requestDidIsResolvable,
   requestVpIsVerifiable,

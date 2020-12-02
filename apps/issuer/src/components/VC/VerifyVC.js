@@ -10,15 +10,21 @@ export default class VerifyVC extends Component {
 		this.state = {
 			vc: credential,
 			response: undefined,
-			error: undefined
+			error: undefined,
+			reason: undefined
 		}
 
-		this.onChangeVc = this.onChangeVc.bind(this);
+		this.onEdit = this.onEdit.bind(this);
+		this.onDelete = this.onDelete.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 	}
 
-	onChangeVc(e){
-		this.setState({ src: e.updated_src });
+	onEdit(e){
+		this.setState({ vc: e.updated_src })
+	}
+
+	onDelete(e){
+		this.setState({ vc: e.updated_src })
 	}
 
 	onSubmit(e){
@@ -32,8 +38,9 @@ export default class VerifyVC extends Component {
 		interopApi.post(endpoint, input)
 			.then((res) => {
 				this.setState({response: res.data.message})
-			}).catch((error)=> {
+			}).catch((error)=> {				
 				this.setState({error: error.response.data.message})
+				this.setState({reason: error.response.data.error.message})
 			})
 
 		this.setState({response: undefined, error: undefined})
@@ -62,7 +69,8 @@ export default class VerifyVC extends Component {
 							groupArraysAfterLength={10}
 							collapseStringsAfterLength={40}
 							src={this.state.vc} 
-							onEdit={this.onChangeVc}
+							onEdit={this.onEdit}
+							onDelete={this.onDelete}
 						/>		
 					</div>					
 			
@@ -77,6 +85,7 @@ export default class VerifyVC extends Component {
 						<div className="form-group">
 							<span><b>Error</b></span>
 							<p>{this.state.error}</p>
+							<p><b>(Reason: {this.state.reason})</b></p>
 						</div>
 					): ''}
 

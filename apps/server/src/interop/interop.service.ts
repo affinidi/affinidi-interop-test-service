@@ -120,9 +120,6 @@ class InteropService {
         tokenUrl
       }
     } catch (e) {
-      console.log('interopService#generateOfferRequestToken -> catch error')
-      console.log(JSON.parse(JSON.stringify(e)))
-
       const errorResponse = {
         status:         false,
         httpStatusCode: e.httpStatusCode,

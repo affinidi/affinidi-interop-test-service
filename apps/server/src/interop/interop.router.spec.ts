@@ -13,7 +13,7 @@ import {
   invalidDid,
   DID
 } from '../testHelpers/testMock'
-import { affinity, commonNetworkMember } from '../shared/affinityNetworkObjects'
+import { affinity, commonNetworkMember } from '../shared/affinidi'
 import { InputVerifyPresentation } from './interop.dto'
 import { getOptionsForEnvironment }  from '../shared/getOptionsForEnvironment'
 import { unsignedCredentials } from '../factory/unsignedCredential'

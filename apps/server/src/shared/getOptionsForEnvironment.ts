@@ -1,12 +1,7 @@
 import {
-  DEV_REGISTRY_URL,
   STAGING_REGISTRY_URL,
-  PROD_REGISTRY_URL,
-  DEV_KEY_STORAGE_URL,
-  STAGING_KEY_STORAGE_URL,
-  PROD_KEY_STORAGE_URL
+  STAGING_KEY_STORAGE_URL
 } from '@affinidi/wallet-core-sdk/dist/_defaultConfig'
-import { logger } from './logger'
 
 let registryUrl: string
 let keyStorageUrl: string
@@ -34,16 +29,8 @@ export const getOptionsForEnvironment = (environment = ''): any => {
       baseUrl = `${process.env.NGROK_ENDPOINT}/v1`
       break
 
-    case 'dev':
-      registryUrl = DEV_REGISTRY_URL
-      keyStorageUrl = DEV_KEY_STORAGE_URL
-
-      break
-
     case 'prod':
       baseUrl = 'https://api.affinidi.com/interop/v1/'
-      registryUrl = PROD_REGISTRY_URL
-      keyStorageUrl = PROD_KEY_STORAGE_URL
 
       break
   }

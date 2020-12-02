@@ -7,17 +7,18 @@ export default class DidComponent extends Component {
 	constructor(props){
 		super(props)
 
-		this.onChangeDid = this.onChangeDid.bind(this);
-		this.onSubmit = this.onSubmit.bind(this);
-
 		this.state = {
 			did: did,
 			response: undefined,
-			error: undefined
+			error: undefined,
+			reason: undefined
 		}
+
+		this.onEdit = this.onEdit.bind(this);
+		this.onSubmit = this.onSubmit.bind(this);
 	}
 
-	onChangeDid(e){
+	onEdit(e){
 		this.setState({did: e.target.value})
 	}
 
@@ -34,9 +35,10 @@ export default class DidComponent extends Component {
 				this.setState({response: res.data.message})
 			}).catch((error)=> {
 				this.setState({error: error.response.data.message})
+				this.setState({reason: error.response.data.error.message})
 			})
 
-		this.setState({response: undefined, errro: undefined})
+		this.setState({response: undefined, error: undefined})
 	}
 
 	render() {
@@ -48,7 +50,7 @@ export default class DidComponent extends Component {
 					</div>					
 					
 					<div className="form-group text-box text-area-centered">	
-						<input type="text" className="form-control full-width" value={this.state.did} onChange={this.onChangeDid}/>
+						<input type="text" className="form-control full-width" value={this.state.did} onChange={this.onEdit}/>
 					</div>
 						
 					<div className="form-group text-area-centered">		
@@ -63,6 +65,7 @@ export default class DidComponent extends Component {
 							<div className="form-group">							
 								<span><b>Error</b></span>
 								<p>{this.state.error}</p>
+								<p><b>(Reason: {this.state.reason})</b></p>
 							</div>
 						): (<span></span>)}
 					</div>
