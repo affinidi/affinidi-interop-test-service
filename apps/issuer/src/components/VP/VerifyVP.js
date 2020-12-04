@@ -78,7 +78,7 @@ export default class VerifyVP extends Component {
 						{this.state.edit === false ? (
 							<span>Sample VP</span>	
 						):
-							<span>Paste New VP</span>
+							<span>New VP</span>
 						}
 					</div>
 
@@ -134,7 +134,7 @@ export default class VerifyVP extends Component {
 							</div>
 						</div>
 					): 
-						<div className="row form-group">					
+						<div className="row form-group no-margin no-padding">					
 							<button className="btn btn-info btn-block btn-width" onClick={this.acceptChange}>Update VP</button>
 						</div>
 					}
