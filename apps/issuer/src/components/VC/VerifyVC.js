@@ -78,7 +78,7 @@ export default class VerifyVC extends Component {
 						{this.state.edit === false ? (
 							<span>Sample VC</span>	
 						):
-							<span>New VC</span>
+							<span>Paste New VC</span>
 						}
 					</div>					
 
@@ -130,12 +130,12 @@ export default class VerifyVC extends Component {
 								<input type="submit" value="Verify VC" className="btn btn-success btn-block btn-width" />
 							</div>
 							<div className="col-md-6">	
-								<button className="btn btn-info btn-block btn-width" onClick={this.changeVc}>Paste a New Value</button>
+								<button className="btn btn-info btn-block btn-width" onClick={this.changeVc}>Replace VC</button>
 							</div>
 						</div>
 					): 
 						<div className="row form-group no-margin no-padding">					
-							<button className="btn btn-info btn-block btn-width" onClick={this.acceptChange}>Update VC</button>
+							<button className="btn btn-info btn-block btn-width" onClick={this.acceptChange}>Use New Value</button>
 						</div>
 					}
 
