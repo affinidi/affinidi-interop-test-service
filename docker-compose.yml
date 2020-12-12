@@ -1,22 +1,22 @@
 version: "3"
 
 services:
-  # Run test
-  # tests:
-  #   container_name: tests
-  #   build: 
-  #     context: ./apps/server
-  #     dockerfile: Dockerfile.dev
-  #   env_file: .env
-  #   environment: # override the variables from the .env file
-  #     - ENVIRONMENT=test  
-  #     - PORT=3000
-  #   command: npm test
-  #   volumes:
-  #     - ./apps/server:/server/
-  #     - /server/node_modules
-  #   ports:
-  #     - 3000:3000 
+  # Interop Server with Statically Served Demo Web Client
+  server-ssr:
+    container_name: interop-server-ssr
+    build: 
+      context: .
+      dockerfile: Dockerfile.local
+    env_file: .env
+    environment: 
+      - ENVIRONMENT=docker  
+      - PORT=3000
+    command: npm start
+    volumes:
+      - ./apps/server:/server/
+      - /server/node_modules
+    ports:
+      - 3000:3000
 
   # Interop Server 
   server:
@@ -25,7 +25,7 @@ services:
       context: ./apps/server
       dockerfile: Dockerfile.dev
     env_file: .env
-    environment: # override the variables from the .env file
+    environment: 
       - ENVIRONMENT=docker  
       - PORT=3000
     command: npm run dev
@@ -34,7 +34,6 @@ services:
       - /server/node_modules
     ports:
       - 3000:3000
-
 
   # Web Client 
   web-client:

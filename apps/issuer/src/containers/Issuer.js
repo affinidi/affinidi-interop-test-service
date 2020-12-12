@@ -22,7 +22,7 @@ export default class Issuer extends Component {
 	getOfferRequestToken(){
 		const input = {
 			offeredCredentials: [
-				{ type: 'Credential' }
+				{ type: 'PhoneCredentialPersonV1' }
 			]
 		}
 
