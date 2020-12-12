@@ -1,4 +1,6 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
+import * as encoding from 'text-encoding';
 import {
 	StyleSheet, Image, Text, View,
 } from 'react-native';

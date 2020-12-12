@@ -16,7 +16,7 @@ The Interop Service is a set of server (REST API) and client applications. Demo 
 
 ## Clone the repo
 - `git clone git@github.com:affinityproject/affinidi-interop-test-service.git`
-- create env file: `cp .env.example .env`
+- create env file: `cp .env.example .env && cp .env.example ./apps/wallet/.env`
   - obtain your API Keys, for different environment as needed, at https://github.com/affinityproject/affinidi-core-sdk/tree/master/sdk/core#create-api-key 
 
 ## Setup
