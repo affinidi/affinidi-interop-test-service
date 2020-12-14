@@ -69,7 +69,7 @@ export default function BarCodeScreen({ navigation }) {
 		})();
 	}, []);
 
-	const getSignedCredentials = async (callbackURL, responseToken) => {
+	const getSignedCredentials = (callbackURL, responseToken) => {
 		const input = {
 			responseToken,
 		};
