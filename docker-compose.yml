@@ -1,23 +1,6 @@
 version: "3"
 
 services:
-  # Interop Server with Statically Served Demo Web Client
-  server-ssr:
-    container_name: interop-server-ssr
-    build: 
-      context: .
-      dockerfile: Dockerfile.local
-    env_file: .env
-    environment: 
-      - ENVIRONMENT=docker  
-      - PORT=3000
-    command: npm start
-    volumes:
-      - ./apps/server:/server/
-      - /server/node_modules
-    ports:
-      - 3000:3000
-
   # Interop Server 
   server:
     container_name: interop-server

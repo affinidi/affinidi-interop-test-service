@@ -72,6 +72,8 @@ export default function BarCodeScreen({ navigation }) {
 
 		axios.post(callbackURL, input)
 			.then((response) => {
+				// eslint-disable-next-line no-unused-vars
+				const vc = response.data.getSignedCredentials[0];
 				if (response.data) {
 					// show the received credentials as a Card
 					navigation.navigate('Credentials');
@@ -113,7 +115,7 @@ export default function BarCodeScreen({ navigation }) {
 
 				if (purpose === 'offer') {
 					const responseToken = await SDKService.getOfferResponseToken(response.data.token);
-					getSignedCredentials(callbackURL, responseToken);
+					if (responseToken) getSignedCredentials(callbackURL, responseToken);
 				} else if (purpose === 'request') {
 					getPresentationChallenge(callbackURL);
 				}

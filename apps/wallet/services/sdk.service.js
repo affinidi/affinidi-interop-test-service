@@ -1,23 +1,28 @@
 /* eslint-disable semi */
 import { AffinityWallet as Wallet } from '@affinidi/wallet-expo-sdk'
 
-const {
-	PASSWORD, ENCRYPTED_SEED, STAGING_REGISTRY_URL, API_KEY, API_KEY_HASH,
-} = process.env
+const { EXPO_PASSWORD } = process.env
+const { EXPO_ENCRYPTED_SEED } = process.env
+const { EXPO_API_KEY_HASH } = process.env
 
 const commonNetworkOptions = {
-	registryUrl: STAGING_REGISTRY_URL,
-	apiKey: API_KEY,
-	accessApiKey: API_KEY_HASH,
+	env: 'staging',
+	accessApiKey: EXPO_API_KEY_HASH,
 };
 
-export default class SDKService {
-	constructor() {
-		this._wallet = new Wallet(PASSWORD, ENCRYPTED_SEED, commonNetworkOptions);
-	}
+const wallet = new Wallet(EXPO_PASSWORD, EXPO_ENCRYPTED_SEED, commonNetworkOptions);
 
+export default class SDKService {
 	static async getOfferResponseToken(token) {
 		console.log('sdk.service#getOfferResponseToken')
-		return this._wallet.createCredentialOfferResponseToken(token)
+		try {
+			return wallet.createCredentialOfferResponseToken(token)
+		} catch (error) {
+			if (error.response) console.log(error.response.data);
+			else if (error.request) console.log(error.request);
+			else console.log(error.message);
+
+			return false
+		}
 	}
 }
