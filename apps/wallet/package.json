@@ -11,7 +11,7 @@
     "dotenv": "^8.2.0",
     "expo": "38.0.0",
     "expo-barcode-scanner": "~8.2.1",
-    "expo-constants": "^9.3.5",
+    "expo-constants": "^9.1.1",
     "jwt-decode": "^3.0.0",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
@@ -21,7 +21,8 @@
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "0.11.7",
     "react-navigation": "^4.4.0",
-    "text-encoding": "^0.7.0"
+    "text-encoding": "^0.7.0",
+    "expo-sqlite": "~8.2.1"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",

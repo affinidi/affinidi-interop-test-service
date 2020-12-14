@@ -10,7 +10,9 @@ import Constants from 'expo-constants';
 import axios from 'axios';
 
 import SDKService from '../services/sdk.service';
+import Database from '../services/database';
 
+const tableName = 'credentials';
 const { width } = Dimensions.get('window');
 const qrSize = width * 0.8;
 
@@ -54,6 +56,8 @@ const styles = StyleSheet.create({
 	},
 });
 
+Database.createTable(tableName);
+
 export default function BarCodeScreen({ navigation }) {
 	const [hasPermission, setHasPermission] = useState(null);
 	const [scanned, setScanned] = useState(false);
@@ -65,16 +69,18 @@ export default function BarCodeScreen({ navigation }) {
 		})();
 	}, []);
 
-	const getSignedCredentials = (callbackURL, responseToken) => {
+	const getSignedCredentials = async (callbackURL, responseToken) => {
 		const input = {
 			responseToken,
 		};
 
 		axios.post(callbackURL, input)
 			.then((response) => {
-				// eslint-disable-next-line no-unused-vars
-				const vc = response.data.getSignedCredentials[0];
 				if (response.data) {
+					// store vc
+					const vc = response.data.signedCredentials[0];
+					Database.storeCredential(tableName, vc);
+
 					// show the received credentials as a Card
 					navigation.navigate('Credentials');
 				}
