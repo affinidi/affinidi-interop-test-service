@@ -5,12 +5,12 @@ const { EXPO_PASSWORD } = process.env
 const { EXPO_ENCRYPTED_SEED } = process.env
 const { EXPO_API_KEY_HASH } = process.env
 
-const commonNetworkOptions = {
+const options = {
 	env: 'staging',
 	accessApiKey: EXPO_API_KEY_HASH,
 };
 
-const wallet = new Wallet(EXPO_PASSWORD, EXPO_ENCRYPTED_SEED, commonNetworkOptions);
+const wallet = new Wallet(EXPO_PASSWORD, EXPO_ENCRYPTED_SEED, options);
 
 export default class SDKService {
 	static async getOfferResponseToken(token) {
