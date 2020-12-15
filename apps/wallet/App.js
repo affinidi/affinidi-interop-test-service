@@ -50,8 +50,8 @@ function App() {
 
 						if (route.name === 'Home') {
 							iconName = focused ? 'ios-home' : 'md-home';
-						} else if (route.name === 'Scan Barcode') {
-							iconName = focused ? 'md-qr-scanner' : 'ios-qr-scanner';
+						} else if (route.name === 'Scan QR code') {
+							iconName = 'qr-code-outline';
 						} else if (route.name === 'Credentials') {
 							iconName = focused ? 'md-card' : 'ios-card';
 						}
@@ -64,7 +64,7 @@ function App() {
 				}}
 			>
 				<Tab.Screen name="Home" component={HomeScreen} />
-				<Tab.Screen name="Scan Barcode" component={Scanner} />
+				<Tab.Screen name="Scan QR code" component={Scanner} />
 				<Tab.Screen name="Credentials" component={DisplayScreen} />
 			</Tab.Navigator>
 		</NavigationContainer>

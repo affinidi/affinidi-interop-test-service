@@ -12,17 +12,18 @@
     "expo": "40.0.0",
     "expo-barcode-scanner": "~9.1.0",
     "expo-constants": "^9.1.1",
+    "expo-sqlite": "~8.5.0",
     "jwt-decode": "^3.0.0",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "0.63.3",
     "react-native-barcode-mask": "^1.2.4",
+    "react-native-paper": "^4.5.0",
     "react-native-screens": "~2.15.0",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "0.11.7",
     "react-navigation": "^4.4.0",
-    "text-encoding": "^0.7.0",
-    "expo-sqlite": "~8.5.0"
+    "text-encoding": "^0.7.0"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
