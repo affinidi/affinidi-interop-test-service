@@ -37,6 +37,14 @@ export default class Database {
 		});
 	}
 
+	static getCredentials = async (tableName) => new Promise((resolve, reject) => {
+		db.transaction((tx) => {
+			tx.executeSql(`SELECT * FROM ${tableName}`, null,
+				(txObj, { rows: { _array } }) => resolve(_array),
+				(txObj, error) => reject(error));
+		});
+	})
+
 	static storeCredential = (tableName, vc) => {
 		db.transaction((tx) => {
 			const createdAt = new Date().toDateString();

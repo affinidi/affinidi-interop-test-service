@@ -3,15 +3,15 @@ import { Affinidi } from '@affinidi/common'
 import { getOptionsForEnvironment }  from './getOptionsForEnvironment'
 
 const { password, encryptedSeed, registryUrl } = getOptionsForEnvironment(process.env.ENVIRONMENT)
-const { API_KEY_HASH } = process.env
+const { ACCESS_API_KEY } = process.env
 
 const affinidiOptions = {
   env:    'staging',
-  apiKey: API_KEY_HASH
+  apiKey: ACCESS_API_KEY
 }
 const commonNetworkOptions = {
   registryUrl,
-  accessApiKey: API_KEY_HASH
+  accessApiKey: ACCESS_API_KEY
 }
 
 export const affinidi = new Affinidi(affinidiOptions)
