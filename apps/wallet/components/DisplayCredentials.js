@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { Component } from 'react';
 import {
-	StyleSheet, Text, View, ScrollView, Image,
+	StyleSheet, Text, View, ScrollView, Image, ToastAndroid, Alert, Platform,
 } from 'react-native';
 import Constants from 'expo-constants';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -105,6 +105,7 @@ export default class DisplayCredentials extends Component {
 
 		this.state = {
 			credentials: [],
+			title: 'Loading Credentials ...',
 		};
 
 		this.renderCards = this.renderCards.bind(this);
@@ -112,17 +113,27 @@ export default class DisplayCredentials extends Component {
 
 	componentDidMount() {
 		this.getResultsFromDB();
+
+		const msg = 'All your Credentials will be displayed here';
+		if (Platform.OS === 'android') {
+			ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.CENTER);
+		} else {
+			Alert.alert(msg);
+		}
 	}
 
 	async getResultsFromDB() {
 		const results = await Database.getAllCredentials('credentials');
 		this.setState({ credentials: results });
+		if (results.length > 0) this.setState({ title: 'Here are all your Credentials' });
+		else this.setState({ title: 'No Credentials to Display' });
 	}
 
 	renderCards() {
 		const { credentials } = this.state;
 		return credentials.map((row) => {
 			const vc = JSON.parse(row.credential);
+			vc.rowId = row.id;
 			return (
 				<Card
 					date={vc.issuanceDate.split('T')[0]}
@@ -135,9 +146,11 @@ export default class DisplayCredentials extends Component {
 	}
 
 	render() {
+		this.getResultsFromDB();
 		return (
 			<View style={styles.container}>
-				<Text style={styles.title}>{'Here are all your Credentials \n'}</Text>
+				{/* eslint-disable-next-line react/destructuring-assignment */}
+				<Text style={styles.title}>{this.state.title}</Text>
 				<ScrollView>
 					{this.renderCards()}
 				</ScrollView>

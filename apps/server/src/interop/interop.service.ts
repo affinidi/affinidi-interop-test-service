@@ -337,7 +337,7 @@ class InteropService {
         }
       } else if (result.errors) {
         const errors = result.errors[0]
-        
+
         if (errors.stack && errors.stack.includes('Invalid Token')) {
           errorResponse.error = new OperationError('INT-33')
         } else if ((typeof (errors) === 'string')) {

@@ -5,7 +5,6 @@ import jwtDecode from 'jwt-decode';
 import {
 	Text, View, StyleSheet, Dimensions, Platform, ToastAndroid, Alert, LogBox,
 } from 'react-native';
-import Toast from 'react-native-simple-toast';
 import BarcodeMask from 'react-native-barcode-mask';
 import Constants from 'expo-constants';
 import axios from 'axios';
@@ -101,7 +100,11 @@ export default function BarCodeScreen({ navigation }) {
 				if (response.data) {
 					const msg = 'Congratulations, your request for this service is approved!';
 					console.log(msg);
-					Toast.show(msg, Toast.LONG);
+					if (Platform.OS === 'android') {
+						ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
+					} else {
+						Alert.alert(msg);
+					}
 					navigation.navigate('Home');
 				}
 			}).catch((error) => {
@@ -137,7 +140,7 @@ export default function BarCodeScreen({ navigation }) {
 	const handleBarCodeScanned = ({ data }) => {
 		setScanned(true);
 		const msg = 'Barcode Scanned!';
-
+		console.log(msg);
 		if (Platform.OS === 'android') {
 			ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
 		} else {
