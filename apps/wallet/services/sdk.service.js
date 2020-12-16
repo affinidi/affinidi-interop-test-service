@@ -25,4 +25,17 @@ export default class SDKService {
 			return false
 		}
 	}
+
+	static async createPresentationFromChallenge(token, vc) {
+		console.log('sdk.service#createPresentationFromChallenge')
+		try {
+			return wallet.createPresentationFromChallenge(token, [vc], 'domain')
+		} catch (error) {
+			if (error.response) console.log(error.response.data);
+			else if (error.request) console.log(error.request);
+			else console.log(error.message);
+
+			return false
+		}
+	}
 }

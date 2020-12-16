@@ -3,8 +3,9 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import jwtDecode from 'jwt-decode';
 
 import {
-	Text, View, StyleSheet, Dimensions, Platform, ToastAndroid, AlertIOS,
+	Text, View, StyleSheet, Dimensions, Platform, ToastAndroid, Alert, LogBox,
 } from 'react-native';
+import Toast from 'react-native-simple-toast';
 import BarcodeMask from 'react-native-barcode-mask';
 import Constants from 'expo-constants';
 import axios from 'axios';
@@ -58,6 +59,8 @@ const styles = StyleSheet.create({
 
 Database.createTable(tableName);
 
+LogBox.ignoreAllLogs();
+
 export default function BarCodeScreen({ navigation }) {
 	const [hasPermission, setHasPermission] = useState(null);
 	const [scanned, setScanned] = useState(false);
@@ -75,13 +78,10 @@ export default function BarCodeScreen({ navigation }) {
 		};
 
 		axios.post(callbackURL, input)
-			.then((response) => {
+			.then(async (response) => {
 				if (response.data) {
-					// store vc
 					const vc = response.data.signedCredentials[0];
 					Database.storeCredential(tableName, vc);
-
-					// show the received credentials as a Card
 					navigation.navigate('Credentials');
 				}
 			}).catch((error) => {
@@ -91,11 +91,7 @@ export default function BarCodeScreen({ navigation }) {
 			});
 	};
 
-	const getPresentationChallenge = (callbackURL) => {
-		/* eslint-disable no-case-declarations */
-		// get VP (simulated) (its supposed to come from some external wallet sdk)
-		const vp = {};
-
+	const getPresentationChallenge = (callbackURL, vp) => {
 		const input = {
 			vp,
 		};
@@ -103,7 +99,10 @@ export default function BarCodeScreen({ navigation }) {
 		axios.post(callbackURL, input)
 			.then((response) => {
 				if (response.data) {
-					console.log('Congratulations, your request for this service is approved!');
+					const msg = 'Congratulations, your request for this service is approved!';
+					console.log(msg);
+					Toast.show(msg, Toast.LONG);
+					// navigation.navigate('Home');
 				}
 			}).catch((error) => {
 				if (error.response) console.log(error.response.data);
@@ -123,7 +122,10 @@ export default function BarCodeScreen({ navigation }) {
 					const responseToken = await SDKService.getOfferResponseToken(response.data.token);
 					if (responseToken) getSignedCredentials(callbackURL, responseToken);
 				} else if (purpose === 'request') {
-					getPresentationChallenge(callbackURL);
+					const result = await Database.getCredentialsById(tableName, 1);
+					const vc = JSON.parse(result[0].credential);
+					const vp = await SDKService.createPresentationFromChallenge(response.data.token, vc);
+					getPresentationChallenge(callbackURL, vp);
 				}
 			}).catch((error) => {
 				if (error.response) console.log(error.response.data);
@@ -137,9 +139,9 @@ export default function BarCodeScreen({ navigation }) {
 		const msg = 'Barcode Scanned!';
 
 		if (Platform.OS === 'android') {
-			ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
+			ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.CENTER);
 		} else {
-			AlertIOS.alert(msg);
+			Alert.alert(msg);
 		}
 
 		if (data.includes('tokenUrl')) {

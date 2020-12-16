@@ -29,18 +29,21 @@ export default class Database {
 		});
 	}
 
-	static displayTable = (tableName) => {
-		db.transaction((tx) => {
-			tx.executeSql(`SELECT * FROM ${tableName}`, null,
-				(txObj, { rows: { _array } }) => console.log(_array),
-				(txObj, error) => console.log('Error ', error));
-		});
-	}
-
-	static getCredentials = async (tableName) => new Promise((resolve, reject) => {
+	static getAllCredentials = async (tableName) => new Promise((resolve, reject) => {
 		db.transaction((tx) => {
 			tx.executeSql(`SELECT * FROM ${tableName}`, null,
 				(txObj, { rows: { _array } }) => resolve(_array),
+				(txObj, error) => reject(error));
+		});
+	})
+
+	static getCredentialsById = async (tableName, id) => new Promise((resolve, reject) => {
+		db.transaction((tx) => {
+			tx.executeSql(`SELECT credential FROM ${tableName} WHERE id = ?`, [id],
+				(txObj, { rows: { _array } }) => {
+					// console.log(_array);
+					resolve(_array);
+				},
 				(txObj, error) => reject(error));
 		});
 	})

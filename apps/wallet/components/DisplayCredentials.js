@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 		paddingBottom: 15,
 		marginTop: 20,
 		width: 330,
-		height: 150,
+		height: 160,
 		shadowColor: 'rgba(0, 0, 0, 0.5)',
 		shadowOffset: { x: 0, y: 10 },
 		shadowOpacity: 1,
@@ -49,7 +49,17 @@ const styles = StyleSheet.create({
 		marginLeft: 5,
 		marginRight: 15,
 	},
-	issuanceDate: {
+	cardFooter: {
+		flex: 1,
+		justifyContent: 'flex-end',
+		minHeight: 18,
+		marginTop: 25,
+		marginLeft: 5,
+		marginRight: 10,
+		paddingLeft: 10,
+		backgroundColor: 'grey',
+	},
+	smallFont: {
 		fontStyle: 'italic',
 		fontSize: 11,
 	},
@@ -63,12 +73,14 @@ const styles = StyleSheet.create({
 	},
 });
 
-const Card = ({ date, title, desc }) => (
+const Card = ({
+	date, title, desc, id,
+}) => (
 	<View style={styles.cardContainer}>
 
 		<View style={styles.cardHeader}>
 			<Image style={styles.logo} source={logo} />
-			<Text style={styles.issuanceDate}>
+			<Text style={styles.smallFont}>
 				Date Issued: {date}
 			</Text>
 		</View>
@@ -79,6 +91,10 @@ const Card = ({ date, title, desc }) => (
 				<Text style={styles.contentFont}>Type: {desc}</Text>
 			</View>
 			<MaterialIcons name="navigate-next" size={40} color="red" />
+		</View>
+
+		<View style={styles.cardFooter}>
+			<Text style={styles.smallFont}>Row Id: {id}</Text>
 		</View>
 	</View>
 );
@@ -99,7 +115,7 @@ export default class DisplayCredentials extends Component {
 	}
 
 	async getResultsFromDB() {
-		const results = await Database.getCredentials('credentials');
+		const results = await Database.getAllCredentials('credentials');
 		this.setState({ credentials: results });
 	}
 
@@ -107,12 +123,12 @@ export default class DisplayCredentials extends Component {
 		const { credentials } = this.state;
 		return credentials.map((row) => {
 			const vc = JSON.parse(row.credential);
-			vc.rowId = row.id;	// provide unique id
 			return (
 				<Card
 					date={vc.issuanceDate.split('T')[0]}
 					title={vc.id}
 					desc={vc.type[1]}
+					id={row.id}
 				/>
 			);
 		});

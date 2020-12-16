@@ -91,7 +91,7 @@ errors:
     type: OperationError
     message: >-
       Multiple Errors.
-    httpStatusCode: 400           
+    httpStatusCode: 400             
 
 # 500 series    
   INT-50:
