@@ -102,7 +102,7 @@ export default function BarCodeScreen({ navigation }) {
 					const msg = 'Congratulations, your request for this service is approved!';
 					console.log(msg);
 					Toast.show(msg, Toast.LONG);
-					// navigation.navigate('Home');
+					navigation.navigate('Home');
 				}
 			}).catch((error) => {
 				if (error.response) console.log(error.response.data);
@@ -139,7 +139,7 @@ export default function BarCodeScreen({ navigation }) {
 		const msg = 'Barcode Scanned!';
 
 		if (Platform.OS === 'android') {
-			ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.CENTER);
+			ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
 		} else {
 			Alert.alert(msg);
 		}

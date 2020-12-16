@@ -41,7 +41,6 @@ export default class Database {
 		db.transaction((tx) => {
 			tx.executeSql(`SELECT credential FROM ${tableName} WHERE id = ?`, [id],
 				(txObj, { rows: { _array } }) => {
-					// console.log(_array);
 					resolve(_array);
 				},
 				(txObj, error) => reject(error));
