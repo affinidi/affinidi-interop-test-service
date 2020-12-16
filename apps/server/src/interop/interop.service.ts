@@ -341,16 +341,15 @@ class InteropService {
         if (errors.stack && errors.stack.includes('Invalid Token')) {
           errorResponse.error = new OperationError('INT-33')
         } else if ((typeof (errors) === 'string')) {
-
-          if (errors.includes('Invalid value for field "expirationDate"')){            
+          if (errors.includes('Invalid value for field "expirationDate"')) {
             errorResponse.error = new OperationError('INT-6')
-          } else if (errors.includes('Invalid signature')){
+          } else if (errors.includes('Invalid signature')) {
             errorResponse.error = new OperationError('INT-34')
           }
 
           // TODO: handle Error: Token not issued by expected issuer
           // TODO: handle Error: Error while getting verify proof purpose options (Invalid value for field)
-
+        }
       } else { // unknown errors
         errorResponse.error = new OperationError('INT-31')
       }

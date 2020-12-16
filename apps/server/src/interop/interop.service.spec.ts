@@ -660,7 +660,7 @@ describe('Unit Tests: Interop API interopService', () => {
 
         test('should respond with status false and error INT-6, when invalid value is passed as input', async () => {
           const _requestVerifyPresentation = { ...requestVerifyPresentation }
-          _requestVerifyPresentation.vp.verifiableCredential[0].expirationDate = '2020-01-17T07:06:35.403Z',
+          _requestVerifyPresentation.vp.verifiableCredential[0].expirationDate = '2020-01-17T07:06:35.403Z'
 
           // mock the response to return the error result
           verifyVPStub.resolves({
@@ -701,7 +701,6 @@ describe('Unit Tests: Interop API interopService', () => {
           expect(result.error.code).toEqual('INT-34')
           expect(result.message).toEqual('Failure: VP was not verified')
         })
-        
 
         test('should respond with status false and error INT-31, when unknown error from SDK is returned', async () => {
           // mock the response to return the error result
