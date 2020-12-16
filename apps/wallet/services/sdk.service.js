@@ -3,11 +3,11 @@ import { AffinityWallet as Wallet } from '@affinidi/wallet-expo-sdk'
 
 const { EXPO_PASSWORD } = process.env
 const { EXPO_ENCRYPTED_SEED } = process.env
-const { EXPO_API_KEY_HASH } = process.env
+const { EXPO_ACCESS_API_KEY } = process.env
 
 const options = {
 	env: 'staging',
-	accessApiKey: EXPO_API_KEY_HASH,
+	accessApiKey: EXPO_ACCESS_API_KEY,
 };
 
 const wallet = new Wallet(EXPO_PASSWORD, EXPO_ENCRYPTED_SEED, options);

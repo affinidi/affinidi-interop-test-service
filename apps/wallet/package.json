@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "@affinidi/wallet-expo-sdk": "^3.6.0",
-    "@babel/preset-env": "^7.12.10",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^5.8.0",
     "@react-navigation/native": "^5.7.3",
@@ -27,6 +26,9 @@
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
+    "@babel/runtime": "^7.12.5",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
     "babel-eslint": "latest",

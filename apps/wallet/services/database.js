@@ -37,7 +37,7 @@ export default class Database {
 		});
 	}
 
-	static getCredentials = (tableName) => new Promise((resolve, reject) => {
+	static getCredentials = async (tableName) => new Promise((resolve, reject) => {
 		db.transaction((tx) => {
 			tx.executeSql(`SELECT * FROM ${tableName}`, null,
 				(txObj, { rows: { _array } }) => resolve(_array),
