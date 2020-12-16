@@ -658,6 +658,27 @@ describe('Unit Tests: Interop API interopService', () => {
           expect(result.message).toEqual('Failure: VP was not verified')
         })
 
+        test('should respond with status false and error INT-6, when invalid value is passed as input', async () => {
+          const _requestVerifyPresentation = { ...requestVerifyPresentation }
+          _requestVerifyPresentation.vp.verifiableCredential[0].expirationDate = '2020-01-17T07:06:35.403Z',
+
+          // mock the response to return the error result
+          verifyVPStub.resolves({
+            isValid: false,
+            errors:  [
+              'undefined: The following errors have occurred:\n' +
+              'invalid_param: Invalid value for field "verifiableCredential": One or more items failed validation: The following errors have occurred:\n' +
+              'invalid_param: Invalid value for field "expirationDate": Credential "xyz" is expired.'
+            ]
+          })
+
+          // call the unit under test
+          const result = await interopService.verifyPresentation(_requestVerifyPresentation)
+          expect(result.status).toEqual(false)
+          expect(result.error.code).toEqual('INT-6')
+          expect(result.message).toEqual('Failure: VP was not verified')
+        })
+
         test('should respond with status false and error INT-34, when invalid value is passed as input', async () => {
           const _requestVerifyPresentation = { ...requestVerifyPresentation }
           _requestVerifyPresentation.vp.proof.jws = ''
@@ -680,6 +701,7 @@ describe('Unit Tests: Interop API interopService', () => {
           expect(result.error.code).toEqual('INT-34')
           expect(result.message).toEqual('Failure: VP was not verified')
         })
+        
 
         test('should respond with status false and error INT-31, when unknown error from SDK is returned', async () => {
           // mock the response to return the error result
