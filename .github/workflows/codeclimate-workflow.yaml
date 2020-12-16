@@ -40,8 +40,7 @@ jobs:
           ISSUER_DID: ${{secrets.ISSUER_DID}}
           DID: ${{secrets.DID}}
           DID_ELEM: ${{secrets.DID_ELEM}}
-          CREDENTIAL_OFFER_REQUEST_TOKEN: ${{secrets.CREDENTIAL_OFFER_REQUEST_TOKEN}}
-          API_KEY: ${{secrets.API_KEY}}    
+          CREDENTIAL_OFFER_REQUEST_TOKEN: ${{secrets.CREDENTIAL_OFFER_REQUEST_TOKEN}} 
           ACCESS_API_KEY: ${{secrets.ACCESS_API_KEY}}            
           RESULT_OFFER_REQUEST_TOKEN: ${{secrets.RESULT_OFFER_REQUEST_TOKEN}}
           PRESENTATION_CHALLENGE_TOKEN: ${{secrets.PRESENTATION_CHALLENGE_TOKEN}}
