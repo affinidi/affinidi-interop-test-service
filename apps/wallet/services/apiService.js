@@ -48,6 +48,7 @@ export default class APIService {
 			else if (error.request) console.log(error.request);
 			else console.log(error.message);
 		}
+		return false;
 	}
 
 	static getPresentationChallenge = (callbackURL, vp) => {

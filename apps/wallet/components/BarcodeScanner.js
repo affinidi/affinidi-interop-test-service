@@ -11,7 +11,7 @@ import Constants from 'expo-constants';
 import APIService from '../services/apiService';
 import SDKService from '../services/sdkService';
 
-const tableName = 'credentials';
+// const tableName = 'credentials';
 const { width } = Dimensions.get('window');
 const qrSize = width * 0.8;
 
