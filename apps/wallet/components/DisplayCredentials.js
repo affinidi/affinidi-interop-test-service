@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import Constants from 'expo-constants';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Database from '../services/database';
+import DBService from '../services/dbService';
 import logo from '../assets/icon.png';
 
 const styles = StyleSheet.create({
@@ -123,7 +123,7 @@ export default class DisplayCredentials extends Component {
 	}
 
 	async getResultsFromDB() {
-		const results = await Database.getAllCredentials('credentials');
+		const results = await DBService.getAllCredentials('credentials');
 		this.setState({ credentials: results });
 		if (results.length > 0) this.setState({ title: 'Here are all your Credentials' });
 		else this.setState({ title: 'No Credentials to Display' });
@@ -146,7 +146,6 @@ export default class DisplayCredentials extends Component {
 	}
 
 	render() {
-		this.getResultsFromDB();
 		return (
 			<View style={styles.container}>
 				{/* eslint-disable-next-line react/destructuring-assignment */}

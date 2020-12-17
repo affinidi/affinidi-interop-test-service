@@ -3,7 +3,7 @@ import { openDatabase } from 'expo-sqlite';
 const dbName = 'credentials.db';
 const db = openDatabase(dbName);
 
-export default class Database {
+export default class DBService {
 	static createTable = (tableName) => {
 		db.transaction((tx) => {
 			console.log(`Creating Table ${tableName} (if doesn't exist already)`);

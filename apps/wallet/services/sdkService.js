@@ -38,4 +38,31 @@ export default class SDKService {
 			return false
 		}
 	}
+
+	static async saveCredentials(data) {
+		console.log('sdk.service#saveCredentials')
+		try {
+			return wallet.saveCredentials(data)
+		} catch (error) {
+			console.log('sdk.service#saveCredentials Error')
+			if (error.response) console.log(error.response.data);
+			else if (error.request) console.log(error.request);
+			else console.log(error.message);
+
+			return false
+		}
+	}
+
+	static async getCredentials(token) {
+		console.log('sdk.service#getCredentials')
+		try {
+			return wallet.getCredentials(token)
+		} catch (error) {
+			if (error.response) console.log(error.response.data);
+			else if (error.request) console.log(error.request);
+			else console.log(error.message);
+
+			return false
+		}
+	}
 }

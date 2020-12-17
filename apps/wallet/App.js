@@ -1,6 +1,7 @@
-import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import * as encoding from 'text-encoding';
+import React from 'react';
+
 import {
 	StyleSheet, Image, Text, View,
 } from 'react-native';
@@ -65,7 +66,7 @@ function App() {
 			>
 				<Tab.Screen name="Home" component={HomeScreen} />
 				<Tab.Screen name="Scan QR code" component={Scanner} />
-				<Tab.Screen name="Credentials" component={DisplayScreen} />
+				<Tab.Screen name="Credentials" component={DisplayScreen} options={{ unmountOnBlur: true }} />
 			</Tab.Navigator>
 		</NavigationContainer>
 	);
