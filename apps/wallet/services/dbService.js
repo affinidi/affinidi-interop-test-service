@@ -1,5 +1,4 @@
 import { openDatabase } from 'expo-sqlite';
-// import logger from '../shared/logger';
 
 const dbName = 'credentials.db';
 const db = openDatabase(dbName);

@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import Constants from 'expo-constants';
 import DBService from '../services/dbService';
+
 import logo from '../assets/icon.png';
 
 const styles = StyleSheet.create({

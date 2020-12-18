@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
-// import logger from '../shared/logger';
+
 import DBService from './dbService';
 
 export default class APIService {

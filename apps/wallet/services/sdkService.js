@@ -1,6 +1,5 @@
 /* eslint-disable semi */
 import { AffinityWallet as Wallet } from '@affinidi/wallet-expo-sdk'
-// import logger from '../shared/logger';
 
 const { EXPO_PASSWORD } = process.env
 const { EXPO_ENCRYPTED_SEED } = process.env

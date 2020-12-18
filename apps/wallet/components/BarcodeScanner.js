@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import BarcodeMask from 'react-native-barcode-mask';
 import Constants from 'expo-constants';
-// import logger from '../shared/logger';
 
 import DBService from '../services/dbService';
 import APIService from '../services/apiService';

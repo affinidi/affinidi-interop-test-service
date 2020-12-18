@@ -1,39 +1,38 @@
 {
+  "scripts": {
+    "start": "expo start",
+    "start:dev": "expo start --tunnel",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo web",
+    "eject": "expo eject",
+    "lint": "eslint ./",
+    "lint:fix": "eslint --fix ."
+  },
   "dependencies": {
     "@affinidi/wallet-expo-sdk": "^3.6.0",
     "@react-native-community/masked-view": "0.1.10",
-    "@react-native-community/netinfo": "^5.9.7",
     "@react-navigation/bottom-tabs": "^5.8.0",
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
-    "amazon-cognito-identity-js": "^4.5.5",
-    "assert": "^2.0.0",
     "axios": "^0.20.0",
     "babel-plugin-inline-dotenv": "^1.6.0",
     "dotenv": "^8.2.0",
-    "events": "^3.2.0",
     "expo": "40.0.0",
     "expo-barcode-scanner": "~9.1.0",
     "expo-constants": "^9.1.1",
     "expo-sqlite": "~8.5.0",
-    "express-pino-logger": "^5.0.0",
     "jwt-decode": "^3.0.0",
-    "pino": "^6.8.0",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "0.63.3",
     "react-native-barcode-mask": "^1.2.4",
-    "react-native-crypto": "^2.2.0",
-    "react-native-get-random-values": "^1.5.0",
     "react-native-paper": "^4.5.0",
-    "react-native-randombytes": "^3.6.0",
     "react-native-screens": "~2.15.0",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "0.11.7",
     "react-navigation": "^4.4.0",
-    "stream-browserify": "^3.0.0",
-    "text-encoding": "^0.7.0",
-    "vm-browserify": "^1.1.2"
+    "text-encoding": "^0.7.0"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
@@ -51,16 +50,5 @@
     "eslint-plugin-react-hooks": "^4.1.2",
     "eslint-plugin-react-native": "^3.10.0",
     "prettier": "latest"
-  },
-  "scripts": {
-    "start": "expo start",
-    "start:dev": "expo start --tunnel",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo web",
-    "eject": "expo eject",
-    "lint": "eslint ./",
-    "lint:fix": "eslint --fix ."
-  },
-  "private": true
+  }
 }
