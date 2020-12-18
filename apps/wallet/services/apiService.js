@@ -1,12 +1,12 @@
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
-import SDKService from './sdkService';
-// import DBService from './dbService';
-
-// const tableName = 'credentials';
+// import logger from '../shared/logger';
+import DBService from './dbService';
 
 export default class APIService {
 	static getToken = async (tokenUrl) => {
+		console.log('apiService # getToken');
+
 		try {
 			const response = await axios.get(tokenUrl);
 			const decoded = jwtDecode(response.data.token);
@@ -28,6 +28,8 @@ export default class APIService {
 	}
 
 	static getSignedCredentials = async (callbackURL, responseToken) => {
+		console.log('apiService # getSignedCredentials');
+
 		const input = {
 			responseToken,
 		};
@@ -35,12 +37,14 @@ export default class APIService {
 			const response = await axios.post(callbackURL, input);
 			if (response.data) {
 				const { signedCredentials } = response.data;
-				// console.log(signedCredentials);
+				const types = signedCredentials[0].type;
 
-				const status = await SDKService.saveCredentials(signedCredentials);
-				console.log(status);
-				// DBService.storeCredential(tableName, vc);
-				return status;
+				// await SDKService.saveCredentials(signedCredentials);
+				const rowId = await DBService.storeCredential(signedCredentials[0]);
+				await DBService.storeCredentialTypes(rowId, types);
+				if (rowId > 0) {
+					return true;
+				}
 			}
 			return false;
 		} catch (error) {
@@ -51,21 +55,24 @@ export default class APIService {
 		return false;
 	}
 
-	static getPresentationChallenge = (callbackURL, vp) => {
+	static getPresentationChallenge = async (callbackURL, vp) => {
+		console.log('apiService # getPresentationChallenge');
+
 		const input = {
 			vp,
 		};
+		try {
+			const response = await axios.post(callbackURL, input);
 
-		axios.post(callbackURL, input)
-			.then((response) => {
-				if (response.data) {
-					return true;
-				}
-				return false;
-			}).catch((error) => {
-				if (error.response) console.log(error.response.data);
-				else if (error.request) console.log(error.request);
-				else console.log(error.message);
-			});
+			if (response.data) {
+				return true;
+			}
+			return false;
+		} catch (error) {
+			if (error.response) console.log(error.response.data);
+			else if (error.request) console.log(error.request);
+			else console.log(error.message);
+		}
+		return false;
 	};
 }

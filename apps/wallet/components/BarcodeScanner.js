@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-
+import jwtDecode from 'jwt-decode';
 import {
 	Text, View, StyleSheet, Dimensions, Platform, ToastAndroid, Alert, LogBox,
 } from 'react-native';
 import BarcodeMask from 'react-native-barcode-mask';
 import Constants from 'expo-constants';
+// import logger from '../shared/logger';
 
-// import DBService from '../services/dbService';
+import DBService from '../services/dbService';
 import APIService from '../services/apiService';
 import SDKService from '../services/sdkService';
 
-// const tableName = 'credentials';
 const { width } = Dimensions.get('window');
 const qrSize = width * 0.8;
 
@@ -55,8 +55,6 @@ const styles = StyleSheet.create({
 	},
 });
 
-// DBService.createTable(tableName);
-
 LogBox.ignoreAllLogs();
 
 export default function BarCodeScreen({ navigation }) {
@@ -71,9 +69,11 @@ export default function BarCodeScreen({ navigation }) {
 	}, []);
 
 	const handleCredentialOffer = async (token, callbackURL) => {
+		console.log('BarcodeScanner # handleCredentialOffer');
+
 		const responseToken = await SDKService.getOfferResponseToken(token);
 		if (responseToken) {
-			const status = APIService.getSignedCredentials(callbackURL, responseToken);
+			const status = await APIService.getSignedCredentials(callbackURL, responseToken);
 
 			if (status) {
 				navigation.navigate('Credentials');
@@ -82,27 +82,42 @@ export default function BarCodeScreen({ navigation }) {
 	};
 
 	const handlePresentationSharing = async (token, callbackURL) => {
-		const records = await SDKService.getCredentials(token);
+		console.log('BarcodeScanner # handlePresentationSharing');
+
+		const decoded = jwtDecode(token);
+		const types = decoded.interactionToken.credentialRequirements[0].type;
+		const records = await DBService.getCredentialsByType(types[1]);
 
 		if (records.length > 0) {
 			const vc = JSON.parse(records[0].credential);
 			const vp = await SDKService.createPresentationFromChallenge(token, vc);
-			const status = APIService.getPresentationChallenge(callbackURL, vp);
+			const status = await APIService.getPresentationChallenge(callbackURL, vp);
 
 			if (status) {
 				const msg = 'Congratulations, your request for this service is approved!';
+				await DBService.storeServiceSubscription();
 
 				if (Platform.OS === 'android') {
 					ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
 				} else {
 					Alert.alert(msg);
 				}
-				navigation.navigate('Home');
+				navigation.navigate('Services');
+			}
+		} else {
+			const msg = 'No VCs were found';
+			console.log(msg);
+			if (Platform.OS === 'android') {
+				ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
+			} else {
+				Alert.alert(msg);
 			}
 		}
 	};
 
 	const handleBarCodeScanned = async ({ data }) => {
+		console.log('BarcodeScanner # handleBarCodeScanned');
+
 		setScanned(true);
 		const msg = 'Barcode Scanned!';
 
@@ -116,7 +131,6 @@ export default function BarCodeScreen({ navigation }) {
 			const { tokenUrl } = JSON.parse(data);
 			const { purpose, callbackURL, token } = await APIService.getToken(tokenUrl);
 
-			console.log(purpose, callbackURL);
 			if (purpose === 'offer') {
 				handleCredentialOffer(token, callbackURL);
 			} else if (purpose === 'request') {
