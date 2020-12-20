@@ -17,7 +17,7 @@ export const unsignedCredentials = [
       type:    ['PhoneCredentialPersonV1', 'TestDenisCred'],
       context: getVCPhonePersonV1Context()
     }),
-    issuanceDate:   new Date().toISOString(),
-    expirationDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString()
+    issuanceDate:   new Date().toISOString()
+    // expirationDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString()
   })
 ]

@@ -1,19 +1,27 @@
-import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import * as encoding from 'text-encoding';
+import React from 'react';
+
 import {
 	StyleSheet, Image, Text, View,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import logo from './assets/logo.png';
+import DBService from './services/dbService';
 
 import Scanner from './components/BarcodeScanner';
-import DisplayScreen from './components/DisplayCredentials';
+import Credentials from './components/DisplayCredentials';
+import Services from './components/DisplayServices';
 
 const affinidiBlue = '#644791';
 const Tab = createBottomTabNavigator();
+
+// NOTE: (TODO:)
+// In a non-demo app, the tables should not be dropped
+DBService.dropTables();
+DBService.createTables();
 
 const styles = StyleSheet.create({
 	contianer: {
@@ -45,17 +53,19 @@ function App() {
 		<NavigationContainer>
 			<Tab.Navigator
 				screenOptions={({ route }) => ({
-					tabBarIcon: ({ focused, color, size }) => {
+					tabBarIcon: ({ color, size }) => {
 						let iconName;
 
 						if (route.name === 'Home') {
-							iconName = focused ? 'ios-home' : 'md-home';
-						} else if (route.name === 'Scan QR code') {
-							iconName = 'qr-code-outline';
+							iconName = 'home';
+						} else if (route.name === 'Scan') {
+							iconName = 'qr-code';
 						} else if (route.name === 'Credentials') {
-							iconName = focused ? 'md-card' : 'ios-card';
+							iconName = 'credit-card';
+						} else if (route.name === 'Services') {
+							iconName = 'local-offer';
 						}
-						return <Ionicons name={iconName} size={size} color={color} />;
+						return <MaterialIcons name={iconName} size={size} color={color} />;
 					},
 				})}
 				tabBarOptions={{
@@ -64,8 +74,9 @@ function App() {
 				}}
 			>
 				<Tab.Screen name="Home" component={HomeScreen} />
-				<Tab.Screen name="Scan QR code" component={Scanner} />
-				<Tab.Screen name="Credentials" component={DisplayScreen} />
+				<Tab.Screen name="Scan" component={Scanner} />
+				<Tab.Screen name="Credentials" component={Credentials} options={{ unmountOnBlur: true }} />
+				<Tab.Screen name="Services" component={Services} options={{ unmountOnBlur: true }} />
 			</Tab.Navigator>
 		</NavigationContainer>
 	);

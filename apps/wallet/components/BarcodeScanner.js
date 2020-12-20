@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import jwtDecode from 'jwt-decode';
-
 import {
-	Text, View, StyleSheet, Dimensions, Platform, ToastAndroid, AlertIOS,
+	Text, View, StyleSheet, Dimensions, Platform, ToastAndroid, Alert, LogBox,
 } from 'react-native';
 import BarcodeMask from 'react-native-barcode-mask';
 import Constants from 'expo-constants';
-import axios from 'axios';
 
-import SDKService from '../services/sdk.service';
-import Database from '../services/database';
+import DBService from '../services/dbService';
+import APIService from '../services/apiService';
+import SDKService from '../services/sdkService';
 
-const tableName = 'credentials';
 const { width } = Dimensions.get('window');
 const qrSize = width * 0.8;
 
@@ -56,7 +54,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-Database.createTable(tableName);
+LogBox.ignoreAllLogs();
 
 export default function BarCodeScreen({ navigation }) {
 	const [hasPermission, setHasPermission] = useState(null);
@@ -69,82 +67,85 @@ export default function BarCodeScreen({ navigation }) {
 		})();
 	}, []);
 
-	const getSignedCredentials = (callbackURL, responseToken) => {
-		const input = {
-			responseToken,
-		};
-
-		axios.post(callbackURL, input)
-			.then((response) => {
-				if (response.data) {
-					// store vc
-					const vc = response.data.signedCredentials[0];
-					Database.storeCredential(tableName, vc);
-
-					// show the received credentials as a Card
-					navigation.navigate('Credentials');
-				}
-			}).catch((error) => {
-				if (error.response) console.log(error.response.data);
-				else if (error.request) console.log(error.request);
-				else console.log(error.message);
-			});
+	const buildCredentialQuery = async (param) => {
+		// NOTE: (TODO:)
+		// this method can be updated to build any custom query to fetch the Credentials as needed.
+		// The following is just a simple example query
+		// Additional methods, similar to the getCredentialsByType(), can be implemented
+		// in the DBService, according to the application needs
+		const { token } = param;
+		const decoded = jwtDecode(token);
+		const types = decoded.interactionToken.credentialRequirements[0].type;
+		return DBService.getCredentialsByType(types[1]);
 	};
 
-	const getPresentationChallenge = (callbackURL) => {
-		/* eslint-disable no-case-declarations */
-		// get VP (simulated) (its supposed to come from some external wallet sdk)
-		const vp = {};
+	const handleCredentialOffer = async (token, callbackURL) => {
+		console.log('BarcodeScanner # handleCredentialOffer');
 
-		const input = {
-			vp,
-		};
+		const responseToken = await SDKService.getOfferResponseToken(token);
+		if (responseToken) {
+			const status = await APIService.getSignedCredentials(callbackURL, responseToken);
 
-		axios.post(callbackURL, input)
-			.then((response) => {
-				if (response.data) {
-					console.log('Congratulations, your request for this service is approved!');
-				}
-			}).catch((error) => {
-				if (error.response) console.log(error.response.data);
-				else if (error.request) console.log(error.request);
-				else console.log(error.message);
-			});
+			if (status) {
+				navigation.navigate('Credentials');
+			}
+		}
 	};
 
-	const getToken = (tokenUrl) => {
-		axios.get(tokenUrl)
-			.then(async (response) => {
-				const decoded = jwtDecode(response.data.token);
-				const { purpose } = response.data;
-				const { callbackURL } = decoded.interactionToken;
+	const handlePresentationSharing = async (token, callbackURL) => {
+		console.log('BarcodeScanner # handlePresentationSharing');
 
-				if (purpose === 'offer') {
-					const responseToken = await SDKService.getOfferResponseToken(response.data.token);
-					if (responseToken) getSignedCredentials(callbackURL, responseToken);
-				} else if (purpose === 'request') {
-					getPresentationChallenge(callbackURL);
+		const queryParam = { token };
+		const records = await buildCredentialQuery(queryParam);
+
+		if (records.length > 0) {
+			const vc = JSON.parse(records[0].credential);
+			const vp = await SDKService.createPresentationFromChallenge(token, vc);
+			const status = await APIService.getPresentationChallenge(callbackURL, vp);
+
+			if (status) {
+				const msg = 'Congratulations, your request for this service is approved!';
+				await DBService.storeServiceSubscription();
+
+				if (Platform.OS === 'android') {
+					ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
+				} else {
+					Alert.alert(msg);
 				}
-			}).catch((error) => {
-				if (error.response) console.log(error.response.data);
-				else if (error.request) console.log(error.request);
-				else console.log(error.message);
-			});
+				navigation.navigate('Services');
+			}
+		} else {
+			const msg = 'No VCs were found';
+			console.log(msg);
+			if (Platform.OS === 'android') {
+				ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
+			} else {
+				Alert.alert(msg);
+			}
+		}
 	};
 
-	const handleBarCodeScanned = ({ data }) => {
+	const handleBarCodeScanned = async ({ data }) => {
+		console.log('BarcodeScanner # handleBarCodeScanned');
+
 		setScanned(true);
 		const msg = 'Barcode Scanned!';
 
 		if (Platform.OS === 'android') {
 			ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
 		} else {
-			AlertIOS.alert(msg);
+			Alert.alert(msg);
 		}
 
 		if (data.includes('tokenUrl')) {
 			const { tokenUrl } = JSON.parse(data);
-			getToken(tokenUrl);
+			const { purpose, callbackURL, token } = await APIService.getToken(tokenUrl);
+
+			if (purpose === 'offer') {
+				handleCredentialOffer(token, callbackURL);
+			} else if (purpose === 'request') {
+				handlePresentationSharing(token, callbackURL);
+			}
 		}
 	};
 

@@ -5,8 +5,8 @@ import {
 	StyleSheet, Text, View, ScrollView, Image, ToastAndroid, Alert, Platform,
 } from 'react-native';
 import Constants from 'expo-constants';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import DBService from '../services/dbService';
+
 import logo from '../assets/icon.png';
 
 const styles = StyleSheet.create({
@@ -21,21 +21,20 @@ const styles = StyleSheet.create({
 		paddingTop: 10,
 		fontWeight: '500',
 		alignSelf: 'center',
+		textAlign: 'center',
 	},
 	cardContainer: {
 		paddingTop: 15,
 		paddingBottom: 15,
 		marginTop: 20,
 		width: 330,
-		height: 160,
-		shadowColor: 'rgba(0, 0, 0, 0.5)',
-		shadowOffset: { x: 0, y: 10 },
+		height: 180,
 		shadowOpacity: 1,
-		borderLeftColor: 'grey',
+		borderLeftColor: 'rgb(176, 132, 196)',
 		borderLeftWidth: 10,
-		borderRadius: 10,
+		borderRadius: 5,
 		alignSelf: 'stretch',
-		backgroundColor: 'lightgrey',
+		backgroundColor: 'rgb(86, 184, 190)',
 	},
 	cardContent: {
 		flexDirection: 'row',
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
 	cardHeader: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		marginLeft: 5,
+		marginLeft: 10,
 		marginRight: 15,
 	},
 	cardFooter: {
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
 		marginLeft: 5,
 		marginRight: 10,
 		paddingLeft: 10,
-		backgroundColor: 'grey',
+		borderLeftColor: 'rgb(176, 132, 196)',
 	},
 	smallFont: {
 		fontStyle: 'italic',
@@ -75,48 +74,55 @@ const styles = StyleSheet.create({
 });
 
 const Card = ({
-	date, title, desc, id,
+	date, type, desc, provider, status,
 }) => (
 	<View style={styles.cardContainer}>
 
 		<View style={styles.cardHeader}>
 			<Image style={styles.logo} source={logo} />
 			<Text style={styles.smallFont}>
-				Date Issued: {date}
+				Start Date: {date}
 			</Text>
 		</View>
 
 		<View style={styles.cardContent}>
 			<View style={{ flexDirection: 'column' }}>
-				<Text style={styles.contentFont}>Id: {title}</Text>
-				<Text style={styles.contentFont}>Type: {desc}</Text>
+				<Text style={styles.contentFont}>Description: {desc}</Text>
+				<Text style={styles.contentFont}>Type: {type}</Text>
+
+				<Text style={styles.contentFont}>Service Provided by: {provider}</Text>
 			</View>
-			<MaterialIcons name="navigate-next" size={40} color="red" />
+
 		</View>
 
 		<View style={styles.cardFooter}>
-			<Text style={styles.smallFont}>Row Id: {id}</Text>
+			<Text style={styles.smallFont}>Status:
+				{status === 0 ? (
+					<Text style={{ color: 'red' }}> Pending</Text>)
+					:	(<Text style={{ color: 'green', fontSize: 13 }}> Approved</Text>)}
+
+			</Text>
 		</View>
 	</View>
 );
 
-export default class DisplayCredentials extends Component {
+export default class DisplayServices extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			credentials: [],
-			title: 'Loading Credentials ...',
+			services: [],
+			title: 'Loading Services ...',
 		};
 
 		this.renderCards = this.renderCards.bind(this);
 	}
 
 	async componentDidMount() {
-		console.log('DisplayCredentials # componentDidMount');
+		console.log('DisplayServices # componentDidMount');
 		await this.getResultsFromDB();
 
-		const msg = 'All your Credentials will be displayed here';
+		const msg = 'All your Services will be displayed here';
 		if (Platform.OS === 'android') {
 			ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.CENTER);
 		} else {
@@ -125,35 +131,33 @@ export default class DisplayCredentials extends Component {
 	}
 
 	async getResultsFromDB() {
-		console.log('DisplayCredentials # getResultsFromDB');
-		const results = await DBService.getAllCredentials();
+		console.log('DisplayServices # getResultsFromDB');
+		const results = await DBService.getAllServicess();
 
 		if (results.length > 0) {
 			this.setState({
-				title: 'Here are all your Credentials',
-				credentials: results,
+				title: 'You have request the following Services',
+				services: results,
 			});
 		} else {
-			this.setState({ title: 'No Credentials to Display' });
+			this.setState({ title: 'No Services to Display' });
 		}
 	}
 
 	renderCards() {
-		console.log('DisplayCredentials # renderCards');
+		console.log('DisplayServices # renderCards');
 
-		const { credentials } = this.state;
-		return credentials.map((row) => {
-			const vc = JSON.parse(row.credential);
-			return (
-				<Card
-					date={vc.issuanceDate.split('T')[0]}
-					title={vc.id}
-					desc={vc.type[1]}
-					key={row.id}
-					id={row.id}
-				/>
-			);
-		});
+		const { services } = this.state;
+		return services.map((service) => (
+			<Card
+				date={service.startedAt.split('T')[0]}
+				type={service.type}
+				desc={service.description}
+				provider={service.provider}
+				status={service.approved_status}
+				key={service.id}
+			/>
+		));
 	}
 
 	render() {
