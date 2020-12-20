@@ -67,6 +67,17 @@ export default function BarCodeScreen({ navigation }) {
 		})();
 	}, []);
 
+	const buildCredentialQuery = async (param) => {
+		// NOTE: this method can be sued to build any custom query to fetch the Credentials as needed.
+		// The following is just a example query
+		// Addtiona methods, like the getCredentialsByType(), can be implemented in the DBService,
+		// according to the application needs
+		const { token } = param;
+		const decoded = jwtDecode(token);
+		const types = decoded.interactionToken.credentialRequirements[0].type;
+		return DBService.getCredentialsByType(types[1]);
+	};
+
 	const handleCredentialOffer = async (token, callbackURL) => {
 		console.log('BarcodeScanner # handleCredentialOffer');
 
@@ -83,9 +94,8 @@ export default function BarCodeScreen({ navigation }) {
 	const handlePresentationSharing = async (token, callbackURL) => {
 		console.log('BarcodeScanner # handlePresentationSharing');
 
-		const decoded = jwtDecode(token);
-		const types = decoded.interactionToken.credentialRequirements[0].type;
-		const records = await DBService.getCredentialsByType(types[1]);
+		const queryParam = { token };
+		const records = await buildCredentialQuery(queryParam);
 
 		if (records.length > 0) {
 			const vc = JSON.parse(records[0].credential);
