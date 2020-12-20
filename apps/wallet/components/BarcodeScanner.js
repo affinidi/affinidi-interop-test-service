@@ -68,10 +68,10 @@ export default function BarCodeScreen({ navigation }) {
 	}, []);
 
 	const buildCredentialQuery = async (param) => {
-		// NOTE:
+		// NOTE: (TODO:)
 		// this method can be updated to build any custom query to fetch the Credentials as needed.
 		// The following is just a simple example query
-		// Addtional methods, similar to the getCredentialsByType(), can be implemented
+		// Additional methods, similar to the getCredentialsByType(), can be implemented
 		// in the DBService, according to the application needs
 		const { token } = param;
 		const decoded = jwtDecode(token);

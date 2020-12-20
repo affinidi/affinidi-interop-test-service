@@ -18,7 +18,7 @@ import Services from './components/DisplayServices';
 const affinidiBlue = '#644791';
 const Tab = createBottomTabNavigator();
 
-// NOTE:
+// NOTE: (TODO:)
 // In a non-demo app, the tables should not be dropped
 DBService.dropTables();
 DBService.createTables();
