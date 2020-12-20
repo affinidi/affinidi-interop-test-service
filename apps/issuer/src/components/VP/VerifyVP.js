@@ -130,12 +130,12 @@ export default class VerifyVP extends Component {
 								<input type="submit" value="Verify VP" className="btn btn-success btn-block btn-width" />
 							</div>
 							<div className="col-s-3 col-md-6">	
-								<button className="btn btn-info btn-block btn-width" onClick={this.changeVp}>Paste a New Value</button>
+								<button className="btn btn-info btn-block btn-width" onClick={this.changeVp}>Replace VP</button>
 							</div>
 						</div>
 					): 
-						<div className="row form-group">					
-							<button className="btn btn-info btn-block btn-width" onClick={this.acceptChange}>Update VP</button>
+						<div className="row form-group no-margin no-padding">					
+							<button className="btn btn-info btn-block btn-width" onClick={this.acceptChange}>Use New Value</button>
 						</div>
 					}
 

@@ -5,9 +5,9 @@ Table of Contents
   - [Run tests in Dokcer](#run-tests-in-dokcer)
   - [Launch the apps](#launch-the-apps)
   - [Run the Wallet App on a mobile device](#run-the-wallet-app-on-a-mobile-device)
-  - [Pre-requisites for the Wallet App](#pre-requisites-for-the-wallet-app)
   - [Working with the Endpoints](#working-with-the-endpoints)
   - [local setup (less preferred)](#local-setup-less-preferred)
+    - [Pre-requisites for the Wallet App](#pre-requisites-for-the-wallet-app)
 
 
 
@@ -49,15 +49,6 @@ The Interop Service is a set of server (REST API) and client applications. Demo 
 - scan the QR code from the Expo DevTools, using your expo app (make sure its the Tunnel url)
 - this will download the Wallet app to your mobile device 
   
-## Pre-requisites for the Wallet App
-
-1. Install XCode iOS tools
-
-2. Install global dependencies
-
-```bash
-	 npm install -g expo-cli
-```
 
 ## Working with the Endpoints
 To hit the endpoints of the interop backend service (api), follow these steps:
@@ -82,3 +73,13 @@ This will start the server and SSR (server-side rendered) the demo client
   ```
 - run tests (if no changes have happened in the code): `ENVIRONMENT=test npm test`
 - run tests (if changes has happened in the service): `npm run build && ENVIRONMENT=test npm test`
+
+### Pre-requisites for the Wallet App
+
+1. Install XCode iOS tools
+
+2. Install global dependencies
+
+```bash
+	 npm install -g expo-cli
+```

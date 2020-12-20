@@ -20,7 +20,7 @@ Table of Contents
 # Description
 To facilitate testing Affinidi SDK offerings, and build a successful end-user collaboration and a POC for 3rd party integration, Affinidi has provided interoperability standards for application developers to target.  
 
-The Interop Service is a set of server and client applications describe in detail in their respective sections.
+The Interop Service is a set of server and client applications described in detail in their respective sections later.
 
 # Motivation
 The purpose of this Service is two-fold:
@@ -45,13 +45,13 @@ In order for a system like this to be successful, it needs to adhere to a set of
 - Transparency :— Systems and algorithms must be transparent.
 - Persistence :— Identities must be long-lived.
 - Portability :— Information and services about identity must be transportable
-- Interoperability :— Identities should be as widely usable as possible.
+- *Interoperability :— Identities should be as widely usable as possible.*
 - Consent :— Users must agree to the use of their identity.
 - Minimization :— Disclosure of claims must be minimized
 - Protection :— The rights of users must be protected
 
 ### Role of Blockchain in SSI
-The fundamental promise of blockchain is to provide a seamless method for multiple entities to share data without a single entity fully controlling all of the information. That is, in essensce, Decentralization and Interoperability
+The fundamental promise of blockchain is to provide a seamless method for multiple entities to share data without a single entity fully controlling all of the information. That is, in essensce, Decentralization and Interoperability.
 
 ## Interop from Holders point of view 
 Implemented correctly, interoperability promises the following:
