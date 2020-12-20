@@ -368,7 +368,6 @@ describe('Unit Tests: Interop API interopService', () => {
           const _requestSignCredentials = { ...requestSignCredentials }
           _requestSignCredentials.unsignedCredentials = invalidUnsignedCredentials
 
-          // mock the response of the getSignedCredentials() to throw COR-1 error for invalid credential input
           getSignedCredentialsStub.throws(new SdkError('COR-22'))
 
           // call the unit under test
@@ -382,7 +381,6 @@ describe('Unit Tests: Interop API interopService', () => {
           const _requestSignCredentials = { ...requestSignCredentials }
           _requestSignCredentials.unsignedCredentials = invalidUnsignedCredentialsExpiryDate
 
-          // mock the response of the getSignedCredentials() to throw COR-1 error for invalid credential input
           getSignedCredentialsStub.throws(new Error('Expiry date should be greater than current date'))
 
           // call the unit under test
@@ -393,7 +391,7 @@ describe('Unit Tests: Interop API interopService', () => {
         })
 
         test('should return status false and error INT-51, if the interopService fails for unknown reasons', async () => {
-        // mock the response of the getSignedCredentials() to return the error for unknown reason
+          // mock the response of the getSignedCredentials() to return the error for unknown reason
           getSignedCredentialsStub.throws(new Error('internal server error'))
 
           // call the unit under test

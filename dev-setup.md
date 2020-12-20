@@ -18,6 +18,8 @@ The Interop Service is a set of server (REST API) and client applications. Demo 
 - `git clone git@github.com:affinityproject/affinidi-interop-test-service.git`
 - create env file: `cp .env.example .env`
   - obtain your API Keys, for different environment as needed, at https://github.com/affinityproject/affinidi-core-sdk/tree/master/sdk/core#create-api-key 
+- go to the wallet app folder and create an env file there too 
+  - `cd apps/wallet && cp .env.example .env`
 
 ## Setup
 - to start the services, run one of the following docker command, as needed

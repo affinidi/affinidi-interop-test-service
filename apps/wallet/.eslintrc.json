@@ -28,6 +28,7 @@
         "react/jsx-indent-props": [2, "tab"],
         "react/jsx-indent": [2, "tab"],
         "no-console": 0,
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "operator-linebreak": [2, "before", { "overrides": { "?": "after" } }]
     }
 }

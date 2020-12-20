@@ -9,6 +9,10 @@ import BarcodeMask from 'react-native-barcode-mask';
 import Constants from 'expo-constants';
 import axios from 'axios';
 
+import SDKService from '../services/sdk.service';
+import Database from '../services/database';
+
+const tableName = 'credentials';
 const { width } = Dimensions.get('window');
 const qrSize = width * 0.8;
 
@@ -52,6 +56,8 @@ const styles = StyleSheet.create({
 	},
 });
 
+Database.createTable(tableName);
+
 export default function BarCodeScreen({ navigation }) {
 	const [hasPermission, setHasPermission] = useState(null);
 	const [scanned, setScanned] = useState(false);
@@ -63,27 +69,18 @@ export default function BarCodeScreen({ navigation }) {
 		})();
 	}, []);
 
-	const getSignedCredentials = (callbackURL) => {
-		/* eslint-disable no-case-declarations */
-		// get Offer Response Token (simulated) (its supposed to come from some external wallet sdk)
-		const responseToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJpbnRlcmFjdGlvblRva2VuIjp7ImNhbG'
-		+ 'xiYWNrVVJMIjoiaHR0cHM6Ly9rdWRvcy1pc3N1ZXItYmFja2VuZC5hZmZpbml0eS1wcm9qZWN'
-		+ '0Lm9yZy9rdWRvc19vZmZlcmluZy8iLCJzZWxlY3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoi'
-		+ 'VGVzdERlbmlzQ3JlZCJ9XX0sImV4cCI6MTU4NDUxODk4MTE0OSwidHlwIjoiY3JlZGVudGlhb'
-		+ 'E9mZmVyUmVzcG9uc2UiLCJqdGkiOiIxZjIyMTVjMjc5ZDczZWY5IiwiYXVkIjoiZGlkOmpvbG'
-		+ '86ZjU1OTI2NWI2YzFiZWNkNTYxMDljNTYyMzQzNWZhNzk3YWQ0MzA4YTRhNjg2ZjhlZGE3MDl'
-		+ 'mMzM4N2QzMDNlNiIsImlzcyI6ImRpZDpqb2xvOmY1NTkyNjViNmMxYmVjZDU2MTA5YzU2MjM0'
-		+ 'MzVmYTc5N2FkNDMwOGE0YTY4NmY4ZWRhNzA5ZjMzODdkMzAzZTYja2V5cy0xIn0.5c144a384'
-		+ 'f5fb69501e92c8251eea4f065f02b19c9af39f9e0cffd66c400462a460f1e03955a55af9b'
-		+ 'df600459628ed7d11da9cafc255c4e9a89b4baea4e083f';
-
+	const getSignedCredentials = (callbackURL, responseToken) => {
 		const input = {
 			responseToken,
 		};
 
 		axios.post(callbackURL, input)
-			.then((postResponse) => {
-				if (postResponse.data) {
+			.then((response) => {
+				if (response.data) {
+					// store vc
+					const vc = response.data.signedCredentials[0];
+					Database.storeCredential(tableName, vc);
+
 					// show the received credentials as a Card
 					navigation.navigate('Credentials');
 				}
@@ -104,8 +101,8 @@ export default function BarCodeScreen({ navigation }) {
 		};
 
 		axios.post(callbackURL, input)
-			.then((postResponse) => {
-				if (postResponse.data) {
+			.then((response) => {
+				if (response.data) {
 					console.log('Congratulations, your request for this service is approved!');
 				}
 			}).catch((error) => {
@@ -117,13 +114,14 @@ export default function BarCodeScreen({ navigation }) {
 
 	const getToken = (tokenUrl) => {
 		axios.get(tokenUrl)
-			.then((response) => {
+			.then(async (response) => {
 				const decoded = jwtDecode(response.data.token);
 				const { purpose } = response.data;
 				const { callbackURL } = decoded.interactionToken;
 
 				if (purpose === 'offer') {
-					getSignedCredentials(callbackURL);
+					const responseToken = await SDKService.getOfferResponseToken(response.data.token);
+					if (responseToken) getSignedCredentials(callbackURL, responseToken);
 				} else if (purpose === 'request') {
 					getPresentationChallenge(callbackURL);
 				}

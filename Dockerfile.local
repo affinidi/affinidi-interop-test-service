@@ -6,7 +6,7 @@ COPY ./apps/issuer/package*.json ./
 RUN npm install --silent
 COPY ./apps/issuer .
 
-RUN npm run build
+RUN REACT_APP_ENVIRONMENT='local' npm run build
 
 
 # Build the server, and serve the web client statically
