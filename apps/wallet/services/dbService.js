@@ -142,6 +142,10 @@ export default class DBService {
 
 		db.transaction((tx) => {
 			const startedAt = new Date().toDateString();
+			// NOTE:
+			// This is a hard-coded example to help generate the Services card
+			// This should be updated to store actual values from the VP,
+			// according to the application needs
 			tx.executeSql(`
 			INSERT INTO services (
 				provider, 
