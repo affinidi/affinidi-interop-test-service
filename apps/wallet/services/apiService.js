@@ -8,8 +8,17 @@ export default class APIService {
 		console.log('apiService # getToken');
 
 		try {
+			console.log('tokenUrl: ', tokenUrl);
 			const response = await axios.get(tokenUrl);
+
+			console.log('reposne with token');
+			console.log(response);
+
 			const decoded = jwtDecode(response.data.token);
+
+			console.log('decoded token');
+			console.log(decoded);
+
 			const { purpose } = response.data;
 			const { callbackURL } = decoded.interactionToken;
 

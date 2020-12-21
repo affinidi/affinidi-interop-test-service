@@ -8,7 +8,6 @@ import {
   requestOfferToken,
   requestSignCredentials,
   requestVerifyPresentation,
-  requestPresentationChallenge,
   invalidRequestOfferTokenArr,
   invalidUnsignedCredentials,
   resultOfferRequestToken

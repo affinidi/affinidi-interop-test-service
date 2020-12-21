@@ -30,7 +30,7 @@ export const getOptionsForEnvironment = (environment = ''): any => {
       break
 
     case 'prod':
-      baseUrl = 'https://api.affinidi.com/interop/v1/'
+      baseUrl = 'https://api.affinidi.com/interop/v1'
 
       break
   }
