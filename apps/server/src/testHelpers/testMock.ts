@@ -8,7 +8,7 @@ import { unsignedCredentials } from '../factory/unsignedCredential'
 
 // Local Constants
 const did = process.env.DID.replace(/'/g, '')
-const issuerDid = process.env.ISSUER_DID
+const issuerDid = process.env.ISSUER_DID.replace(/'/g, '')
 const credentialOfferResponseToken = process.env.CREDENTIAL_OFFER_REQUEST_TOKEN
 const _didElem = process.env.DID_ELEM.replace(/'/g, '')
 
